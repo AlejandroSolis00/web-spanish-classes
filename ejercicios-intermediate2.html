@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios · Intermediate II</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .content { max-width: 900px; margin: 0 auto; padding: 20px 30px 60px; }
+    .file-list { list-style: none; }
+    .file-list li { border-bottom: 1px solid #f0f0f0; }
+    .file-list a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .file-list a:hover { color: #4a9d8f; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    .badge-pdf { background: #fdecea; color: #c0392b; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>EJERCICIOS · INTERMEDIATE II</h1><div class="hero-divider"><span></span></div></div>
+<div class="content">
+  <ul class="file-list">
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-001-Presente-Participio-Verbos-Regulares-Gerundio.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-001: Presente Participio Verbos Regulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-002-Presente-Participio-Verbos-Irregulares.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-002: Presente Participio Verbos Irregulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-003-Verbos-Regulares-e-Irregulares-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-003: Verbos Regulares e Irregulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-004-Tiempo-Presente-Progresivo.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-004: Tiempo Presente Progresivo</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-005-Tiempo-Presente-Progresivo-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-005: Tiempo Presente Progresivo III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-007-Tiempo-Presente-Progresivo-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-007: Tiempo Presente Progresivo V</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-008-Tiempo-Presente-Progresivo-VI.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-008: Tiempo Presente Progresivo VI</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-009-Expresiones-de-Tiempo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-009: Expresiones de Tiempo</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-010-Pasado-Progresivo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-010: Pasado Progresivo</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-011-Pasado-Progresivo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-011: Pasado Progresivo II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-013-Pasado-Progresivo-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-013: Pasado Progresivo IV</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-014-Pasado-Progresivo-V-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-014: Pasado Progresivo V</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-015-Pasado-Progresivo-VI.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-015: Pasado Progresivo VI</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-016-Pasado-Progresivo-VII.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-016: Pasado Progresivo VII</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-017-Futuro-Progresivo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-017: Futuro Progresivo</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-018-Futuro-Progresivo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-018: Futuro Progresivo II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-019-Futuro-Progresivo-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-019: Futuro Progresivo III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-021-Futuro-Progresivo-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-021: Futuro Progresivo V</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-022-Condicional-Progresivo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-022: Condicional Progresivo</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-023-Condicional-Progresivo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-023: Condicional Progresivo II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-024-Condicional-Progresivo-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-024: Condicional Progresivo III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-025-Pasado-Participio-Verbos-Regulares.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-025: Pasado Participio Verbos Regulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-026-Pasado-Participio-Verbos-Irregulares.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-026: Pasado Participio Verbos Irregulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-027-Verbos-Regulares-e-Irregulares-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-027: Verbos Regulares e Irregulares</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-028-Verbos-Dos-Participios-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-028: Verbos Dos Participios</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-029-Verbos-Dos-Participios-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-029: Verbos Dos Participios II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-030-Voz-Pasiva-2.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-030: Voz Pasiva</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-031-Voz-Pasiva-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-031: Voz Pasiva II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-032-Voz-Pasiva-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-032: Voz Pasiva III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-033-Tiempo-Presente-Perfecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-033: Tiempo Presente Perfecto</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-034-Presente-Perfecto-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-034: Presente Perfecto II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-035-Presente-Perfecto-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-035: Presente Perfecto III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-036-Pasado-Perfecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-036: Pasado Perfecto</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-037-Pasado-Perfecto-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-037: Pasado Perfecto II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-038-Pasado-Perfecto-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-038: Pasado Perfecto III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-039-Fututo-Perfecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-039: Futuro Perfecto</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-040-Futuro-Perfecto-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-040: Futuro Perfecto II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-041-Futuro-Perfecto-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-041: Futuro Perfecto III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-042-Condicional-Perfecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-042: Condicional Perfecto</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-043-Condicional-Perfecto-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-043: Condicional Perfecto II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-044-Condicional-Perfecto-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-044: Condicional Perfecto III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-046-Infinitivo-Perfecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-046: Infinitivo Perfecto</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-047-Infinitivo-Perfecto-II-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-047: Infinitivo Perfecto II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-048-Preposiciones-A-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-048: Preposiciones A</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-049-Preposiciones-DE-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-049: Preposiciones DE</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-050-Preposiciones-EN-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-050: Preposiciones EN</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-051-Preposiciones-CON-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-051: Preposiciones CON</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-052-Preposiciones-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-052: Preposiciones</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-053-Preposiciones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-053: Preposiciones II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-054-Otras-Preposiciones-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-054: Otras Preposiciones</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-055-Otras-Preposiciones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-055: Otras Preposiciones II</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-056-Otras-Preposiciones-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-056: Otras Preposiciones III</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-057-Otras-Preposiciones-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-057: Otras Preposiciones IV</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-058-Otras-Preposiciones-V-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-058: Otras Preposiciones V</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-059-Verbos-que-usan-preposiciones-A-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-059: Verbos que usan preposiciones A</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-060-Verbos-que-usan-preposiciones-DE-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-060: Verbos que usan preposiciones DE</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-061-Verbos-que-usan-preposiciones-EN-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-061: Verbos que usan preposiciones EN</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-062-Verbos-que-usan-preposiciones-CON-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-062: Verbos que usan preposiciones CON</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-063-Verbos-que-usan-preposiciones-PARA-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-063: Verbos que usan preposiciones PARA</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-064-Verbos-que-usan-preposiciones-POR-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-064: Verbos que usan preposiciones POR</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-065-Verbos-que-usan-preposiciones.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise I-2-065: Verbos que usan preposiciones</a></li>
+    <li><a href="Exercises/Intermediate II/Exercise-I-2-066-Expresiones-Negativas-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise I-2-066: Expresiones Negativas</a></li>
+  </ul>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
+</body>
+</html>

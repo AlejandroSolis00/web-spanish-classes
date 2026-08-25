@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecciones · Advanced</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .content { max-width: 900px; margin: 0 auto; padding: 20px 30px 60px; }
+    .file-list { list-style: none; }
+    .file-list li { border-bottom: 1px solid #f0f0f0; }
+    .file-list a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .file-list a:hover { color: #4a9d8f; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>LECCIONES · ADVANCED</h1><div class="hero-divider"><span></span></div></div>
+<div class="content">
+  <ul class="file-list">
+    <li><a href="Lessons/Advanced/Lesson-001-El-Imperativo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 001: El Imperativo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-002-Forma-Negativa-Ud.-Uds..html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 002: Forma Negativa (Ud. Uds.)</a></li>
+    <li><a href="Lessons/Advanced/Lesson-003-Imperativo-Familiar.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 003: Imperativo Familiar</a></li>
+    <li><a href="Lessons/Advanced/Lesson-004-Forma-Negativa-Familiar.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 004: Forma Negativa (Familiar)</a></li>
+    <li><a href="Lessons/Advanced/Lesson-005-Imperativo-Nosotros.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 005: Imperativo Nosotros</a></li>
+    <li><a href="Lessons/Advanced/Lesson-006-Forma-Negativa-Nosotros.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 006: Forma Negativa (Nosotros)</a></li>
+    <li><a href="Lessons/Advanced/Lesson-007-Imperativo-Indirecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 007: Imperativo Indirecto</a></li>
+    <li><a href="Lessons/Advanced/Lesson-008-El-Presente-de-Subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 008: El Presente de Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-009-Usos-Clausula-Nominal.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 009: Usos Cláusula Nominal</a></li>
+    <li><a href="Lessons/Advanced/Lesson-010-Verbos-de-Emocion.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 010: Verbos de Emoción</a></li>
+    <li><a href="Lessons/Advanced/Lesson-011-Expresiones-de-Deseo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 011: Expresiones de Deseo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-012-Clausula-Adverbial-Grupo-I-II.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 012: Cláusula Adverbial Grupo I-II</a></li>
+    <li><a href="Lessons/Advanced/Lesson-013-Con-la-clausula-Indefinida.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 013: Con la Cláusula Indefinida</a></li>
+    <li><a href="Lessons/Advanced/Lesson-014-Otros-usos-pres.-subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 014: Otros Usos Pres. Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-015-Otros-usos-presente-subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 015: Otros Usos Presente Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-016-El-imperfecto-de-subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 016: El Imperfecto de Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-017-Verbos-de-emocion-y-duda.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 017: Verbos de Emoción y Duda</a></li>
+    <li><a href="Lessons/Advanced/Lesson-018-Con-la-Clausula-Impersonal.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 018: Con la Cláusula Impersonal</a></li>
+    <li><a href="Lessons/Advanced/Lesson-019-Con-la-clausula-Adverbial.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 019: Con la Cláusula Adverbial</a></li>
+    <li><a href="Lessons/Advanced/Lesson-020-Grupo-II.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 020: Grupo II</a></li>
+    <li><a href="Lessons/Advanced/Lesson-021-Con-la-clausula-Indefinida.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 021: Con la Cláusula Indefinida</a></li>
+    <li><a href="Lessons/Advanced/Lesson-022-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 022: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-023-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 023: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-024-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 024: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-025-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 025: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-026-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 026: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-027-Presente-perfecto-de-subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 027: Presente Perfecto de Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-028-Verbos-de-Emocion.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 028: Verbos de Emoción</a></li>
+    <li><a href="Lessons/Advanced/Lesson-029-Con-la-Clausula-Impersonal.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 029: Con la Cláusula Impersonal</a></li>
+    <li><a href="Lessons/Advanced/Lesson-030-Con-la-clausula-Adverbial.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 030: Con la Cláusula Adverbial</a></li>
+    <li><a href="Lessons/Advanced/Lesson-031-Con-la-clausula-Adverbial.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 031: Con la Cláusula Adverbial II</a></li>
+    <li><a href="Lessons/Advanced/Lesson-032-Clausula-Indefinida-Grupo-I.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 032: Cláusula Indefinida Grupo I</a></li>
+    <li><a href="Lessons/Advanced/Lesson-033-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 033: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-034-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 034: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-035-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 035: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-036-El-pasado-perfecto-de-subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 036: El Pasado Perfecto de Subjuntivo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-037-Verbos-de-Emocion.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 037: Verbos de Emoción</a></li>
+    <li><a href="Lessons/Advanced/Lesson-038-Con-la-Clausula-Impersonal.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 038: Con la Cláusula Impersonal</a></li>
+    <li><a href="Lessons/Advanced/Lesson-039-Con-la-clausula-Adverbial.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 039: Con la Cláusula Adverbial</a></li>
+    <li><a href="Lessons/Advanced/Lesson-040-Con-la-clausula-Indefinida.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 040: Con la Cláusula Indefinida</a></li>
+    <li><a href="Lessons/Advanced/Lesson-041-Tercer-Grupo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 041: Tercer Grupo</a></li>
+    <li><a href="Lessons/Advanced/Lesson-042-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 042: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-043-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 043: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-044-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 044: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-045-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 045: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-046-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 046: Otros Usos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-047-Pronombres-Relativos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 047: Pronombres Relativos</a></li>
+    <li><a href="Lessons/Advanced/Lesson-048-Pronombres-Relativos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 048: Pronombres Relativos II</a></li>
+    <li><a href="Lessons/Advanced/Lesson-049-Pronombres-Relativos-Neutros.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 049: Pronombres Relativos Neutros</a></li>
+    <li><a href="Lessons/Advanced/Lesson-050-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 050: Otros Usos</a></li>
+  </ul>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
+</body>
+</html>

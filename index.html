@@ -2,21 +2,74 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mis Clases de Español</title>
   <style>
-    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
-    h1 { color: #2d6a4f; }
-    h2 { color: #444; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
-    a { color: #2d6a4f; text-decoration: none; display: block; margin: 8px 0; }
-    a:hover { text-decoration: underline; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 30px auto 60px; padding: 0 30px; }
+    .card { border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; text-decoration: none; display: block; }
+    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+    .card-header { padding: 28px 20px; text-align: center; }
+    .card-header h2 { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: 0.05em; }
+    .card-body { padding: 14px 20px; }
+    .card-body p { font-size: 13px; color: #777; line-height: 1.6; }
+    .teal { background: #4a9d8f; }
+    .red { background: #c0392b; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
   </style>
 </head>
 <body>
-  <h1>Mis Clases de Español</h1>
-  <h2>Lecciones</h2>
-  <a href="Lecciones/Lesson-001.html">Lesson 001: Mini Diálogos</a>
-  <a href="Lecciones/Lesson-002.html">Lesson 002: Números Cardinales y Ordinales</a>
-
-  <h2>Ejercicios</h2>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>MIS CLASES DE ESPAÑOL</h1><div class="hero-divider"><span></span></div></div>
+<div class="grid">
+  <a href="lecciones-beginner1.html" class="card"><div class="card-header teal"><h2>BEGINNER I</h2></div><div class="card-body"><p>Lecciones 001–022 · Bases del español</p></div></a>
+  <a href="lecciones-beginner2.html" class="card"><div class="card-header teal"><h2>BEGINNER II</h2></div><div class="card-body"><p>Lecciones 026–039 · Pretérito e imperfecto</p></div></a>
+  <a href="lecciones-intermediate1.html" class="card"><div class="card-header teal"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>Lecciones 001–023 · Futuro, por/para y más</p></div></a>
+  <a href="lecciones-advanced.html" class="card"><div class="card-header teal"><h2>ADVANCED</h2></div><div class="card-body"><p>Lecciones 001–050 · Subjuntivo y más</p></div></a>
+  <a href="ejercicios-beginner1.html" class="card"><div class="card-header red"><h2>EJERCICIOS BEGINNER I</h2></div><div class="card-body"><p>HTML y PDF · Minidiálogos, verbos y más</p></div></a>
+  <a href="ejercicios-beginner2.html" class="card"><div class="card-header red"><h2>EJERCICIOS BEGINNER II</h2></div><div class="card-body"><p>HTML y PDF · Pretérito, imperfecto y más</p></div></a>
+  <a href="ejercicios-intermediate1.html" class="card"><div class="card-header red"><h2>EJERCICIOS INTERMEDIATE I</h2></div><div class="card-body"><p>HTML y PDF · Futuro, por/para y más</p></div></a>
+  <a href="ejercicios-intermediate2.html" class="card"><div class="card-header red"><h2>EJERCICIOS INTERMEDIATE II</h2></div><div class="card-body"><p>HTML y PDF · Participios y tiempos perfectos</p></div></a>
+  <a href="ejercicios-advanced1.html" class="card"><div class="card-header red"><h2>EJERCICIOS ADVANCED I</h2></div><div class="card-body"><p>HTML y PDF · Imperativo y pronombres</p></div></a>
+  <a href="ejercicios-advanced2.html" class="card"><div class="card-header red"><h2>EJERCICIOS ADVANCED II</h2></div><div class="card-body"><p>HTML y PDF · Subjuntivo y cláusulas</p></div></a>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
 </body>
 </html>

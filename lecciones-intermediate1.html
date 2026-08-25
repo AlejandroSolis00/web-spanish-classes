@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecciones · Intermediate I</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .content { max-width: 900px; margin: 0 auto; padding: 20px 30px 60px; }
+    .file-list { list-style: none; }
+    .file-list li { border-bottom: 1px solid #f0f0f0; }
+    .file-list a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .file-list a:hover { color: #4a9d8f; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    .badge-pdf { background: #fdecea; color: #c0392b; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>LECCIONES · INTERMEDIATE I</h1><div class="hero-divider"><span></span></div></div>
+<div class="content">
+  <ul class="file-list">
+    <li><a href="Lessons/Intermediate I/Lesson-001-Futuro-de-Indicativo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 001: Futuro de Indicativo</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-002-Verbos-Irregulares-del-Futuro.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 002: Verbos Irregulares del Futuro</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-003-Por-y-Para.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 003: Por y Para</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-004-Sinonimos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 004: Sinónimos</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-005-Antonimos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 005: Antónimos</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-006-Expresiones-con-el-verbo-Hacer-y-Haber.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 006: Expresiones con Hacer y Haber</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-007-Pronombres-de-Complemento.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 007: Pronombres de Complemento</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-008-Objeto-Directo-e-Indirecto-en-una-oracion.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 008: Objeto Directo e Indirecto</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-009-El-Condicional.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 009: El Condicional</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-010-Grados-de-Comparacion.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 010: Grados de Comparación</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-011-El-Presente-Participio.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 011: El Presente Participio</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-012-Tiempos-Progresivos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 012: Tiempos Progresivos</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-013-El-Pasado-Progresivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 013: El Pasado Progresivo</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-014-Futuro-Progresivo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 014: Futuro Progresivo</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-015-El-Pasado-Participio.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 015: El Pasado Participio</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-016-Usos-del-Pasado-Participio.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 016: Usos del Pasado Participio</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-017-Voz-Pasiva.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 017: Voz Pasiva</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-018-Tiempos-Perfectos-Compuestos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 018: Tiempos Perfectos Compuestos</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-019-Pasado-Perfecto-Pluscuamperfecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 019: Pasado Perfecto (Pluscuamperfecto)</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-020-El-discurso-Indirecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 020: El Discurso Indirecto</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-021-Futuro-Perfecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 021: Futuro Perfecto</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-022-Condicional-Perfecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 022: Condicional Perfecto</a></li>
+    <li><a href="Lessons/Intermediate I/Lesson-023-El-Infinitivo-Perfecto.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 023: El Infinitivo Perfecto</a></li>
+  </ul>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
+</body>
+</html>

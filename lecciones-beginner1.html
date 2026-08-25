@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecciones · Beginner I</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .content { max-width: 900px; margin: 0 auto; padding: 20px 30px 60px; }
+    .file-list { list-style: none; }
+    .file-list li { border-bottom: 1px solid #f0f0f0; }
+    .file-list a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .file-list a:hover { color: #4a9d8f; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    .badge-pdf { background: #fdecea; color: #c0392b; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>LECCIONES · BEGINNER I</h1><div class="hero-divider"><span></span></div></div>
+<div class="content">
+  <ul class="file-list">
+    <li><a href="Lessons/Beginner I/Lesson-001.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 001: Mini Diálogos</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-002.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 002: Números Cardinales y Ordinales</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-003-el-articulo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 003: El Artículo</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-004-sustantivos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 004: Sustantivos</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-005-ser-y-estar-to-be-ser.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 005: Ser y Estar - Ser</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-006-ser-y-estar-to-be-estar.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 006: Ser y Estar - Estar</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-007-ser-y-estar-to-be.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 007: Ser y Estar</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-008-haber-there-is_are.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 008: Haber (There is/are)</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-009-verbos-haber-ser-y-estar.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 009: Verbos Haber, Ser y Estar</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-010-gustar-to-like.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 010: Gustar (To Like)</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-011-Adjetivos-posesivos-y-palabras-interrogativas.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 011: Adjetivos Posesivos y Palabras Interrogativas</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-012-pronombres-posesivos-possessive-pronouns.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 012: Pronombres Posesivos</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-013-presente-de-indicativo.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 013: Presente de Indicativo</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-014-verbos-irregulares.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 014: Verbos Irregulares</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-015-saber-y-conocer-to-know.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 015: Saber y Conocer</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-016-futuro-simple-going-to.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 016: Futuro Simple</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-019-verbos-reflexivos.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 019: Verbos Reflexivos</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-021-verbos-comunes-terminados-en-uir.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 021: Verbos Comunes Terminados en UIR</a></li>
+    <li><a href="Lessons/Beginner I/Lesson-022-formas-oracionales.html" target="_blank"><span class="badge badge-html">HTML</span>Lesson 022: Formas Oracionales</a></li>
+  </ul>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
+</body>
+</html>

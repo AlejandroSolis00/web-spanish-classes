@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicios · Advanced II</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
+    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
+    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
+    nav a:hover { border-bottom: 2px solid #fff; }
+    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
+    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
+    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
+    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
+    .hero { text-align: center; padding: 50px 20px 20px; }
+    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
+    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
+    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .content { max-width: 900px; margin: 0 auto; padding: 20px 30px 60px; }
+    .file-list { list-style: none; }
+    .file-list li { border-bottom: 1px solid #f0f0f0; }
+    .file-list a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .file-list a:hover { color: #4a9d8f; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    .badge-pdf { background: #fdecea; color: #c0392b; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="index.html">Inicio</a>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Lecciones</span>
+    <div class="dropdown-menu">
+      <a href="lecciones-beginner1.html">Beginner I</a>
+      <a href="lecciones-beginner2.html">Beginner II</a>
+      <a href="lecciones-intermediate1.html">Intermediate I</a>
+      <a href="lecciones-advanced.html">Advanced</a>
+    </div>
+  </div>
+  <div class="dropdown">
+    <span class="dropdown-toggle">Ejercicios</span>
+    <div class="dropdown-menu">
+      <a href="ejercicios-beginner1.html">Beginner I</a>
+      <a href="ejercicios-beginner2.html">Beginner II</a>
+      <a href="ejercicios-intermediate1.html">Intermediate I</a>
+      <a href="ejercicios-intermediate2.html">Intermediate II</a>
+      <a href="ejercicios-advanced1.html">Advanced I</a>
+      <a href="ejercicios-advanced2.html">Advanced II</a>
+    </div>
+  </div>
+</nav>
+<div class="hero"><h1>EJERCICIOS · ADVANCED II</h1><div class="hero-divider"><span></span></div></div>
+<div class="content">
+  <ul class="file-list">
+    <li><a href="Exercises/Advanced II/Exercise-A-2-001-Presente-Subjuntivo-Regulares-e-Irregulares-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-001: Presente Subjuntivo Regulares e Irregulares</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-002-Clausula-Nominal-Verbo-de-Deseo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-002: Cláusula Nominal Verbo de Deseo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-003-Verbos-de-Suplica-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-003: Verbos de Súplica</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-004-Verbos-de-Mandato-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-004: Verbos de Mandato</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-005-Verbos-de-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-005: Verbos de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-006-Verbos-de-Duda-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-006: Verbos de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-007-Presente-Subjuntivo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-007: Presente Subjuntivo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-008-Presente-Subjuntivo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-008: Presente Subjuntivo II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-009-Presente-Subjuntivo-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-009: Presente Subjuntivo III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-010-Subjuntivo-vs-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-010: Subjuntivo vs.</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-011-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-011</a></li>
+    <li><a href="Exercises/Advanced II/Excercise-A-2-012-Expresiones-de-sugerencia-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-012: Expresiones de Sugerencia</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-013-Expresiones-de-emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-013: Expresiones de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-014-Expresiones-de-duda-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-014: Expresiones de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-015-Expresiones-Negativas-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-015: Expresiones Negativas</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-016-Clausula-impersonal-de-expresiones-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-016: Cláusula Impersonal de Expresiones</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-017-Clausula-impersonal-de-expresiones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-017: Cláusula Impersonal de Expresiones II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-018-Clausula-impersonal-de-expresiones-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-018: Cláusula Impersonal de Expresiones III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-019-Clausula-impersional-expresiones-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-019: Cláusula Impersonal Expresiones IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-020-Clausula-impersional-expresiones-V-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-020: Cláusula Impersonal Expresiones V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-021-Subjuntivo-vrs-Indicativo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-021: Subjuntivo vrs Indicativo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-022-Clausula-Adverbial-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-022: Cláusula Adverbial</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-023-Clausula-Adverbial-Grupo-I-II-y-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-023: Cláusula Adverbial Grupo I, II y III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-024-Clausula-Adverbial-Grupo-I-II-y-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-024: Cláusula Adverbial Grupo I, II y IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-025-Clausula-Adverbial-Grupo-I-y-II-V-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-025: Cláusula Adverbial Grupo I y II V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-026-Clausula-Adverbial-Grupo-I-y-II-VI.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-026: Cláusula Adverbial Grupo I y II VI</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-027-Subjuntivo-vs.-Indicativo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-027: Subjuntivo vs. Indicativo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-028-Clausula-Indefinida-Grupo-I-II-y-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-028: Cláusula Indefinida Grupo I, II y III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-029-Clausula-Indefinida-Grupo-I-II-y-III-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-029: Cláusula Indefinida Grupo I, II y III II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-030-Clausula-Indefinida-Grupo-I-II-y-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-030: Cláusula Indefinida Grupo I, II y III III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-031-Otros-Usos-del-Pte.-Subjuntivo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-031: Otros Usos del Pte. Subjuntivo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-032-Otros-Usos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-032: Otros Usos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-033-Otros-Usos-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-033: Otros Usos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-034-Otros-Usos-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-034: Otros Usos IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-035-Otros-Usos-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-035: Otros Usos V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-036-Subjuntivo-vs.-Indicativo-I-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-036: Subjuntivo vs. Indicativo I</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-037-Subjuntivo-vs.-Indicativo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-037: Subjuntivo vs. Indicativo II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-038-Subjuntivo-Pasado-Imperfecto-todo-tipo-de-verbos.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-038: Subjuntivo Pasado Imperfecto</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-039-Clausula-Nominal-Verbos-de-deseo-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-039: Cláusula Nominal Verbos de Deseo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-040-Clausula-Nominal-Verbos-de-Suplica-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-040: Cláusula Nominal Verbos de Súplica</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-041-Clausula-Nominal-Verbos-de-Mandato.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-041: Cláusula Nominal Verbos de Mandato</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-042-Clausula-Nominal-Verbos-de-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-042: Cláusula Nominal Verbos de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-043-Clausula-Nominal-Verbos-de-Duda-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-043: Cláusula Nominal Verbos de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-044-Clausula-Nominal-Todos-los-Verbos-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-044: Cláusula Nominal Todos los Verbos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-045-Clausula-Nominal-Todos-los-Verbos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-045: Cláusula Nominal Todos los Verbos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-046-Clausula-Nominal-Todos-los-Verbos-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-046: Cláusula Nominal Todos los Verbos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-047-Clausula-Nominal-Todos-los-Verbos-IV.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-047: Cláusula Nominal Todos los Verbos IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-048-Clausula-Impersonal-Expresiones-de-Deseo-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-048: Cláusula Impersonal Expresiones de Deseo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-049-Clausula-Impersonal-Expresiones-de-Sugerencia-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-049: Cláusula Impersonal Expresiones de Sugerencia</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-050-Clausula-Impersonal-Expresiones-de-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-050: Cláusula Impersonal Expresiones de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-051-Clausula-Impersonal-Expresiones-de-Duda-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-051: Cláusula Impersonal Expresiones de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-052-Clausula-Impersonal-Expresiones-Negativas-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-052: Cláusula Impersonal Expresiones Negativas</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-053-Clausula-Impersonal-Todas-las-Expresiones.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-053: Cláusula Impersonal Todas las Expresiones</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-054-Clausula-Impersonal-Todas-las-Expresiones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-054: Cláusula Impersonal Todas las Expresiones II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-055-Clausula-Impersonal-Todos-los-Verbos-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-055: Cláusula Impersonal Todos los Verbos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-056-Clausula-Impersonal-Todas-las-Expresiones-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-056: Cláusula Impersonal Todas las Expresiones IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-057-Clausula-Impersonal-Todas-las-Expresiones-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-057: Cláusula Impersonal Todas las Expresiones V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-058-Clausula-Adverbial-Grupo-I-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-058: Cláusula Adverbial Grupo I</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-059-Clausula-Adverbial-Grupo-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-059: Cláusula Adverbial Grupo II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-060-Clausula-Adverbial-Grupo-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-060: Cláusula Adverbial Grupo III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-061-Clausula-Adverbial-grupo-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-061: Cláusula Adverbial Grupo IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-063-Clausula-Adverbial-Grupo-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-063: Cláusula Adverbial Grupo V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-064-Clausula-Adverbial-Grupo-VI.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-064: Cláusula Adverbial Grupo VI</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-065-Clausula-Indefinida-Grupo-I-II-y-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-065: Cláusula Indefinida Grupo I, II y III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-066-Clausula-Indefinida-Grupo-I-II-y-III-2-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-066: Cláusula Indefinida Grupo I, II y III 2</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-067-Clausula-Indefinida-Grupo-I-II-y-III-3-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-067: Cláusula Indefinida Grupo I, II y III 3</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-068-Clausula-Indefinida-Grupo-I-II-y-III-4-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-068: Cláusula Indefinida Grupo I, II y III 4</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-069-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-069: Otros Usos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-070-Otros-Usos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-070: Otros Usos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-071-Otros-Usos-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-071: Otros Usos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-072-Otros-Usos-IV.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-072: Otros Usos IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-073-Otros-Usos-IV.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-073: Otros Usos IV (2)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-074-Discurso-Indirecto-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-074: Discurso Indirecto</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-075-Clausula-Nominal-de-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-075: Cláusula Nominal de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-076-Clausula-Nominal-Verbos-de-Duda-I-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-076: Cláusula Nominal Verbos de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-077-Clausula-Nominal-Todos-los-Verbos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-077: Cláusula Nominal Todos los Verbos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-078-Clausula-Nominal-Todos-los-Verbos-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-078: Cláusula Nominal Todos los Verbos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-079-Clausula-Impersonal-Expresiones-de-Deseo-y-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-079: Cláusula Impersonal Expresiones de Deseo y Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-080-Clausula-Impersonal-Expresiones-de-Duda-y-Negacion-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-080: Cláusula Impersonal Expresiones de Duda y Negación</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-081-Clausula-Impersonal-Todas-las-Expresiones-II-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-081: Cláusula Impersonal Todas las Expresiones II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-082-Clausula-Impersonal-Todas-las-Expresiones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-082: Cláusula Impersonal Todas las Expresiones II (2)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-083-Clausula-Impersonal-Todas-las-Expresiones-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-083: Cláusula Impersonal Todas las Expresiones III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-084-Clausula-Adverbial-Grupo-I-y-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-084: Cláusula Adverbial Grupo I y II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-085-Clausula-Adverbial-Grupo-I-y-II-2.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-085: Cláusula Adverbial Grupo I y II (2)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-086-Clausula-Adverbial-Grupo-I-y-II-3.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-086: Cláusula Adverbial Grupo I y II (3)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-087-Clausula-Adverbial-Grupo-I-y-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-087: Cláusula Adverbial Grupo I y II (4)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-088-Clausula-Indefinida-Grupo-I-II-y-III-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-088: Cláusula Indefinida Grupo I, II y III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-089-Clausula-Indefinida-Grupo-I-II-y-III-2-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-089: Cláusula Indefinida Grupo I, II y III (2)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-090-Otros-Usos.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-090: Otros Usos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-091-Otros-Usos-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-091: Otros Usos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-093-Pas-Perf-Subj-Claus-Nominal-Verbos-de-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-093: Pas. Perf. Subj. Cláusula Nominal Verbos de Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-094-Clausula-Nominal-Verbos-de-Deseo-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-094: Cláusula Nominal Verbos de Deseo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-095-Clausula-Nominal-Verbos-de-Duda-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-095: Cláusula Nominal Verbos de Duda</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-096-Clausula-Nominal-Todos-los-Verbos-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-096: Cláusula Nominal Todos los Verbos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-097-Clausula-Nominal-Todos-los-Verbos-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-097: Cláusula Nominal Todos los Verbos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-098-Clausula-Impersonal-Expresiones-de-Deseo-y-Emocion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-098: Cláusula Impersonal Expresiones de Deseo y Emoción</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-099-Clausula-Impersonal-Expresiones-de-Duda-y-Negacion-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-099: Cláusula Impersonal Expresiones de Duda y Negación</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-100-Clausula-Impersonal-Todas-las-Expresiones-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-100: Cláusula Impersonal Todas las Expresiones II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-101-Clausula-Impersonal-Todas-las-Expresiones-III.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-101: Cláusula Impersonal Todas las Expresiones III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-102-Clausula-Adverbial-Grupo-I-y-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-102: Cláusula Adverbial Grupo I y II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-103-Clausula-Adverbial-Grupo-I-y-II.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-103: Cláusula Adverbial Grupo I y II (2)</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-104-Clausula-Indefinida-Grupo-I-II-y-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-104: Cláusula Indefinida Grupo I, II y III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-105-Clausula-Indefinida-Grupo-III-y-III-2-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-105: Cláusula Indefinida Grupo III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-107-Otros-Usos-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-107: Otros Usos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-108-Otros-Usos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-108: Otros Usos II</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-109-Otros-Usos-III-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-109: Otros Usos III</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-110-Otros-Usos-IV-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-110: Otros Usos IV</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-111-Otros-Usos-V.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-111: Otros Usos V</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-111-Pluscuamperfecto-Subjuntivo.html" target="_blank"><span class="badge badge-html">HTML</span>Exercise A-2-111: Pluscuamperfecto Subjuntivo</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-112-Otros-Usos-VI-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-112: Otros Usos VI</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-113-Pronombres-Relativos-Que-Quien-Quienes-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-113: Pronombres Relativos Que, Quien, Quienes</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-114-El-Que-La-Que-Los-Que-Las-Que-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-114: El Que, La Que, Los Que, Las Que</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-115-EL-CUAL-LA-CUAL-LOS-CUALES-LAS-CUALES-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-115: El Cual, La Cual, Los Cuales, Las Cuales</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-116-Lo-Que-Lo-Cual-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-116: Lo Que, Lo Cual</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-117-Cuyo-Cuya-Cuyos-Cuyas-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-117: Cuyo, Cuya, Cuyos, Cuyas</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-118-Donde-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-118: Donde</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-119-Pronombre-Relativos-1-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-119: Pronombres Relativos</a></li>
+    <li><a href="Exercises/Advanced II/Exercise-A-2-120-Pronombres-Relativos-II-1.pdf" target="_blank"><span class="badge badge-pdf">PDF</span>Exercise A-2-120: Pronombres Relativos II</a></li>
+  </ul>
+</div>
+<footer>Mis Clases de Español · Uso personal</footer>
+</body>
+</html>

@@ -257,7 +257,7 @@ const noResults = document.getElementById("noResults");
 const homeContent = document.getElementById("homeContent");
 
 input.addEventListener("input", function() {
-  const q = this.value.toLowerCase().trim();
+  const q = this.value.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   if (!q) {
     searchResults.style.display = "none";
     homeContent.style.display = "block";
@@ -266,7 +266,8 @@ input.addEventListener("input", function() {
   }
   homeContent.style.display = "none";
   searchResults.style.display = "block";
-  const matches = allItems.filter(item => item.text.toLowerCase().includes(q) || item.level.toLowerCase().includes(q));
+  const normalize = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const matches = allItems.filter(item => normalize(item.text).includes(q) || normalize(item.level).includes(q));
   resultList.innerHTML = matches.map(item => `
     <li class="result-item">
       <a href="${item.href}" target="_self">

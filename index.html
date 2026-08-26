@@ -21,6 +21,19 @@
     .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
     .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
     .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
+    .search-container { max-width: 700px; margin: 24px auto 0; padding: 0 30px; }
+    .search-input { width: 100%; padding: 12px 18px; font-size: 15px; border: 2px solid #ddd; border-radius: 8px; outline: none; transition: border-color 0.2s; }
+    .search-input:focus { border-color: #4a9d8f; }
+    .search-count { font-size: 12px; color: #aaa; margin-top: 8px; padding: 0 4px; }
+    .search-results { max-width: 700px; margin: 12px auto 0; padding: 0 30px; display: none; }
+    .result-item { border-bottom: 1px solid #f0f0f0; }
+    .result-item a { display: flex; align-items: center; gap: 10px; padding: 10px 4px; text-decoration: none; color: #333; font-size: 14px; transition: color 0.15s; }
+    .result-item a:hover { color: #4a9d8f; }
+    .result-level { font-size: 11px; color: #aaa; margin-left: auto; flex-shrink: 0; }
+    .badge { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
+    .badge-html { background: #e1f5f0; color: #2d7a6e; }
+    .badge-pdf { background: #fdecea; color: #c0392b; }
+    .no-results { text-align: center; padding: 30px; color: #aaa; font-size: 14px; display: none; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 30px auto 60px; padding: 0 30px; }
     .card { border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; text-decoration: none; display: block; }
     .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
@@ -30,7 +43,8 @@
     .card-body p { font-size: 13px; color: #777; line-height: 1.6; }
     .teal { background: #4a9d8f; }
     .red { background: #c0392b; }
-    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+    .section-label { font-size: 13px; font-weight: 700; color: #4a9d8f; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; margin: 30px 0 8px; }
+    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -57,19 +71,215 @@
     </div>
   </div>
 </nav>
-<div class="hero"><h1>MIS CLASES DE ESPAÑOL</h1><div class="hero-divider"><span></span></div></div>
-<div class="grid">
-  <a href="lecciones-beginner1.html" class="card"><div class="card-header teal"><h2>BEGINNER I</h2></div><div class="card-body"><p>Lecciones 001–022 · Bases del español</p></div></a>
-  <a href="lecciones-beginner2.html" class="card"><div class="card-header teal"><h2>BEGINNER II</h2></div><div class="card-body"><p>Lecciones 026–039 · Pretérito e imperfecto</p></div></a>
-  <a href="lecciones-intermediate1.html" class="card"><div class="card-header teal"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>Lecciones 001–023 · Futuro, por/para y más</p></div></a>
-  <a href="lecciones-advanced.html" class="card"><div class="card-header teal"><h2>ADVANCED</h2></div><div class="card-body"><p>Lecciones 001–050 · Subjuntivo y más</p></div></a>
-  <a href="ejercicios-beginner1.html" class="card"><div class="card-header red"><h2>EJERCICIOS BEGINNER I</h2></div><div class="card-body"><p>HTML y PDF · Minidiálogos, verbos y más</p></div></a>
-  <a href="ejercicios-beginner2.html" class="card"><div class="card-header red"><h2>EJERCICIOS BEGINNER II</h2></div><div class="card-body"><p>HTML y PDF · Pretérito, imperfecto y más</p></div></a>
-  <a href="ejercicios-intermediate1.html" class="card"><div class="card-header red"><h2>EJERCICIOS INTERMEDIATE I</h2></div><div class="card-body"><p>HTML y PDF · Futuro, por/para y más</p></div></a>
-  <a href="ejercicios-intermediate2.html" class="card"><div class="card-header red"><h2>EJERCICIOS INTERMEDIATE II</h2></div><div class="card-body"><p>HTML y PDF · Participios y tiempos perfectos</p></div></a>
-  <a href="ejercicios-advanced1.html" class="card"><div class="card-header red"><h2>EJERCICIOS ADVANCED I</h2></div><div class="card-body"><p>HTML y PDF · Imperativo y pronombres</p></div></a>
-  <a href="ejercicios-advanced2.html" class="card"><div class="card-header red"><h2>EJERCICIOS ADVANCED II</h2></div><div class="card-body"><p>HTML y PDF · Subjuntivo y cláusulas</p></div></a>
+
+<div class="hero">
+  <h1>MIS CLASES DE ESPAÑOL</h1>
+  <div class="hero-divider"><span></span></div>
 </div>
+
+<div class="search-container">
+  <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por tema: imperativo, subjuntivo, verbos...">
+  <div class="search-count" id="searchCount"></div>
+</div>
+
+<div class="search-results" id="searchResults">
+  <ul class="file-list" id="resultList"></ul>
+  <div class="no-results" id="noResults">No se encontraron resultados.</div>
+</div>
+
+<div id="homeContent">
+  <p class="section-label">Lecciones</p>
+  <div class="grid">
+    <a href="lecciones-beginner1.html" class="card"><div class="card-header teal"><h2>BEGINNER I</h2></div><div class="card-body"><p>Lecciones 001–022 · Bases del español</p></div></a>
+    <a href="lecciones-beginner2.html" class="card"><div class="card-header teal"><h2>BEGINNER II</h2></div><div class="card-body"><p>Lecciones 026–039 · Pretérito e imperfecto</p></div></a>
+    <a href="lecciones-intermediate1.html" class="card"><div class="card-header teal"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>Lecciones 001–023 · Futuro, por/para y más</p></div></a>
+    <a href="lecciones-advanced.html" class="card"><div class="card-header teal"><h2>ADVANCED</h2></div><div class="card-body"><p>Lecciones 001–050 · Subjuntivo y más</p></div></a>
+  </div>
+  <p class="section-label">Ejercicios</p>
+  <div class="grid">
+    <a href="ejercicios-beginner1.html" class="card"><div class="card-header red"><h2>BEGINNER I</h2></div><div class="card-body"><p>HTML y PDF · Minidiálogos, verbos y más</p></div></a>
+    <a href="ejercicios-beginner2.html" class="card"><div class="card-header red"><h2>BEGINNER II</h2></div><div class="card-body"><p>HTML y PDF · Pretérito, imperfecto y más</p></div></a>
+    <a href="ejercicios-intermediate1.html" class="card"><div class="card-header red"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>HTML y PDF · Futuro, por/para y más</p></div></a>
+    <a href="ejercicios-intermediate2.html" class="card"><div class="card-header red"><h2>INTERMEDIATE II</h2></div><div class="card-body"><p>HTML y PDF · Participios y tiempos perfectos</p></div></a>
+    <a href="ejercicios-advanced1.html" class="card"><div class="card-header red"><h2>ADVANCED I</h2></div><div class="card-body"><p>HTML y PDF · Imperativo y pronombres</p></div></a>
+    <a href="ejercicios-advanced2.html" class="card"><div class="card-header red"><h2>ADVANCED II</h2></div><div class="card-body"><p>HTML y PDF · Subjuntivo y cláusulas</p></div></a>
+  </div>
+</div>
+
 <footer>Mis Clases de Español · Uso personal</footer>
+
+<script>
+const allItems = [
+  // LECCIONES BEGINNER I
+  { text: "Lesson 001: Mini Diálogos", href: "Lessons/Beginner I/Lesson-001.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 002: Números Cardinales y Ordinales", href: "Lessons/Beginner I/Lesson-002.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 003: El Artículo", href: "Lessons/Beginner I/Lesson-003-el-articulo.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 004: Sustantivos", href: "Lessons/Beginner I/Lesson-004-sustantivos.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 005: Ser y Estar - Ser", href: "Lessons/Beginner I/Lesson-005-ser-y-estar-to-be-ser.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 006: Ser y Estar - Estar", href: "Lessons/Beginner I/Lesson-006-ser-y-estar-to-be-estar.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 007: Ser y Estar", href: "Lessons/Beginner I/Lesson-007-ser-y-estar-to-be.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 008: Haber (There is/are)", href: "Lessons/Beginner I/Lesson-008-haber-there-is_are.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 009: Verbos Haber, Ser y Estar", href: "Lessons/Beginner I/Lesson-009-verbos-haber-ser-y-estar.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 010: Gustar (To Like)", href: "Lessons/Beginner I/Lesson-010-gustar-to-like.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 011: Adjetivos Posesivos y Palabras Interrogativas", href: "Lessons/Beginner I/Lesson-011-Adjetivos-posesivos-y-palabras-interrogativas.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 012: Pronombres Posesivos", href: "Lessons/Beginner I/Lesson-012-pronombres-posesivos-possessive-pronouns.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 013: Presente de Indicativo", href: "Lessons/Beginner I/Lesson-013-presente-de-indicativo.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 014: Verbos Irregulares", href: "Lessons/Beginner I/Lesson-014-verbos-irregulares.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 015: Saber y Conocer", href: "Lessons/Beginner I/Lesson-015-saber-y-conocer-to-know.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 016: Futuro Simple", href: "Lessons/Beginner I/Lesson-016-futuro-simple-going-to.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 019: Verbos Reflexivos", href: "Lessons/Beginner I/Lesson-019-verbos-reflexivos.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 021: Verbos Comunes Terminados en UIR", href: "Lessons/Beginner I/Lesson-021-verbos-comunes-terminados-en-uir.html", type: "html", level: "Lección · Beginner I" },
+  { text: "Lesson 022: Formas Oracionales", href: "Lessons/Beginner I/Lesson-022-formas-oracionales.html", type: "html", level: "Lección · Beginner I" },
+  // LECCIONES BEGINNER II
+  { text: "Lesson 026: El Pretérito - Verbos Regulares", href: "Lessons/Beginer II/Lesson-026-el-preterito-past-tense-verbos-regulares.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 027: Verbos Irregulares Grupo I", href: "Lessons/Beginer II/Lesson-027-verbos-irregulares-grupo-I.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 028: Verbos Irregulares Grupo II, III y IV", href: "Lessons/Beginer II/Lesson-028-verbos-irregulares-grupo-II-III-y-IV.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 029: Verbos Irregulares Grupo V", href: "Lessons/Beginer II/Lesson-029-verbos-irregulares-grupo-V.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 031: Expresiones Idiomáticas con A y DE", href: "Lessons/Beginer II/Lesson-031-Expresiones-Idiomaticas-con-A-y-DE.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 032: Expresiones Idiomáticas con EN y VEZ", href: "Lessons/Beginer II/Lesson-032-expresiones-idiomaticas-con-EN-y-VEZ.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 033: Adjetivos Demostrativos", href: "Lessons/Beginer II/Lesson-033-Adjetivos-demostrativos.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 034: Pronombres Demostrativos", href: "Lessons/Beginer II/Lesson-034-pronombres-demostrativos.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 035: Adverbios", href: "Lessons/Beginer II/Lesson-035-adverbios.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 036: Imperfecto", href: "Lessons/Beginer II/Lesson-036-Imperfecto.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 037: Pretérito vs. Imperfecto", href: "Lessons/Beginer II/Lesson-037-Preterito-vs.-Imperfecto.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 038: Pronombres Preposicionales", href: "Lessons/Beginer II/Lesson-038-pronombres-preposicionales.html", type: "html", level: "Lección · Beginner II" },
+  { text: "Lesson 039: Usos de SE", href: "Lessons/Beginer II/Lesson-039-usos-de-SE.html", type: "html", level: "Lección · Beginner II" },
+  // LECCIONES INTERMEDIATE I
+  { text: "Lesson 001: Futuro de Indicativo", href: "Lessons/Intermediate I/Lesson-001-Futuro-de-Indicativo.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 002: Verbos Irregulares del Futuro", href: "Lessons/Intermediate I/Lesson-002-Verbos-Irregulares-del-Futuro.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 003: Por y Para", href: "Lessons/Intermediate I/Lesson-003-Por-y-Para.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 004: Sinónimos", href: "Lessons/Intermediate I/Lesson-004-Sinonimos.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 005: Antónimos", href: "Lessons/Intermediate I/Lesson-005-Antonimos.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 006: Expresiones con Hacer y Haber", href: "Lessons/Intermediate I/Lesson-006-Expresiones-con-el-verbo-Hacer-y-Haber.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 007: Pronombres de Complemento", href: "Lessons/Intermediate I/Lesson-007-Pronombres-de-Complemento.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 008: Objeto Directo e Indirecto", href: "Lessons/Intermediate I/Lesson-008-Objeto-Directo-e-Indirecto-en-una-oracion.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 009: El Condicional", href: "Lessons/Intermediate I/Lesson-009-El-Condicional.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 010: Grados de Comparación", href: "Lessons/Intermediate I/Lesson-010-Grados-de-Comparacion.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 011: El Presente Participio", href: "Lessons/Intermediate I/Lesson-011-El-Presente-Participio.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 012: Tiempos Progresivos", href: "Lessons/Intermediate I/Lesson-012-Tiempos-Progresivos.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 013: El Pasado Progresivo", href: "Lessons/Intermediate I/Lesson-013-El-Pasado-Progresivo.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 014: Futuro Progresivo", href: "Lessons/Intermediate I/Lesson-014-Futuro-Progresivo.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 015: El Pasado Participio", href: "Lessons/Intermediate I/Lesson-015-El-Pasado-Participio.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 016: Usos del Pasado Participio", href: "Lessons/Intermediate I/Lesson-016-Usos-del-Pasado-Participio.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 017: Voz Pasiva", href: "Lessons/Intermediate I/Lesson-017-Voz-Pasiva.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 018: Tiempos Perfectos Compuestos", href: "Lessons/Intermediate I/Lesson-018-Tiempos-Perfectos-Compuestos.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 019: Pasado Perfecto (Pluscuamperfecto)", href: "Lessons/Intermediate I/Lesson-019-Pasado-Perfecto-Pluscuamperfecto.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 020: El Discurso Indirecto", href: "Lessons/Intermediate I/Lesson-020-El-discurso-Indirecto.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 021: Futuro Perfecto", href: "Lessons/Intermediate I/Lesson-021-Futuro-Perfecto.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 022: Condicional Perfecto", href: "Lessons/Intermediate I/Lesson-022-Condicional-Perfecto.html", type: "html", level: "Lección · Intermediate I" },
+  { text: "Lesson 023: El Infinitivo Perfecto", href: "Lessons/Intermediate I/Lesson-023-El-Infinitivo-Perfecto.html", type: "html", level: "Lección · Intermediate I" },
+  // LECCIONES ADVANCED
+  { text: "Lesson 001: El Imperativo", href: "Lessons/Advanced/Lesson-001-El-Imperativo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 002: Forma Negativa (Ud. Uds.)", href: "Lessons/Advanced/Lesson-002-Forma-Negativa-Ud.-Uds..html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 003: Imperativo Familiar", href: "Lessons/Advanced/Lesson-003-Imperativo-Familiar.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 004: Forma Negativa Familiar", href: "Lessons/Advanced/Lesson-004-Forma-Negativa-Familiar.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 005: Imperativo Nosotros", href: "Lessons/Advanced/Lesson-005-Imperativo-Nosotros.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 006: Forma Negativa Nosotros", href: "Lessons/Advanced/Lesson-006-Forma-Negativa-Nosotros.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 007: Imperativo Indirecto", href: "Lessons/Advanced/Lesson-007-Imperativo-Indirecto.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 008: El Presente de Subjuntivo", href: "Lessons/Advanced/Lesson-008-El-Presente-de-Subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 009: Usos Cláusula Nominal", href: "Lessons/Advanced/Lesson-009-Usos-Clausula-Nominal.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 010: Verbos de Emoción", href: "Lessons/Advanced/Lesson-010-Verbos-de-Emocion.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 011: Expresiones de Deseo", href: "Lessons/Advanced/Lesson-011-Expresiones-de-Deseo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 012: Cláusula Adverbial Grupo I-II", href: "Lessons/Advanced/Lesson-012-Clausula-Adverbial-Grupo-I-II.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 013: Con la Cláusula Indefinida", href: "Lessons/Advanced/Lesson-013-Con-la-clausula-Indefinida.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 014: Otros Usos Pres. Subjuntivo", href: "Lessons/Advanced/Lesson-014-Otros-usos-pres.-subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 015: Otros Usos Presente Subjuntivo", href: "Lessons/Advanced/Lesson-015-Otros-usos-presente-subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 016: El Imperfecto de Subjuntivo", href: "Lessons/Advanced/Lesson-016-El-imperfecto-de-subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 017: Verbos de Emoción y Duda", href: "Lessons/Advanced/Lesson-017-Verbos-de-emocion-y-duda.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 018: Con la Cláusula Impersonal", href: "Lessons/Advanced/Lesson-018-Con-la-Clausula-Impersonal.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 019: Con la Cláusula Adverbial", href: "Lessons/Advanced/Lesson-019-Con-la-clausula-Adverbial.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 020: Grupo II", href: "Lessons/Advanced/Lesson-020-Grupo-II.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 021: Con la Cláusula Indefinida", href: "Lessons/Advanced/Lesson-021-Con-la-clausula-Indefinida.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 027: Presente Perfecto de Subjuntivo", href: "Lessons/Advanced/Lesson-027-Presente-perfecto-de-subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 032: Cláusula Indefinida Grupo I", href: "Lessons/Advanced/Lesson-032-Clausula-Indefinida-Grupo-I.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 036: El Pasado Perfecto de Subjuntivo", href: "Lessons/Advanced/Lesson-036-El-pasado-perfecto-de-subjuntivo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 041: Tercer Grupo", href: "Lessons/Advanced/Lesson-041-Tercer-Grupo.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 047: Pronombres Relativos", href: "Lessons/Advanced/Lesson-047-Pronombres-Relativos.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 048: Pronombres Relativos II", href: "Lessons/Advanced/Lesson-048-Pronombres-Relativos.html", type: "html", level: "Lección · Advanced" },
+  { text: "Lesson 049: Pronombres Relativos Neutros", href: "Lessons/Advanced/Lesson-049-Pronombres-Relativos-Neutros.html", type: "html", level: "Lección · Advanced" },
+  // EJERCICIOS BEGINNER I (muestra representativa)
+  { text: "Exercise P-1-001: Minidiálogos", href: "Exercises/Beginner I/Exercise-P-1-001-Minidialogos.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-008: Números Cardinales I", href: "Exercises/Beginner I/Exercise-P-1-008-Numeros-Cardinales-I.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-014: Números Ordinales", href: "Exercises/Beginner I/Exercise-P-1-014-Numeros-Ordinales.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-017: Artículos Definidos", href: "Exercises/Beginner I/Exercise-P-1-017-Articulos-Definidos.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-019: Artículos Indefinidos", href: "Exercises/Beginner I/Exercise-P-1-019-Articulos-Indefinidos.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-026: Verbo Ser", href: "Exercises/Beginner I/Exercise-P-1-026-Verbo-Ser.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-028: Verbo Estar", href: "Exercises/Beginner I/Exercise-P-1-028-Verbo-Estar.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-030: Ser y Estar", href: "Exercises/Beginner I/Exercise-P-1-030-Ser-y-Estar.pdf", type: "pdf", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-037: Adjetivos Posesivos", href: "Exercises/Beginner I/Exercise-P-1-037-Adjetivos-Posesivos.html", type: "html", level: "Ejercicio · Beginner I" },
+  { text: "Exercise P-1-045: Presente de Indicativo", href: "Exercises/Beginner I/Exercise-P-1-045-Presente-de-Indicativo.html", type: "html", level: "Ejercicio · Beginner I" },
+  // EJERCICIOS BEGINNER II
+  { text: "Exercise P-2-004: Expresiones de Tiempo", href: "Exercises/Beginner II/Exercise-P-2-004-Expresiones-de-Tiempo.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-008: Verbos Irregulares Grupo II, III", href: "Exercises/Beginner II/Exercise-P-2-008-Verbos-Irregulares-Grupo-II-III.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-020: Verbos Regulares e Irregulares III", href: "Exercises/Beginner II/Exercise-P-2-020-Verbos-Regulares-e-Irregulares-III.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-023: Expresiones Idiomáticas con A", href: "Exercises/Beginner II/Exercise-P-2-023-Expresiones-Idiomaticas-con-A.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-030: Adjetivos Demostrativos IV", href: "Exercises/Beginner II/Exercise-P-2-030-Adjetivos-Demostrativos-IV.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-041: Imperfecto Verbos Regulares", href: "Exercises/Beginner II/Exercise-P-2-041-Imperfecto-Verbos-Regulares.html", type: "html", level: "Ejercicio · Beginner II" },
+  { text: "Exercise P-2-048: Pretérito vs. Imperfecto II", href: "Exercises/Beginner II/Exercise-P-2-048-Preterito-vs.-Imperfecto-II.html", type: "html", level: "Ejercicio · Beginner II" },
+  // EJERCICIOS INTERMEDIATE I
+  { text: "Exercise I-1-004: Futuro Regulares IV", href: "Exercises/Intermediate I/Exercise-I-1-004-Futuro-Regulares-IV.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-017: POR II", href: "Exercises/Intermediate I/Exercise-I-1-017-POR-II.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-021: POR y PARA II", href: "Exercises/Intermediate I/Exercise-I-1-021-POR-y-PARA-II.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-026: Sinónimos", href: "Exercises/Intermediate I/Exercise-I-1-026-Sinonimos.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-030: Antónimos", href: "Exercises/Intermediate I/Exercise-I-1-030-Antonimos.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-042: Pronombres de Complemento Indirecto", href: "Exercises/Intermediate I/Exercise-I-1-042-Pronombres-de-Complemento-Indirecto.html", type: "html", level: "Ejercicio · Intermediate I" },
+  { text: "Exercise I-1-052: Objeto Directo e Indirecto", href: "Exercises/Intermediate I/Exercise-I-1-052-Objeto-Directo-e-Indirecto.html", type: "html", level: "Ejercicio · Intermediate I" },
+  // EJERCICIOS INTERMEDIATE II
+  { text: "Exercise I-2-001: Presente Participio Verbos Regulares", href: "Exercises/Intermediate II/Exercise-I-2-001-Presente-Participio-Verbos-Regulares-Gerundio.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-004: Tiempo Presente Progresivo", href: "Exercises/Intermediate II/Exercise-I-2-004-Tiempo-Presente-Progresivo.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-015: Pasado Progresivo VI", href: "Exercises/Intermediate II/Exercise-I-2-015-Pasado-Progresivo-VI.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-025: Pasado Participio Verbos Regulares", href: "Exercises/Intermediate II/Exercise-I-2-025-Pasado-Participio-Verbos-Regulares.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-032: Voz Pasiva III", href: "Exercises/Intermediate II/Exercise-I-2-032-Voz-Pasiva-III.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-034: Presente Perfecto II", href: "Exercises/Intermediate II/Exercise-I-2-034-Presente-Perfecto-II.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-038: Pasado Perfecto III", href: "Exercises/Intermediate II/Exercise-I-2-038-Pasado-Perfecto-III.html", type: "html", level: "Ejercicio · Intermediate II" },
+  { text: "Exercise I-2-065: Verbos que usan preposiciones", href: "Exercises/Intermediate II/Exercise-I-2-065-Verbos-que-usan-preposiciones.html", type: "html", level: "Ejercicio · Intermediate II" },
+  // EJERCICIOS ADVANCED I
+  { text: "Exercise A-1-001: Imperativo Formal Verbos Regulares e Irregulares", href: "Exercises/Advanced I/Exercise-A-1-001-Imperativo-Formal-Verbos-Regulares-e-Irregulares.html", type: "html", level: "Ejercicio · Advanced I" },
+  { text: "Exercise A-1-007: Forma con Pronombres II", href: "Exercises/Advanced I/Exercise-A-1-007-Forma-con-Pronombres-II.html", type: "html", level: "Ejercicio · Advanced I" },
+  { text: "Exercise A-1-013: Imperativo Familiar Verbos Regulares e Irregulares", href: "Exercises/Advanced I/Exercise-A-1-013-Imperativo-Familiar-Verbos-Regulares-e-Irregulares.html", type: "html", level: "Ejercicio · Advanced I" },
+  { text: "Exercise A-1-016: Forma Negativa", href: "Exercises/Advanced I/Exercise-A-1-016-Forma-Negativa.html", type: "html", level: "Ejercicio · Advanced I" },
+  { text: "Exercise A-1-026: Imperativo Nosotros", href: "Exercises/Advanced I/Exercise-A-1-026-Imperativo-Nosotros-Verbos-Regulares-e-Irregulares.html", type: "html", level: "Ejercicio · Advanced I" },
+  // EJERCICIOS ADVANCED II
+  { text: "Exercise A-2-007: Presente Subjuntivo", href: "Exercises/Advanced II/Exercise-A-2-007-Presente-Subjuntivo-1.pdf", type: "pdf", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-026: Cláusula Adverbial Grupo I y II VI", href: "Exercises/Advanced II/Exercise-A-2-026-Clausula-Adverbial-Grupo-I-y-II-VI.html", type: "html", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-038: Subjuntivo Pasado Imperfecto", href: "Exercises/Advanced II/Exercise-A-2-038-Subjuntivo-Pasado-Imperfecto-todo-tipo-de-verbos.html", type: "html", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-041: Cláusula Nominal Verbos de Mandato", href: "Exercises/Advanced II/Exercise-A-2-041-Clausula-Nominal-Verbos-de-Mandato.html", type: "html", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-053: Cláusula Impersonal Todas las Expresiones", href: "Exercises/Advanced II/Exercise-A-2-053-Clausula-Impersonal-Todas-las-Expresiones.html", type: "html", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-069: Otros Usos", href: "Exercises/Advanced II/Exercise-A-2-069-Otros-Usos.html", type: "html", level: "Ejercicio · Advanced II" },
+  { text: "Exercise A-2-097: Cláusula Nominal Todos los Verbos II", href: "Exercises/Advanced II/Exercise-A-2-097-Clausula-Nominal-Todos-los-Verbos-II.html", type: "html", level: "Ejercicio · Advanced II" },
+];
+
+const input = document.getElementById("searchInput");
+const countEl = document.getElementById("searchCount");
+const searchResults = document.getElementById("searchResults");
+const resultList = document.getElementById("resultList");
+const noResults = document.getElementById("noResults");
+const homeContent = document.getElementById("homeContent");
+
+input.addEventListener("input", function() {
+  const q = this.value.toLowerCase().trim();
+  if (!q) {
+    searchResults.style.display = "none";
+    homeContent.style.display = "block";
+    countEl.textContent = "";
+    return;
+  }
+  homeContent.style.display = "none";
+  searchResults.style.display = "block";
+  const matches = allItems.filter(item => item.text.toLowerCase().includes(q) || item.level.toLowerCase().includes(q));
+  resultList.innerHTML = matches.map(item => `
+    <li class="result-item">
+      <a href="${item.href}" target="_self">
+        <span class="badge badge-${item.type}">${item.type.toUpperCase()}</span>
+        ${item.text}
+        <span class="result-level">${item.level}</span>
+      </a>
+    </li>
+  `).join("");
+  countEl.textContent = matches.length + " resultado" + (matches.length !== 1 ? "s" : "");
+  noResults.style.display = matches.length === 0 ? "block" : "none";
+});
+</script>
+
 </body>
 </html>

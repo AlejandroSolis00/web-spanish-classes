@@ -10,6 +10,7 @@
     nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
     nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
     nav a:hover { border-bottom: 2px solid #fff; }
+    nav a.active { border-bottom: 2px solid #fff; }
     .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
     .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
     .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
@@ -82,5 +83,12 @@
   </ul>
 </div>
 <footer>Mis Clases de Español · Uso personal</footer>
+<script>
+  document.querySelectorAll('nav a').forEach(function(a) {
+    if (a.href === window.location.href) {
+      a.classList.add('active');
+    }
+  });
+</script>
 </body>
 </html>

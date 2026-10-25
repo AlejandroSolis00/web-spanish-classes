@@ -270,7 +270,7 @@ input.addEventListener("input", function() {
   const matches = allItems.filter(item => normalize(item.text).includes(q) || normalize(item.level).includes(q));
   resultList.innerHTML = matches.map(item => `
     <li class="result-item">
-      <a href="${item.href}" target="_self">
+      <a href="${item.href}" target="_blank" rel="noopener">
         <span class="badge badge-${item.type}">${item.type.toUpperCase()}</span>
         ${item.text}
         <span class="result-level">${item.level}</span>

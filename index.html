@@ -1,115 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Spanish Lessons Online</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #333; }
-    nav { background: #4a9d8f; padding: 0 40px; display: flex; align-items: center; justify-content: center; gap: 40px; height: 56px; position: sticky; top: 0; z-index: 100; }
-    nav a, .dropdown-toggle { color: #fff; text-decoration: none; font-size: 14px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 8px 0; border-bottom: 2px solid transparent; cursor: pointer; }
-    nav a:hover { border-bottom: 2px solid #fff; }
-    .dropdown { position: relative; display: flex; align-items: center; height: 56px; }
-    .dropdown-toggle::after { content: ' ▾'; font-size: 11px; }
-    .dropdown-menu { display: none; position: absolute; top: 56px; left: 50%; transform: translateX(-50%); background: #4a9d8f; min-width: 200px; z-index: 200; }
-    .dropdown:hover .dropdown-menu { display: block; }
-    .dropdown-menu a { display: block; padding: 12px 20px; font-size: 13px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.15); }
-    .dropdown-menu a:hover { background: rgba(255,255,255,0.15); }
-    .hero { text-align: center; padding: 50px 20px 20px; }
-    .hero h1 { font-size: 30px; font-weight: 800; color: #333; letter-spacing: 0.04em; }
-    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 12px auto; }
-    .hero-divider::before, .hero-divider::after { content: ''; width: 60px; height: 1px; background: #c0392b; }
-    .hero-divider span { width: 8px; height: 8px; background: #c0392b; transform: rotate(45deg); display: inline-block; }
-    .search-container { max-width: 700px; margin: 24px auto 0; padding: 0 30px; }
-    .search-input { width: 100%; padding: 12px 18px; font-size: 15px; border: 2px solid #ddd; border-radius: 8px; outline: none; transition: border-color 0.2s; }
-    .search-input:focus { border-color: #4a9d8f; }
-    .search-count { font-size: 12px; color: #aaa; margin-top: 8px; padding: 0 4px; }
-    .search-results { max-width: 700px; margin: 12px auto 0; padding: 0 30px; display: none; }
-    .result-item { border-bottom: 1px solid #f0f0f0; }
-    .result-item a { display: flex; align-items: center; gap: 10px; padding: 12px 4px; text-decoration: none; color: #333; font-size: 16px; transition: color 0.15s; }
-    .result-item a:hover { color: #4a9d8f; }
-    .result-level { font-size: 12px; color: #aaa; margin-left: auto; flex-shrink: 0; }
-    .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; text-transform: uppercase; flex-shrink: 0; }
-    .badge-html { background: #e1f5f0; color: #2d7a6e; }
-    .badge-pdf { background: #fdecea; color: #c0392b; }
-    .no-results { text-align: center; padding: 30px; color: #aaa; font-size: 14px; display: none; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 1100px; margin: 30px auto 60px; padding: 0 30px; }
-    .card { border: 1px solid #e0e0e0; border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s; text-decoration: none; display: block; }
-    .card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
-    .card-header { padding: 28px 20px; text-align: center; }
-    .card-header h2 { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: 0.05em; }
-    .card-body { padding: 14px 20px; }
-    .card-body p { font-size: 13px; color: #777; line-height: 1.6; }
-    .teal { background: #4a9d8f; }
-    .red { background: #c0392b; }
-    .section-label { font-size: 13px; font-weight: 700; color: #4a9d8f; text-transform: uppercase; letter-spacing: 0.08em; text-align: center; margin: 30px 0 8px; }
-    footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; margin-top: 20px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spanish Classes · Lecciones y ejercicios de español</title>
+<meta name="description" content="Lecciones y ejercicios de español por niveles: de principiante a avanzado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,750;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<nav>
-  <a href="index.html">Inicio</a>
-  <div class="dropdown">
-    <span class="dropdown-toggle">Lecciones</span>
-    <div class="dropdown-menu">
-      <a href="lecciones-beginner1.html">Beginner I</a>
-      <a href="lecciones-beginner2.html">Beginner II</a>
-      <a href="lecciones-intermediate1.html">Intermediate I</a>
-      <a href="lecciones-advanced.html">Advanced</a>
-    </div>
-  </div>
-  <div class="dropdown">
-    <span class="dropdown-toggle">Ejercicios</span>
-    <div class="dropdown-menu">
-      <a href="ejercicios-beginner1.html">Beginner I</a>
-      <a href="ejercicios-beginner2.html">Beginner II</a>
-      <a href="ejercicios-intermediate1.html">Intermediate I</a>
-      <a href="ejercicios-intermediate2.html">Intermediate II</a>
-      <a href="ejercicios-advanced1.html">Advanced I</a>
-      <a href="ejercicios-advanced2.html">Advanced II</a>
-    </div>
-  </div>
-</nav>
-
-<div class="hero">
-  <h1>SPANISH CLASSES</h1>
-  <div class="hero-divider"><span></span></div>
-</div>
-
-<div class="search-container">
-  <input type="text" id="searchInput" class="search-input" placeholder="🔍 Buscar por tema: imperativo, subjuntivo, verbos...">
-  <div class="search-count" id="searchCount"></div>
-</div>
-
-<div class="search-results" id="searchResults">
-  <ul class="file-list" id="resultList"></ul>
-  <div class="no-results" id="noResults">No se encontraron resultados.</div>
-</div>
-
-<div id="homeContent">
-  <p class="section-label">Lecciones</p>
-  <div class="grid">
-    <a href="lecciones-beginner1.html" class="card"><div class="card-header teal"><h2>BEGINNER I</h2></div><div class="card-body"><p>Lecciones 001–022 · Bases del español</p></div></a>
-    <a href="lecciones-beginner2.html" class="card"><div class="card-header teal"><h2>BEGINNER II</h2></div><div class="card-body"><p>Lecciones 026–039 · Pretérito e imperfecto</p></div></a>
-    <a href="lecciones-intermediate1.html" class="card"><div class="card-header teal"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>Lecciones 001–023 · Futuro, por/para y más</p></div></a>
-    <a href="lecciones-advanced.html" class="card"><div class="card-header teal"><h2>ADVANCED</h2></div><div class="card-body"><p>Lecciones 001–050 · Subjuntivo y más</p></div></a>
-  </div>
-  <p class="section-label">Ejercicios</p>
-  <div class="grid">
-    <a href="ejercicios-beginner1.html" class="card"><div class="card-header red"><h2>BEGINNER I</h2></div><div class="card-body"><p>HTML y PDF · Minidiálogos, verbos y más</p></div></a>
-    <a href="ejercicios-beginner2.html" class="card"><div class="card-header red"><h2>BEGINNER II</h2></div><div class="card-body"><p>HTML y PDF · Pretérito, imperfecto y más</p></div></a>
-    <a href="ejercicios-intermediate1.html" class="card"><div class="card-header red"><h2>INTERMEDIATE I</h2></div><div class="card-body"><p>HTML y PDF · Futuro, por/para y más</p></div></a>
-    <a href="ejercicios-intermediate2.html" class="card"><div class="card-header red"><h2>INTERMEDIATE II</h2></div><div class="card-body"><p>HTML y PDF · Participios y tiempos perfectos</p></div></a>
-    <a href="ejercicios-advanced1.html" class="card"><div class="card-header red"><h2>ADVANCED I</h2></div><div class="card-body"><p>HTML y PDF · Imperativo y pronombres</p></div></a>
-    <a href="ejercicios-advanced2.html" class="card"><div class="card-header red"><h2>ADVANCED II</h2></div><div class="card-body"><p>HTML y PDF · Subjuntivo y cláusulas</p></div></a>
-  </div>
-</div>
-
-<footer>Spanish Lessons Online</footer>
-
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="top"><div class="wrap"><a class="brand" href="index.html"><svg viewBox='0 0 96 96' aria-hidden='true'><rect width='96' height='96' fill='#2547d0'/><path d='M48 6c10 14 24 14 42 0-14 18-14 32 0 42-14 10-14 24 0 42-18-14-32-14-42 0-10-14-24-14-42 0 14-18 14-32 0-42 14-10 14-24 0-42 18 14 32 14 42 0z' fill='#fff' fill-opacity='.22'/><circle cx='48' cy='48' r='13' fill='#f6b92b'/></svg><span>Spanish Classes</span></a><button class="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span></button><nav class="menu" aria-label="Principal"><a href="index.html" class="on">Inicio</a><div class="dd"><button type="button">Lecciones</button><div class="dd-panel"><a href="lecciones-beginner1.html">Beginner I</a><a href="lecciones-beginner2.html">Beginner II</a><a href="lecciones-intermediate1.html">Intermediate I</a><a href="lecciones-advanced.html">Advanced</a></div></div><div class="dd"><button type="button">Ejercicios</button><div class="dd-panel"><a href="ejercicios-beginner1.html">Beginner I</a><a href="ejercicios-beginner2.html">Beginner II</a><a href="ejercicios-intermediate1.html">Intermediate I</a><a href="ejercicios-intermediate2.html">Intermediate II</a><a href="ejercicios-advanced1.html">Advanced I</a><a href="ejercicios-advanced2.html">Advanced II</a></div></div></nav></div></header>
+<main id="main"><section class="hero"><div class="wrap"><div><h1>Aprende español, un nivel a la vez</h1><p class="lead">Lecciones claras y ejercicios para practicar cada tema. Elige tu nivel o busca directamente lo que necesitas.</p><div class="searchbox"><svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.2' stroke-linecap='round' aria-hidden='true'><circle cx='11' cy='11' r='7'/><path d='M20 20l-4-4'/></svg><input id="searchInput" type="search" placeholder="Busca un tema: imperativo, subjuntivo, verbos…" aria-label="Buscar lecciones y ejercicios" autocomplete="off"></div><div class="searchcount" id="searchCount" aria-live="polite"></div><div class="quick"><span>Temas frecuentes:</span><button type="button">imperativo</button><button type="button">subjuntivo</button><button type="button">pretérito</button><button type="button">ser y estar</button><button type="button">por y para</button><button type="button">gustar</button></div><div class="stats"><div><b data-count="Lección"></b><span>lecciones</span></div><div><b data-count="Ejercicio"></b><span>ejercicios</span></div><div><b>4</b><span>niveles</span></div></div></div><div class="tiles" aria-hidden="true"><div class="dialog"><small>Lección 001 · Mini diálogos</small><p>—¿Cómo te llamas?</p><p>—Me llamo Ana. ¿Y tú?</p></div></div></div></section><section class="results" id="searchResults"><div class="wrap"><ul class="items" id="resultList" style="grid-template-columns:1fr"></ul><div class="empty" id="noResults"><b>No encontramos <span id="noTerm"></span></b><p>Prueba con otra palabra, por ejemplo el nombre de un tiempo verbal.</p><button class="btn btn-primary" id="clearSearch" type="button">Borrar búsqueda</button></div></div></section><div id="homeContent"><section class="block" id="niveles"><div class="wrap"><h2>Elige tu nivel</h2><p class="sub">Cada nivel tiene sus lecciones y los ejercicios que las acompañan. Empieza por el primero o salta al que te corresponda.</p><div class="levels"><article class="level"><div class="level-head"><span class="level-n">1</span><div><h3>Beginner I</h3><div class="meta"><span data-count="lecciones-beginner1"></span> lecciones · <span data-count="ejercicios-beginner1"></span> ejercicios</div></div></div><p>Preséntate, haz preguntas y habla del presente. Aquí empiezas con ser, estar, haber y gustar.</p><ul class="topics"><li>Mini diálogos</li><li>Números</li><li>Ser y estar</li><li>Gustar</li><li>Presente</li><li>Reflexivos</li></ul><div class="level-actions"><a class="btn btn-primary" href="lecciones-beginner1.html">Ver lecciones</a><a class="btn btn-ghost" href="ejercicios-beginner1.html">Ejercicios</a></div></article><article class="level"><div class="level-head"><span class="level-n">2</span><div><h3>Beginner II</h3><div class="meta"><span data-count="lecciones-beginner2"></span> lecciones · <span data-count="ejercicios-beginner2"></span> ejercicios</div></div></div><p>Cuenta lo que pasó: pretérito, imperfecto y las expresiones que se usan todos los días.</p><ul class="topics"><li>Pretérito</li><li>Imperfecto</li><li>Demostrativos</li><li>Adverbios</li><li>Usos de SE</li></ul><div class="level-actions"><a class="btn btn-primary" href="lecciones-beginner2.html">Ver lecciones</a><a class="btn btn-ghost" href="ejercicios-beginner2.html">Ejercicios</a></div></article><article class="level"><div class="level-head"><span class="level-n">3</span><div><h3>Intermediate I</h3><div class="meta"><span data-count="lecciones-intermediate1"></span> lecciones · <span data-count="ejercicios-intermediate1,ejercicios-intermediate2"></span> ejercicios</div></div></div><p>Habla del futuro, compara y combina tiempos: condicional, progresivos, participios y perfectos.</p><ul class="topics"><li>Futuro</li><li>Por y para</li><li>Condicional</li><li>Progresivos</li><li>Voz pasiva</li><li>Perfectos</li></ul><div class="level-actions"><a class="btn btn-primary" href="lecciones-intermediate1.html">Ver lecciones</a><a class="btn btn-ghost" href="ejercicios-intermediate1.html">Ejercicios I</a><a class="btn btn-ghost" href="ejercicios-intermediate2.html">Ejercicios II</a></div></article><article class="level"><div class="level-head"><span class="level-n">4</span><div><h3>Advanced</h3><div class="meta"><span data-count="lecciones-advanced"></span> lecciones · <span data-count="ejercicios-advanced1,ejercicios-advanced2"></span> ejercicios</div></div></div><p>El imperativo, el subjuntivo en todos sus tiempos y los pronombres relativos.</p><ul class="topics"><li>Imperativo</li><li>Subjuntivo</li><li>Cláusulas</li><li>Pronombres relativos</li></ul><div class="level-actions"><a class="btn btn-primary" href="lecciones-advanced.html">Ver lecciones</a><a class="btn btn-ghost" href="ejercicios-advanced1.html">Ejercicios I</a><a class="btn btn-ghost" href="ejercicios-advanced2.html">Ejercicios II</a></div></article></div></div></section><section class="block" style="padding-top:0"><div class="wrap"><h2>Cómo estudiar cada tema</h2><div class="steps"><div class="step"><h3>Lee la lección</h3><p>Cada lección explica un solo tema con ejemplos y tablas.</p></div><div class="step"><h3>Practica</h3><p>Desde la lección abres los ejercicios de ese tema, en HTML o en PDF.</p></div><div class="step"><h3>Repite</h3><p>Los ejercicios en PDF se pueden imprimir y repetir cuantas veces quieras.</p></div></div></div></section></div></main>
+<footer><div class="wrap"><div><a class="brand" href="index.html"><svg viewBox='0 0 96 96' aria-hidden='true'><rect width='96' height='96' fill='#2547d0'/><path d='M48 6c10 14 24 14 42 0-14 18-14 32 0 42-14 10-14 24 0 42-18-14-32-14-42 0-10-14-24-14-42 0 14-18 14-32 0-42 14-10 14-24 0-42 18 14 32 14 42 0z' fill='#fff' fill-opacity='.22'/><circle cx='48' cy='48' r='13' fill='#f6b92b'/></svg><span>Spanish Classes</span></a><p>Lecciones y ejercicios de español, ordenados por nivel y enlazados entre sí.</p></div><div><h4>Lecciones</h4><ul><li><a href="lecciones-beginner1.html">Beginner I</a></li><li><a href="lecciones-beginner2.html">Beginner II</a></li><li><a href="lecciones-intermediate1.html">Intermediate I</a></li><li><a href="lecciones-advanced.html">Advanced</a></li></ul></div><div><h4>Ejercicios</h4><ul><li><a href="ejercicios-beginner1.html">Beginner I</a></li><li><a href="ejercicios-beginner2.html">Beginner II</a></li><li><a href="ejercicios-intermediate1.html">Intermediate I</a></li><li><a href="ejercicios-intermediate2.html">Intermediate II</a></li><li><a href="ejercicios-advanced1.html">Advanced I</a></li><li><a href="ejercicios-advanced2.html">Advanced II</a></li></ul></div><div class="legal">Lecciones en HTML y ejercicios en HTML o PDF. Se abren en una pestaña nueva.</div></div></footer>
 <script src="catalog.js"></script>
-<script src="app.js"></script>
-
+<script src="site.js"></script>
 </body>
 </html>

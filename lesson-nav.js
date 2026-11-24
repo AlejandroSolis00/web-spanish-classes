@@ -24,15 +24,15 @@
 
   // 1) Barra superior propia (mismo estilo que el menú de la web): Inicio / Lecciones / Ejercicios con sus niveles
   var st = document.createElement('style');
-  st.textContent = '.lm-top{background:#4a9d8f;height:56px;display:flex;align-items:center;justify-content:center;gap:40px;position:sticky;top:0;z-index:1000;font-family:"Segoe UI",Arial,sans-serif}' +
-    '.lm-top a,.lm-top span.lm-t{color:#fff;text-decoration:none;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 0;border-bottom:2px solid transparent;cursor:pointer}' +
-    '.lm-top a:hover,.lm-top .lm-dd:hover span.lm-t{border-bottom-color:#fff}' +
-    '.lm-dd{position:relative;display:flex;align-items:center;height:56px}.lm-dd span.lm-t:after{content:" ▾";font-size:11px}' +
-    '.lm-menu{display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);background:#4a9d8f;min-width:200px}' +
+  st.textContent = '.lm-top{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e0e4f0;height:60px;display:flex;align-items:center;justify-content:center;gap:8px;position:sticky;top:0;z-index:1000;font-family:"Figtree","Segoe UI",system-ui,sans-serif}' +
+    '.lm-top a,.lm-top span.lm-t{color:#3b4568;text-decoration:none;font-size:15px;font-weight:600;padding:8px 14px;border-radius:10px;cursor:pointer;letter-spacing:0;text-transform:none;border:0}' +
+    '.lm-top a:hover,.lm-top .lm-dd:hover span.lm-t,.lm-dd.open span.lm-t{background:#e7ecfc;color:#1a33a3}' +
+    '.lm-dd{position:relative;display:flex;align-items:center;height:60px}.lm-dd span.lm-t:after{content:" ▾";font-size:11px}' +
+    '.lm-menu{display:none;position:absolute;top:56px;left:50%;transform:translateX(-50%);background:#fff;min-width:210px;padding:6px;border:1px solid #e0e4f0;border-radius:12px;box-shadow:0 8px 24px -12px rgba(16,26,58,.3)}' +
     '.lm-dd:hover .lm-menu,.lm-dd.open .lm-menu{display:block}' +
     '.pdfemb-viewer,.pdfemb-pagescontainer,.pdfemb-inner-div{width:100%!important;max-width:100%!important;height:auto!important}.pdfemb-the-canvas{width:100%!important;height:auto!important;aspect-ratio:746/966;display:block}' +
-    '.lm-menu a{display:block;padding:12px 20px;font-size:13px;letter-spacing:.06em;border-top:1px solid rgba(255,255,255,.15);border-bottom:0}.lm-menu a:hover{background:rgba(255,255,255,.15)}' +
-    '@media(max-width:560px){.lm-top{gap:18px}.lm-top a,.lm-top span.lm-t{font-size:12px}}';
+    '.lm-menu a{display:block;padding:9px 12px;font-size:15px;font-weight:500;border-radius:8px}' +
+    '@media(max-width:560px){.lm-top{gap:0}.lm-top a,.lm-top span.lm-t{font-size:14px;padding:8px 9px}}';
   document.head.appendChild(st);
   var hw = $('.header_wrap');
   if (hw) {
@@ -91,7 +91,7 @@
   if (!cur) return;
 
   var bar = document.createElement('div');
-  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483647;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:#4a9d8f;font:700 13px/1 "Segoe UI",Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 -2px 8px rgba(0,0,0,.15)';
+  bar.style.cssText = 'position:fixed;left:0;right:0;bottom:0;z-index:2147483647;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 20px;background:#101a3a;font:600 14px/1 "Figtree","Segoe UI",system-ui,sans-serif;box-shadow:0 -4px 16px rgba(16,26,58,.25)';
   var link = function (it, label, side) {
     var a = document.createElement(it ? 'a' : 'span');
     a.textContent = label; a.style.cssText = 'color:#fff;text-decoration:none;flex:1;text-align:' + side + (it ? '' : ';opacity:.35');
@@ -109,19 +109,19 @@
     var isLesson = sec.kind === 'Lección';
     relBtn = document.createElement('button');
     relBtn.textContent = isLesson ? 'Practicar (' + rel.length + ')' : (rel.length > 1 ? 'Lecciones (' + rel.length + ')' : 'Ver la lección');
-    relBtn.style.cssText = 'background:#fff;color:#2d7a6e;border:0;border-radius:4px;padding:8px 14px;font:inherit;cursor:pointer';
+    relBtn.style.cssText = 'background:#f6b92b;color:#101a3a;border:0;border-radius:8px;padding:8px 14px;font-weight:700;font:inherit;cursor:pointer';
     var pop = document.createElement('div');
     pop.style.cssText = 'display:none;position:fixed;bottom:48px;left:50%;transform:translateX(-50%);width:min(520px,94vw);max-height:60vh;overflow:auto;background:#fff;color:#333;border-radius:6px 6px 0 0;box-shadow:0 -4px 16px rgba(0,0,0,.25);font:14px/1.3 "Segoe UI",Arial,sans-serif;letter-spacing:0;text-transform:none;z-index:2147483646';
     var h = document.createElement('div');
     h.textContent = isLesson ? 'Ejercicios de este tema' : 'Lección de este tema';
-    h.style.cssText = 'padding:10px 14px;font-weight:700;color:#4a9d8f;border-bottom:1px solid #eee';
+    h.style.cssText = 'padding:10px 14px;font-weight:700;color:#2547d0;border-bottom:1px solid #eee';
     pop.appendChild(h);
     rel.forEach(function (r) {
       var a = document.createElement('a'); a.href = local(r.it);
       if (r.it.type === 'pdf') { a.target = '_blank'; a.rel = 'noopener'; }
       a.style.cssText = 'display:flex;gap:8px;align-items:center;padding:9px 14px;color:#333;text-decoration:none;border-bottom:1px solid #f3f3f3';
       var b = document.createElement('span'); b.textContent = r.it.type.toUpperCase();
-      b.style.cssText = 'font-size:11px;font-weight:700;padding:2px 6px;border-radius:3px;background:' + (r.it.type === 'pdf' ? '#fdecea;color:#c0392b' : '#e1f5f0;color:#2d7a6e');
+      b.style.cssText = 'font-size:11px;font-weight:700;padding:2px 6px;border-radius:3px;background:' + (r.it.type === 'pdf' ? '#fde8ec;color:#b4283f' : '#e7ecfc;color:#1a33a3');
       a.appendChild(b); a.appendChild(document.createTextNode(r.it.text)); pop.appendChild(a);
     });
     relBtn.onclick = function (e) { e.stopPropagation(); pop.style.display = pop.style.display === 'none' ? 'block' : 'none'; };

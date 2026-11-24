@@ -60,9 +60,9 @@ def nav(active):
         on = ' on' if active and active.startswith('lecciones' if kind == 'lec' else 'ejercicios') else ''
         return '<div class="dd%s"><button type="button">%s</button><div class="dd-panel">%s</div></div>' % (on, label, links)
     return ('<header class="top"><div class="wrap"><a class="brand" href="index.html">%s<span>Spanish Classes</span></a>'
-            '<nav class="menu" aria-label="Principal"><a href="index.html"%s>Inicio</a>%s%s</nav>'
+            '<nav class="menu" aria-label="Principal"><a href="index.html"%s>Inicio</a>%s%s<a href="agenda.html"%s>Agenda</a></nav>'
             '<button class="findbtn" type="button" aria-label="Buscar material">%s<span>Buscar</span><kbd>/</kbd></button><button class="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span></button></div></header>\n'
-            % (LOGO, ' class="on"' if active == 'index' else '', menu('lec', 'Lecciones'), menu('ej', 'Ejercicios'), SEARCH))
+            % (LOGO, ' class="on"' if active == 'index' else '', menu('lec', 'Lecciones'), menu('ej', 'Ejercicios'), ' class="on"' if active == 'agenda' else '', SEARCH))
 
 def footer():
     lec = ''.join('<li><a href="%s.html">%s</a></li>' % (l['lec'], l['name']) for l in LEVELS)
@@ -141,11 +141,36 @@ def notfound():
         '<div class="lost-actions"><a class="btn btn-primary" href="index.html">Ir al inicio</a><button class="btn btn-ghost findbtn-open" type="button">Buscar material</button></div>'
         '<div class="lost-grid"><div class="mcol"><b>Lecciones</b>%s</div><div class="mcol"><b>Ejercicios</b>%s</div></div></div></div></main>\n' % (lec, ej) + footer())
 
+def agenda():
+    head = HEAD.format(title='Agenda · Spanish Classes', desc='Agenda semanal de clases por alumno.').replace('<link rel="stylesheet" href="site.css">', '<link rel="stylesheet" href="site.css">\n<link rel="stylesheet" href="agenda.css">')
+    opts = ''.join('<option>%s</option>' % n for n in ('Beginner I', 'Beginner II', 'Intermediate I', 'Intermediate II', 'Advanced I', 'Advanced II'))
+    body = '''<main id="main"><section class="ag-top"><div class="wrap"><h1>Agenda</h1><p class="lead">Clases de la semana por alumno. Los datos se guardan solo en este navegador: haz una copia de vez en cuando.</p></div></section>
+<div class="wrap ag"><p class="ag-warn" id="agWarn" role="alert" hidden>El navegador no permite guardar datos: los cambios se perderán al cerrar esta página.</p>
+<div class="ag-pending" id="agPending" hidden></div>
+<div class="ag-bar"><div class="ag-nav"><button type="button" id="agPrev" aria-label="Semana anterior">‹</button><button type="button" id="agToday">Hoy</button><button type="button" id="agNext" aria-label="Semana siguiente">›</button><h2 id="agLabel" aria-live="polite"></h2></div>
+<div class="ag-acts"><button type="button" class="btn btn-ghost" id="agStudents">Alumnos</button><button type="button" class="btn btn-primary" id="agNew">+ Nueva clase</button></div></div>
+<div id="agView"></div>
+<div class="ag-foot"><button type="button" class="btn btn-ghost" id="agExport">Exportar copia</button><label class="btn btn-ghost">Importar copia<input type="file" id="agImport" accept="application/json,.json" hidden></label><span id="agMsg" role="status"></span></div></div></main>
+<dialog id="dlgClass" class="ag-dlg" aria-labelledby="clsTitle"><form id="fClass" novalidate><h2 id="clsTitle">Nueva clase</h2>
+<div class="fld"><label for="cStudent">Alumno</label><select id="cStudent"></select></div>
+<div class="row3"><div class="fld"><label for="cDate">Fecha</label><input type="date" id="cDate" required></div><div class="fld"><label for="cTime">Hora</label><input type="time" id="cTime" step="300" required></div><div class="fld"><label for="cDur">Duración (min)</label><input type="number" id="cDur" min="15" max="300" step="5" value="60"></div></div>
+<div class="fld" id="cStatusW"><label for="cStatus">Estado</label><select id="cStatus"><option value="programada">Programada</option><option value="dada">Dada</option><option value="cancel-alumno">Canceló el alumno</option><option value="cancel-maestro">Canceló el maestro</option></select></div>
+<div class="fld" id="cRepW"><label class="chk"><input type="checkbox" id="cRep"> Repetir cada semana</label><div id="cUntilW" hidden><label for="cUntil">Hasta (opcional)</label><input type="date" id="cUntil"></div></div>
+<fieldset id="cScopeW" hidden><legend>Esta clase se repite cada semana. Aplicar los cambios a:</legend><label class="chk"><input type="radio" name="cScope" value="one" checked> Solo esta clase</label><label class="chk"><input type="radio" name="cScope" value="following"> Esta y las siguientes</label></fieldset>
+<p class="warn" id="cWarn" role="alert" hidden></p>
+<div class="dlg-acts"><button type="button" class="btn btn-ghost danger" id="cDel" hidden>Eliminar</button><button type="button" class="btn btn-ghost danger" id="cDelF" hidden>Eliminar esta y las siguientes</button><span class="sp"></span><button type="button" class="btn btn-ghost" id="cCancel">Cancelar</button><button type="submit" class="btn btn-primary" id="cSave">Guardar</button></div></form></dialog>
+<dialog id="dlgStud" class="ag-dlg" aria-labelledby="studTitle"><h2 id="studTitle">Alumnos</h2><ul class="slist" id="sList"></ul>
+<form id="fStud"><h3 id="sFormTitle">Nuevo alumno</h3><div class="row2"><div class="fld" id="sNameW"><label for="sName">Nombre</label><input id="sName" maxlength="60" autocomplete="off" required></div><div class="fld"><label for="sLevel">Nivel</label><select id="sLevel"><option value="">—</option>%s</select></div></div>
+<div class="dlg-acts"><button type="button" class="btn btn-ghost" id="sClose">Cerrar</button><span class="sp"></span><button type="button" class="btn btn-ghost" id="sReset">Nuevo</button><button type="submit" class="btn btn-primary">Guardar alumno</button></div></form></dialog>
+''' % opts
+    return head + nav('agenda') + body + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="agenda.js"></script>')
+
 def write(name, text):
     open(name, 'w', encoding='utf-8').write(text)
 
 write('index.html', home())
 write('404.html', notfound())
+write('agenda.html', agenda())
 for l in LEVELS: write(l['lec'] + '.html', listing(l['lec']))
 for e in EJ: write(e + '.html', listing(e))
-print('Generadas', 2 + len(LEVELS) + len(EJ), 'páginas')
+print('Generadas', 3 + len(LEVELS) + len(EJ), 'páginas')

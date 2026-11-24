@@ -1,0 +1,98 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "lecciones-advanced.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.265Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "lecciones-beginner1.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.283Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "lecciones-beginner2.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.299Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "lecciones-intermediate1.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.314Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-advanced1.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.329Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-advanced2.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.345Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-beginner1.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.359Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-beginner2.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.374Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-intermediate1.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.387Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "ejercicios-intermediate2.html"
+        ],
+        "createdAt": "2026-11-24T20:40:57.402Z",
+        "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      }
+    ]
+  }
+}

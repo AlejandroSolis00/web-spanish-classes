@@ -20,7 +20,7 @@
   // ---------- Favoritos y recientes (solo en este navegador) ----------
   var store = {
     get: function (k) { try { return JSON.parse(localStorage.getItem(k)) || []; } catch (e) { return []; } },
-    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} if (window.SC && (k === 'sc.fav' || k === 'sc.rec')) SC.prefs.changed(); }
   };
   var isFav = function (h) { return store.get('sc.fav').indexOf(h) > -1; };
   var track = function (h) {
@@ -141,6 +141,11 @@
     favs.hidden = !f.length; $('.rows', favs).innerHTML = mk(f);
     rec.hidden = !r.length; $('.rows', rec).innerHTML = mk(r);
   };
+  // Si otra sesión cambió los favoritos o recientes, se refresca lo que ya está en pantalla
+  document.addEventListener('sc:prefs', function () {
+    $$('[data-fav]').forEach(function (b) { b.setAttribute('aria-pressed', isFav(b.getAttribute('data-fav'))); });
+    renderShelves();
+  });
   var w;
   if (home) {
     renderShelves();

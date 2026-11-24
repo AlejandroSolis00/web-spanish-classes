@@ -45,7 +45,7 @@
       });
     }).catch(function () { return { state: 'offline', data: cached }; });
   }
-  function signIn(email, pass) { return lib().then(function () { return client().auth.signInWithPassword({ email: email, password: pass }); }).then(function (r) { if (r.error) throw r.error; }); }
+  function signIn(email, pass) { return lib().then(function () { return client().auth.signInWithPassword({ email: email, password: pass }); }).then(function (r) { if (r.error) throw r.error; prefsSync(); }); }
   function signOut() {
     return (sb ? sb.auth.signOut() : Promise.resolve()).catch(function () {}).then(function () {
       ls(CACHE, null); ls(DIRTY, null); try { Object.keys(localStorage).forEach(function (k) { if (/^sb-.+-auth-token/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
@@ -78,5 +78,35 @@
   window.addEventListener('online', function () { if (latest && last === 'offline') push(); });
   window.addEventListener('pagehide', function () { if (timer) { clearTimeout(timer); push(); } });
 
-  window.SC = { open: open, signIn: signIn, signOut: signOut, save: save, cache: cache, hasSession: hasSession, onStatus: function (f) { listeners.push(f); } };
+  // ---------- Preferencias: favoritos y recientes (si hay cambios locales sin subir, ganan; si no, manda la nube) ----------
+  var PDIRTY = 'sc.prefs.dirty', ptimer = null, psyncing = false;
+  function arr(k) { try { var a = JSON.parse(ls(k)); return Array.isArray(a) ? a.filter(function (x) { return typeof x === 'string'; }) : []; } catch (e) { return []; } }
+  function prefsLocal() { return { fav: arr('sc.fav').slice(0, 300), rec: arr('sc.rec').slice(0, 8) }; }
+  function prefsPush() {
+    if (!hasSession()) return Promise.resolve();
+    return lib().then(function () { return client().auth.getSession(); }).then(function (r) {
+      var sess = r.data && r.data.session; if (!sess) return;
+      return client().from('preferencias').upsert({ user_id: sess.user.id, data: prefsLocal(), updated_at: new Date().toISOString() }).then(function (u) { if (u.error) throw u.error; ls(PDIRTY, null); });
+    }).catch(function () {});
+  }
+  function prefsChanged() { ls(PDIRTY, '1'); clearTimeout(ptimer); ptimer = setTimeout(prefsPush, 600); }
+  function prefsSync() {
+    if (psyncing || !hasSession()) return Promise.resolve(); psyncing = true;
+    return lib().then(function () { return client().auth.getSession(); }).then(function (r) {
+      var sess = r.data && r.data.session; if (!sess) return;
+      return client().from('preferencias').select('data').eq('user_id', sess.user.id).maybeSingle().then(function (q) {
+        if (q.error) throw q.error;
+        if (!q.data || ls(PDIRTY) !== null) return prefsPush();        // primera vez o cambios locales pendientes: sube lo local
+        var d = q.data.data || {}, fav = (d.fav || []).filter(function (x) { return typeof x === 'string'; }).slice(0, 300), rec = (d.rec || []).filter(function (x) { return typeof x === 'string'; }).slice(0, 8);
+        var cur = prefsLocal();
+        if (JSON.stringify(cur.fav) !== JSON.stringify(fav) || JSON.stringify(cur.rec) !== JSON.stringify(rec)) {
+          ls('sc.fav', JSON.stringify(fav)); ls('sc.rec', JSON.stringify(rec)); document.dispatchEvent(new Event('sc:prefs'));
+        }
+      });
+    }).catch(function () {}).then(function () { psyncing = false; });
+  }
+  window.addEventListener('online', function () { if (ls(PDIRTY) !== null) prefsPush(); });
+  if (hasSession()) setTimeout(prefsSync, 0);
+
+  window.SC = { open: open, signIn: signIn, signOut: signOut, save: save, cache: cache, hasSession: hasSession, prefs: { changed: prefsChanged, sync: prefsSync }, onStatus: function (f) { listeners.push(f); } };
 })();

@@ -71,7 +71,7 @@ def footer():
             '<p>Material de clase organizado por nivel, con cada lección enlazada a sus ejercicios.</p></div>'
             '<div><h4>Lecciones</h4><ul>%s</ul></div><div><h4>Ejercicios</h4><ul>%s</ul></div>'
             '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. Todo se abre en una pestaña nueva.</div></div></footer>\n'
-            '<script src="catalog.js"></script>\n<script src="site.js"></script>\n</body>\n</html>\n' % (LOGO, lec, ej))
+            '<script src="catalog.js"></script>\n<script src="site.js"></script>\n<script src="store.js"></script>\n</body>\n</html>\n' % (LOGO, lec, ej))
 
 def home():
     rows = ''
@@ -95,7 +95,7 @@ def home():
         '<div id="homeContent"><section class="block" id="hoy" hidden></section><section class="block" id="favs" hidden><h2>Favoritos <small>marcados con la estrella</small></h2><ul class="rows"></ul></section>'
         '<section class="block" id="recent" hidden><h2>Abiertos hace poco</h2><ul class="rows"></ul></section>'
         '<section class="block" id="niveles"><h2>Todo el material por nivel</h2><div class="matrix">%s</div></section></div></div></main>\n'
-        % (SEARCH, quick, rows) + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="store.js"></script>\n<script src="hoy.js"></script>'))
+        % (SEARCH, quick, rows) + footer().replace('<script src="store.js"></script>', '<script src="store.js"></script>\n<script src="hoy.js"></script>'))
 
 def listing(sid):
     kind = 'lecciones' if sid.startswith('lecciones') else 'ejercicios'
@@ -179,7 +179,7 @@ def agenda():
 <p class="hint" id="pHint" aria-live="polite"></p><div class="dlg-acts"><button type="button" class="btn btn-ghost" id="aClose">Cerrar</button><span class="sp"></span><button type="submit" class="btn btn-primary">Registrar pago</button></div></form>
 <h3>Pagos</h3><ul class="slist" id="aPays"></ul><h3>Clases cobrables (las más recientes)</h3><ul class="slist" id="aClasses"></ul></dialog>
 ''' % opts
-    return head + nav('agenda') + body + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="store.js"></script>\n<script src="agenda.js"></script>')
+    return head + nav('agenda') + body + footer().replace('<script src="store.js"></script>', '<script src="store.js"></script>\n<script src="agenda.js"></script>')
 
 def write(name, text):
     open(name, 'w', encoding='utf-8').write(text)

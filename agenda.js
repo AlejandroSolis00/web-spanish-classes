@@ -6,7 +6,7 @@
   var DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
   var DAYS_L = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   var MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-  var STATUS = { programada: 'Programada', dada: 'Dada', 'cancel-alumno': 'Canceló el alumno', 'cancel-maestro': 'Canceló el maestro' };
+  var STATUS = { programada: 'Programada', dada: 'Dada', 'cancel-alumno': 'Canceló el alumno', 'cancel-maestro': 'Canceló el maestro', descartada: 'Descartada' };
   var $ = function (id) { return document.getElementById(id); };
   var esc = function (s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
   var p2 = function (n) { return (n < 10 ? '0' : '') + n; };
@@ -14,9 +14,10 @@
   // ---------- Datos ----------
   var storageOk = true;
   function load() {
-    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.students && d.classes && d.series) return d; } catch (e) {}
-    return { v: 1, seq: 1, students: [], classes: [], series: [] };
+    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.students && d.classes && d.series) return norm(d); } catch (e) {}
+    return norm({ v: 1, seq: 1, students: [], classes: [], series: [] });
   }
+  function norm(d) { d.payments = d.payments || []; d.settings = d.settings || {}; if (!d.settings.currency) d.settings.currency = '$'; if (d.settings.threshold == null) d.settings.threshold = 4; d.seq = d.seq || 1; return d; }
   var db = load();
   function save() {
     try { localStorage.setItem(KEY, JSON.stringify(db)); storageOk = true; } catch (e) { storageOk = false; }
@@ -66,6 +67,26 @@
     if (first) ensureRange(first, addDays(today(), 28));
   }
 
+  // ---------- Cuentas: lo pendiente sale de clases cobrables menos pagos (se cubren primero las más antiguas) ----------
+  var money = function (n) { n = Math.round(n * 100) / 100; return db.settings.currency + ' ' + n.toLocaleString('es', { minimumFractionDigits: 0, maximumFractionDigits: 2 }); };
+  function rateAt(st, date) {
+    var r = (st.rates || []).filter(function (x) { return x.from <= date; }).sort(function (a, b) { return a.from < b.from ? 1 : -1; })[0];
+    return r ? r.amount : 0;
+  }
+  var chargeable = function (c) { return c.status === 'dada' || (c.status === 'cancel-alumno' && c.cobrar); };
+  function account(id, extra) {
+    var st = student(id) || {}, cl = db.classes.filter(function (c) { return c.student === id && chargeable(c); }).sort(function (a, b) { return (a.date + a.time) < (b.date + b.time) ? -1 : 1; });
+    var paid = db.payments.filter(function (p) { return p.student === id; }).reduce(function (t, p) { return t + p.amount; }, 0) + (extra || 0);
+    var pool = paid, owed = 0, pending = 0, rows = [];
+    cl.forEach(function (c) {
+      var price = rateAt(st, c.date), cover = Math.min(pool, price); owed += price; pool -= cover;
+      var state = !price ? 'sin-tarifa' : cover >= price - 0.005 ? 'pagada' : cover > 0 ? 'parcial' : 'pendiente';
+      if (state === 'pendiente' || state === 'parcial') pending++;
+      rows.push({ c: c, price: price, state: state });
+    });
+    return { rows: rows, owed: owed, paid: paid, balance: Math.round((owed - paid) * 100) / 100, pending: pending, count: cl.length, st: st };
+  }
+
   // ---------- Choques ----------
   function clashes(c) {
     if (!active(c)) return [];
@@ -107,7 +128,7 @@
         var st = student(c.student) || { name: '(alumno eliminado)', hue: 0 };
         var top = (tm(c.time) - lo) / 60 * HPX, ht = Math.max(c.dur / 60 * HPX, 26);
         html += '<button type="button" class="cls st-' + c.status + (clashes(c).length ? ' clash' : '') + (c.status === 'programada' && isPast(c) ? ' pend' : '') + '" data-id="' + c.id + '" style="top:' + top + 'px;height:' + ht + 'px;left:calc(' + lane[c.id] + ' * 100% / ' + n[c.id] + ' + 3px);width:calc(100% / ' + n[c.id] + ' - 6px);--h:' + st.hue + '">' +
-          '<b>' + esc(st.name) + '</b><span>' + c.time + '–' + ft(endOf(c)) + (c.status === 'dada' ? ' ✓' : '') + '</span></button>';
+          '<b>' + esc(st.name) + '</b><span>' + (c.moved ? '↪ ' : '') + c.time + '–' + ft(endOf(c)) + (c.status === 'dada' ? ' ✓' : '') + '</span></button>';
       });
       if (d === t) { var nm = nowMin(); if (nm >= lo && nm <= hi) html += '<i class="ag-now" style="top:' + ((nm - lo) / 60 * HPX) + 'px"></i>'; }
       html += '</div>';
@@ -121,19 +142,19 @@
       if (!items.length) html += '<p class="ag-none">Sin clases</p>';
       items.forEach(function (c) {
         var st = student(c.student) || { name: '(alumno eliminado)', hue: 0 };
-        html += '<button type="button" class="li st-' + c.status + (clashes(c).length ? ' clash' : '') + (c.status === 'programada' && isPast(c) ? ' pend' : '') + '" data-id="' + c.id + '" style="--h:' + st.hue + '"><b>' + c.time + '–' + ft(endOf(c)) + '</b><span>' + esc(st.name) + '</span><em>' + STATUS[c.status] + '</em></button>';
+        html += '<button type="button" class="li st-' + c.status + (clashes(c).length ? ' clash' : '') + (c.status === 'programada' && isPast(c) ? ' pend' : '') + '" data-id="' + c.id + '" style="--h:' + st.hue + '"><b>' + c.time + '–' + ft(endOf(c)) + '</b><span>' + esc(st.name) + '</span><em>' + STATUS[c.status] + (c.moved ? ' · reagendada' : '') + '</em></button>';
       });
       html += '</section>';
     });
     html += '</div>';
     root.innerHTML = html;
     if (!db.students.length) root.insertAdjacentHTML('afterbegin', '<p class="ag-empty">Empieza agregando a tus alumnos con el botón <b>Alumnos</b>; después podrás programar sus clases.</p>');
-    renderPending();
+    renderPending(); renderDue();
   }
 
   function renderPending() {
     var p = db.classes.filter(function (c) { return c.status === 'programada' && isPast(c); }).sort(function (x, y) { return (x.date + x.time) < (y.date + y.time) ? -1 : 1; });
-    var box = $('agPending'); box.hidden = !p.length; if (!p.length) return;
+    var box = $('agPending'); box.hidden = !p.length; if (!p.length) { box.innerHTML = ''; return; }
     box.innerHTML = '<h2>Por confirmar <small>' + p.length + (p.length === 1 ? ' clase ya pasó' : ' clases ya pasaron') + '</small></h2><ul>' + p.map(function (c) {
       var st = student(c.student) || { name: '(alumno eliminado)' };
       return '<li><span><b>' + esc(st.name) + '</b> · ' + DAYS[wd(c.date)] + ' ' + short(c.date) + ', ' + c.time + '</span><span class="acts">' +
@@ -143,8 +164,19 @@
     }).join('') + '</ul>';
   }
 
+  function renderDue() {
+    var rows = db.students.map(function (st) { return account(st.id); }).filter(function (a) { return a.pending > 0 && a.balance > 0; }).sort(function (a, b) { return b.pending - a.pending; });
+    var box = $('agDue'); box.hidden = !rows.length; if (!rows.length) { box.innerHTML = ''; return; }
+    var thr = +db.settings.threshold || 0;
+    box.innerHTML = '<h2>Por cobrar <small>' + money(rows.reduce(function (t, a) { return t + a.balance; }, 0)) + ' en total</small></h2><ul>' + rows.map(function (a) {
+      return '<li' + (thr && a.pending >= thr ? ' class="hot"' : '') + '><span><b>' + esc(a.st.name) + '</b> · ' + a.pending + (a.pending === 1 ? ' clase sin pagar' : ' clases sin pagar') + ' · <b>' + money(a.balance) + '</b>' + (thr && a.pending >= thr ? ' <em>toca cobrar</em>' : '') + '</span><span class="acts">' +
+        '<button type="button" class="btn btn-primary" data-pay="' + a.st.id + '">Registrar pago</button><button type="button" class="btn btn-ghost" data-acct="' + a.st.id + '">Ver cuenta</button></span></li>';
+    }).join('') + '</ul>';
+  }
+
   // ---------- Diálogo de clase ----------
-  var dc = $('dlgClass'), editing = null, forceSave = false, delArm = null;
+  var dc = $('dlgClass'), editing = null, forceSave = false, delArm = null, mode = 'edit';
+  var weekClasses = function (c) { var m = monday(c.date), e = addDays(m, 6); return db.classes.filter(function (o) { return o.student === c.student && o.status === 'programada' && o.date >= m && o.date <= e; }); };
   function fillStudents(sel) {
     var opts = db.students.filter(function (s) { return !s.archived || s.id === sel; });
     $('cStudent').innerHTML = opts.map(function (s) { return '<option value="' + s.id + '"' + (s.id === sel ? ' selected' : '') + '>' + esc(s.name) + (s.archived ? ' (archivado)' : '') + '</option>'; }).join('');
@@ -152,7 +184,7 @@
   function toggleRep() { $('cUntilW').hidden = !$('cRep').checked; }
   function openClass(c, date, time) {
     if (!db.students.some(function (s) { return !s.archived; }) && !c) { openStudents(); return; }
-    editing = c || null; forceSave = false; resetDel();
+    editing = c || null; forceSave = false; mode = 'edit'; resetDel();
     $('clsTitle').textContent = c ? 'Editar clase' : 'Nueva clase';
     fillStudents(c ? c.student : (db.students.filter(function (s) { return !s.archived; })[0] || {}).id);
     $('cDate').value = c ? c.date : date || today();
@@ -164,6 +196,13 @@
     var isSer = !!(c && c.series && serie(c.series));
     $('cScopeW').hidden = !isSer; document.querySelector('input[name=cScope][value=one]').checked = true;
     $('cDel').hidden = !c; $('cDelF').hidden = !isSer;
+    $('cStudentW').hidden = false; $('cInfo').hidden = true;
+    $('cChargeW').hidden = !(c && c.status === 'cancel-alumno'); $('cCharge').checked = !!(c && c.cobrar);
+    var wk = c ? weekClasses(c) : [];
+    $('cResched').hidden = !c || c.status === 'dada';
+    $('cDisc').hidden = !c || c.status !== 'programada';
+    $('cDiscW').hidden = !(c && c.status === 'programada' && wk.length > 1); $('cDiscW').textContent = 'Descartar las ' + wk.length + ' de esta semana';
+    $('cMore').hidden = !c || ($('cResched').hidden && $('cDisc').hidden);
     $('cDel').textContent = isSer ? 'Eliminar solo esta' : 'Eliminar';
     $('cWarn').hidden = true; $('cSave').textContent = 'Guardar';
     dialogOpen = true; dc.showModal();
@@ -171,13 +210,24 @@
   function resetDel() { clearTimeout(delArm && delArm.t); delArm = null; $('cDel').classList.remove('arm'); $('cDelF').classList.remove('arm'); if (editing) { $('cDel').textContent = editing.series ? 'Eliminar solo esta' : 'Eliminar'; $('cDelF').textContent = 'Eliminar esta y las siguientes'; } }
   ['cDate', 'cTime', 'cDur', 'cStudent'].forEach(function (id) { $(id).addEventListener('input', function () { forceSave = false; $('cWarn').hidden = true; $('cSave').textContent = 'Guardar'; }); });
   $('cRep').addEventListener('change', toggleRep);
+  $('cStatus').addEventListener('change', function () { if (mode === 'edit') $('cChargeW').hidden = this.value !== 'cancel-alumno'; });
+  $('cResched').addEventListener('click', function () {
+    mode = 'resched'; var c = editing;
+    ['cStudentW', 'cStatusW', 'cChargeW', 'cRepW', 'cScopeW', 'cMore', 'cDel', 'cDelF'].forEach(function (id) { $(id).hidden = true; });
+    $('clsTitle').textContent = 'Reagendar clase';
+    $('cInfo').textContent = (student(c.student) || { name: '' }).name + ' — ahora: ' + DAYS_L[wd(c.date)] + ' ' + short(c.date) + ', ' + c.time + '–' + ft(endOf(c)) + '. Elige el nuevo día y hora; solo cambia esta clase.';
+    $('cInfo').hidden = false; $('cSave').textContent = 'Reagendar'; $('cDate').focus();
+  });
+  $('cDisc').addEventListener('click', function () { editing.status = 'descartada'; save(); dc.close(); });
+  $('cDiscW').addEventListener('click', function () { weekClasses(editing).forEach(function (o) { o.status = 'descartada'; }); save(); dc.close(); });
   dc.addEventListener('close', function () { dialogOpen = false; render(); });
   $('cCancel').addEventListener('click', function () { dc.close(); });
 
   function formClass() {
     var date = $('cDate').value, time = $('cTime').value, dur = parseInt($('cDur').value, 10);
     if (!$('cStudent').value || !date || !time || !(dur >= 15 && dur <= 300)) return null;
-    return { student: $('cStudent').value, date: date, time: time, dur: dur, status: $('cStatus').value };
+    if (mode === 'resched') return { student: editing.student, date: date, time: time, dur: dur, status: editing.status, forceOne: true, cobrar: editing.cobrar };
+    return { student: $('cStudent').value, date: date, time: time, dur: dur, status: $('cStatus').value, cobrar: $('cStatus').value === 'cancel-alumno' && $('cCharge').checked };
   }
   $('fClass').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -202,7 +252,7 @@
     weekStart = monday(f.date);
   }
   function saveEdit(f) {
-    var c = editing, s = c.series && serie(c.series), scope = document.querySelector('input[name=cScope]:checked').value;
+    var c = editing, s = c.series && serie(c.series), scope = f.forceOne ? 'one' : document.querySelector('input[name=cScope]:checked').value;
     if (s && scope === 'following') {
       var old = { until: s.until, skips: s.skips.slice() };
       db.classes = db.classes.filter(function (o) { return !(o.series === s.id && o.slot >= c.slot && o.status === 'programada'); });
@@ -211,8 +261,10 @@
       db.series.push(ns);
       ensureRange(f.date, addDays(today(), 28) > f.date ? addDays(today(), 28) : f.date);
       var nc = db.classes.filter(function (o) { return o.series === ns.id && o.slot === f.date; })[0];
-      if (nc) nc.status = f.status;
-    } else { c.student = f.student; c.date = f.date; c.time = f.time; c.dur = f.dur; c.status = f.status; }
+      if (nc) { nc.status = f.status; nc.cobrar = f.cobrar; }
+    } else {
+      if (c.date !== f.date || c.time !== f.time) { if (!c.moved) c.moved = { date: c.date, time: c.time }; else if (c.moved.date === f.date && c.moved.time === f.time) delete c.moved; }
+      c.cobrar = f.cobrar; c.student = f.student; c.date = f.date; c.time = f.time; c.dur = f.dur; c.status = f.status; }
     weekStart = monday(f.date);
   }
   function arm(btn, key, label) {
@@ -235,20 +287,21 @@
 
   // ---------- Diálogo de alumnos ----------
   var ds = $('dlgStud'), editStud = null;
-  function openStudents() { dialogOpen = true; renderStud(); resetStudForm(); ds.showModal(); }
+  function openStudents() { dialogOpen = true; $('sCurrency').value = db.settings.currency; $('sThreshold').value = db.settings.threshold; renderStud(); resetStudForm(); ds.showModal(); }
   function renderStud() {
     var l = $('sList');
     if (!db.students.length) { l.innerHTML = '<li class="none">Aún no hay alumnos.</li>'; return; }
     l.innerHTML = db.students.map(function (s) {
       var n = db.classes.filter(function (c) { return c.student === s.id && c.status === 'dada'; }).length;
-      return '<li class="' + (s.archived ? 'arch' : '') + '"><span class="dot" style="--h:' + s.hue + '"></span><span class="nm"><b>' + esc(s.name) + '</b><small>' + (s.level ? esc(s.level) + ' · ' : '') + n + (n === 1 ? ' clase dada' : ' clases dadas') + (s.archived ? ' · archivado' : '') + '</small></span>' +
-        '<button type="button" class="btn btn-ghost" data-edit="' + s.id + '">Editar</button><button type="button" class="btn btn-ghost" data-arch="' + s.id + '">' + (s.archived ? 'Reactivar' : 'Archivar') + '</button></li>';
+      return '<li class="' + (s.archived ? 'arch' : '') + '"><span class="dot" style="--h:' + s.hue + '"></span><span class="nm"><b>' + esc(s.name) + '</b><small>' + (s.level ? esc(s.level) + ' · ' : '') + (rateAt(s, today()) ? money(rateAt(s, today())) + '/clase · ' : '') + n + (n === 1 ? ' clase dada' : ' clases dadas') + (s.archived ? ' · archivado' : '') + '</small></span>' +
+        '<button type="button" class="btn btn-ghost" data-acct="' + s.id + '">Cuenta</button><button type="button" class="btn btn-ghost" data-edit="' + s.id + '">Editar</button><button type="button" class="btn btn-ghost" data-arch="' + s.id + '">' + (s.archived ? 'Reactivar' : 'Archivar') + '</button></li>';
     }).join('');
   }
-  function resetStudForm() { editStud = null; $('sName').value = ''; $('sLevel').value = ''; $('sFormTitle').textContent = 'Nuevo alumno'; $('sNameW').hidden = false; }
+  function resetStudForm() { editStud = null; $('sName').value = ''; $('sLevel').value = ''; $('sRate').value = ''; $('sFrom').value = today(); $('sFromW').hidden = true; $('sFormTitle').textContent = 'Nuevo alumno'; $('sNameW').hidden = false; }
   $('sList').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.edit) { var s = student(b.dataset.edit); editStud = s; $('sName').value = s.name; $('sLevel').value = s.level || ''; $('sFormTitle').textContent = 'Editar alumno'; $('sName').focus(); }
+    if (b.dataset.acct) { ds.close(); openAcct(b.dataset.acct); return; }
+    if (b.dataset.edit) { var s = student(b.dataset.edit); editStud = s; $('sName').value = s.name; $('sLevel').value = s.level || ''; $('sRate').value = rateAt(s, today()) || ''; $('sFrom').value = today(); $('sFromW').hidden = false; $('sFormTitle').textContent = 'Editar alumno'; $('sName').focus(); }
     if (b.dataset.arch) {
       var st = student(b.dataset.arch); st.archived = !st.archived;
       if (st.archived) db.classes = db.classes.filter(function (c) { return !(c.student === st.id && c.status === 'programada' && !isPast(c)); });
@@ -258,13 +311,66 @@
   $('fStud').addEventListener('submit', function (e) {
     e.preventDefault();
     var name = $('sName').value.trim(); if (!name) { $('sName').focus(); return; }
-    if (editStud) { editStud.name = name; editStud.level = $('sLevel').value; }
-    else db.students.push({ id: uid('a'), name: name, level: $('sLevel').value, hue: (db.students.length * 47 + 205) % 360, archived: false });
+    var rate = Math.max(0, parseFloat($('sRate').value) || 0), st = editStud;
+    if (st) { st.name = name; st.level = $('sLevel').value; }
+    else { st = { id: uid('a'), name: name, level: $('sLevel').value, hue: (db.students.length * 47 + 205) % 360, archived: false, rates: [] }; db.students.push(st); }
+    st.rates = st.rates || [];
+    if (rate !== rateAt(st, today()) || (rate && !st.rates.length)) {
+      var from = !st.rates.length ? '0000-01-01' : ($('sFrom').value || today());
+      st.rates = st.rates.filter(function (r) { return r.from !== from; }); st.rates.push({ from: from, amount: rate });
+    }
     save(); renderStud(); resetStudForm(); $('sName').focus();
   });
   $('sReset').addEventListener('click', resetStudForm);
+  $('sCurrency').addEventListener('change', function () { db.settings.currency = this.value.trim() || '$'; save(); renderStud(); });
+  $('sThreshold').addEventListener('change', function () { db.settings.threshold = Math.max(0, parseInt(this.value, 10) || 0); save(); });
   $('sClose').addEventListener('click', function () { ds.close(); });
   ds.addEventListener('close', function () { dialogOpen = false; render(); });
+
+  // ---------- Cuenta del alumno y pagos ----------
+  var da = $('dlgAcct'), acctId = null, payArm = null;
+  function openAcct(id) { acctId = id; dialogOpen = true; $('pDate').value = today(); renderAcct(true); da.showModal(); }
+  function renderAcct(prefill) {
+    var a = account(acctId), st = a.st;
+    $('aTitle').textContent = 'Cuenta de ' + st.name;
+    var rate = rateAt(st, today());
+    $('aSum').innerHTML = '<div><b>' + a.count + '</b><span>clases cobrables</span></div><div><b>' + a.pending + '</b><span>sin pagar</span></div><div class="' + (a.balance > 0 ? 'due' : '') + '"><b>' + money(Math.abs(a.balance)) + '</b><span>' + (a.balance > 0 ? 'pendiente' : a.balance < 0 ? 'saldo a favor' : 'al día') + '</span></div>' +
+      (rate ? '' : '<p class="warn">Este alumno no tiene tarifa: define el precio por clase en Alumnos → Editar.</p>');
+    if (prefill) $('pAmt').value = a.balance > 0 ? a.balance : '';
+    hint();
+    var pays = db.payments.filter(function (p) { return p.student === acctId; }).sort(function (x, y) { return x.date < y.date ? 1 : -1; });
+    $('aPays').innerHTML = pays.length ? pays.map(function (p) {
+      return '<li><span class="nm"><b>' + money(p.amount) + '</b><small>' + short(p.date) + ' ' + p.date.slice(0, 4) + ' · ' + esc(p.method) + '</small></span><button type="button" class="btn btn-ghost danger" data-delpay="' + p.id + '">Eliminar</button></li>';
+    }).join('') : '<li class="none">Sin pagos registrados.</li>';
+    var rows = a.rows.slice().reverse().slice(0, 40), lbl = { pagada: 'Pagada', parcial: 'Pago parcial', pendiente: 'Pendiente', 'sin-tarifa': 'Sin tarifa' };
+    $('aClasses').innerHTML = rows.length ? rows.map(function (r) {
+      return '<li><span class="nm"><b>' + DAYS[wd(r.c.date)] + ' ' + short(r.c.date) + ', ' + r.c.time + '</b><small>' + (r.c.status === 'dada' ? 'Dada' : 'Cancelada, cobrada') + ' · ' + money(r.price) + '</small></span><span class="tag ' + r.state + '">' + lbl[r.state] + '</span></li>';
+    }).join('') : '<li class="none">Aún no hay clases dadas.</li>';
+  }
+  function hint() {
+    var amt = parseFloat($('pAmt').value) || 0, h = $('pHint'); if (!(amt > 0)) { h.textContent = ''; return; }
+    var a = account(acctId), b = account(acctId, amt), n = a.pending - b.pending;
+    h.textContent = 'Cubre ' + n + (n === 1 ? ' clase' : ' clases') + (b.pending ? '; quedarían ' + b.pending + ' sin pagar (' + money(Math.max(b.balance, 0)) + ').' : (b.balance < 0 ? '; quedaría un saldo a favor de ' + money(-b.balance) + '.' : '; la cuenta quedaría al día.'));
+  }
+  $('pAmt').addEventListener('input', hint);
+  $('fPay').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var amt = Math.round((parseFloat($('pAmt').value) || 0) * 100) / 100;
+    if (!(amt > 0) || !$('pDate').value) { $('pHint').textContent = 'Escribe un monto mayor que cero y la fecha.'; return; }
+    db.payments.push({ id: uid('p'), student: acctId, date: $('pDate').value, amount: amt, method: $('pMethod').value });
+    save(); $('pAmt').value = ''; renderAcct(true);
+  });
+  $('aPays').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-delpay]'); if (!b) return;
+    if (payArm !== b.dataset.delpay) { payArm = b.dataset.delpay; b.textContent = '¿Seguro?'; b.classList.add('arm'); setTimeout(function () { payArm = null; }, 4000); return; }
+    db.payments = db.payments.filter(function (p) { return p.id !== payArm; }); payArm = null; save(); renderAcct(true);
+  });
+  $('aClose').addEventListener('click', function () { da.close(); });
+  da.addEventListener('close', function () { dialogOpen = false; render(); });
+  $('agDue').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.dataset.pay || b.dataset.acct) { openAcct(b.dataset.pay || b.dataset.acct); if (b.dataset.pay) $('pAmt').focus(); }
+  });
 
   // ---------- Interacción general ----------
   root.addEventListener('click', function (e) {
@@ -309,7 +415,7 @@
         var d = JSON.parse(r.result);
         if (!d || !Array.isArray(d.students) || !Array.isArray(d.classes) || !Array.isArray(d.series)) throw 0;
         if (!confirm('Esto reemplaza la agenda actual por la del archivo (' + d.students.length + ' alumnos, ' + d.classes.length + ' clases). ¿Continuar?')) { inp.value = ''; return; }
-        db = d; db.seq = db.seq || 1; save(); render(); msg.textContent = 'Agenda importada.';
+        db = norm(d); save(); render(); msg.textContent = 'Agenda importada.';
       } catch (e) { msg.textContent = 'Ese archivo no es una copia válida de la agenda.'; }
       inp.value = '';
     };

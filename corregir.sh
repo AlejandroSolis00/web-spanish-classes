@@ -26,7 +26,7 @@ fix_files() {
 }
 
 echo "=== Corrigiendo Lecciones ==="
-for folder in "Beginner I" "Beginer II" "Intermediate I" "Advanced"; do
+for folder in "Beginner I" "Beginner II" "Intermediate I" "Advanced"; do
   echo "--- $folder ---"
   fix_files "$BASE/Lessons/$folder" "html"
   fix_files "$BASE/Lessons/$folder" "pdf"

@@ -37,7 +37,7 @@ rename_files() {
 }
 
 echo "=== Renombrando Lecciones ==="
-for folder in "Beginner I" "Beginer II" "Intermediate I" "Advanced"; do
+for folder in "Beginner I" "Beginner II" "Intermediate I" "Advanced"; do
   echo "--- $folder ---"
   rename_files "$BASE/Lessons/$folder" "html"
   rename_files "$BASE/Lessons/$folder" "pdf"

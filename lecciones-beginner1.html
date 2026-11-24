@@ -32,6 +32,8 @@
     .badge-html { background: #e1f5f0; color: #2d7a6e; }
     .badge-pdf { background: #fdecea; color: #c0392b; }
     footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+    .rel-tag { font-size: 11px; font-weight: 600; color: #2d7a6e; background: #e1f5f0; border-radius: 10px; padding: 2px 8px; margin-left: auto; flex-shrink: 0; white-space: nowrap; }
+    .rel-tag + .result-level { margin-left: 10px; }
   </style>
 </head>
 <body>
@@ -60,29 +62,11 @@
 </nav>
 <div class="hero"><h1>LECCIONES · BEGINNER I</h1><div class="hero-divider"><span></span></div></div>
 <div class="content">
-  <ul class="file-list">
-    <li><a href="Lessons/Beginner I/Lesson-001.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 001: Mini Diálogos</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-002.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 002: Números Cardinales y Ordinales</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-003-el-articulo.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 003: El Artículo</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-004-sustantivos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 004: Sustantivos</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-005-ser-y-estar-to-be-ser.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 005: Ser y Estar - Ser</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-006-ser-y-estar-to-be-estar.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 006: Ser y Estar - Estar</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-007-ser-y-estar-to-be.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 007: Ser y Estar</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-008-haber-there-is_are.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 008: Haber (There is/are)</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-009-verbos-haber-ser-y-estar.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 009: Verbos Haber, Ser y Estar</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-010-gustar-to-like.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 010: Gustar (To Like)</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-011-Adjetivos-posesivos-y-palabras-interrogativas.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 011: Adjetivos Posesivos y Palabras Interrogativas</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-012-pronombres-posesivos-possessive-pronouns.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 012: Pronombres Posesivos</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-013-presente-de-indicativo.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 013: Presente de Indicativo</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-014-verbos-irregulares.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 014: Verbos Irregulares</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-015-saber-y-conocer-to-know.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 015: Saber y Conocer</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-016-futuro-simple-going-to.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 016: Futuro Simple</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-019-verbos-reflexivos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 019: Verbos Reflexivos</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-021-verbos-comunes-terminados-en-uir.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 021: Verbos Comunes Terminados en UIR</a></li>
-    <li><a href="Lessons/Beginner I/Lesson-022-formas-oracionales.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 022: Formas Oracionales</a></li>
-  </ul>
+  <ul class="file-list" id="fileList" data-section="lecciones-beginner1"></ul>
 </div>
 <footer>SPANISH LESSONS ONLINE</footer>
+<script src="catalog.js"></script>
+<script src="app.js"></script>
 <script>
   document.querySelectorAll('nav a').forEach(function(a) {
     if (a.href === window.location.href) {

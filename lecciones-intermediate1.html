@@ -32,6 +32,8 @@
     .badge-html { background: #e1f5f0; color: #2d7a6e; }
     .badge-pdf { background: #fdecea; color: #c0392b; }
     footer { text-align: center; padding: 30px; font-size: 12px; color: #aaa; border-top: 1px solid #eee; }
+    .rel-tag { font-size: 11px; font-weight: 600; color: #2d7a6e; background: #e1f5f0; border-radius: 10px; padding: 2px 8px; margin-left: auto; flex-shrink: 0; white-space: nowrap; }
+    .rel-tag + .result-level { margin-left: 10px; }
   </style>
 </head>
 <body>
@@ -60,32 +62,17 @@
 </nav>
 <div class="hero"><h1>LECCIONES · INTERMEDIATE I</h1><div class="hero-divider"><span></span></div></div>
 <div class="content">
-  <ul class="file-list">
-    <li><a href="Lessons/Intermediate I/Lesson-001-Futuro-de-Indicativo.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 001: Futuro de Indicativo</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-002-Verbos-Irregulares-del-Futuro.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 002: Verbos Irregulares del Futuro</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-003-Por-y-Para.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 003: Por y Para</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-004-Sinonimos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 004: Sinónimos</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-005-Antonimos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 005: Antónimos</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-006-Expresiones-con-el-verbo-Hacer-y-Haber.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 006: Expresiones con Hacer y Haber</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-007-Pronombres-de-Complemento.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 007: Pronombres de Complemento</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-008-Objeto-Directo-e-Indirecto-en-una-oracion.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 008: Objeto Directo e Indirecto</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-009-El-Condicional.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 009: El Condicional</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-010-Grados-de-Comparacion.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 010: Grados de Comparación</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-011-El-Presente-Participio.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 011: El Presente Participio</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-012-Tiempos-Progresivos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 012: Tiempos Progresivos</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-013-El-Pasado-Progresivo.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 013: El Pasado Progresivo</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-014-Futuro-Progresivo.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 014: Futuro Progresivo</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-015-El-Pasado-Participio.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 015: El Pasado Participio</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-016-Usos-del-Pasado-Participio.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 016: Usos del Pasado Participio</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-017-Voz-Pasiva.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 017: Voz Pasiva</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-018-Tiempos-Perfectos-Compuestos.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 018: Tiempos Perfectos Compuestos</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-019-Pasado-Perfecto-Pluscuamperfecto.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 019: Pasado Perfecto (Pluscuamperfecto)</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-020-El-discurso-Indirecto.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 020: El Discurso Indirecto</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-021-Futuro-Perfecto.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 021: Futuro Perfecto</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-022-Condicional-Perfecto.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 022: Condicional Perfecto</a></li>
-    <li><a href="Lessons/Intermediate I/Lesson-023-El-Infinitivo-Perfecto.html" target="_blank" rel="noopener"><span class="badge badge-html">HTML</span>Lesson 023: El Infinitivo Perfecto</a></li>
-  </ul>
+  <ul class="file-list" id="fileList" data-section="lecciones-intermediate1"></ul>
 </div>
 <footer>SPANISH LESSONS ONLINE</footer>
+<script src="catalog.js"></script>
+<script src="app.js"></script>
+<script>
+  document.querySelectorAll('nav a').forEach(function(a) {
+    if (a.href === window.location.href) {
+      a.classList.add('active');
+    }
+  });
+</script>
 </body>
 </html>

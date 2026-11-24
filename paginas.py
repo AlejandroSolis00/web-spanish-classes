@@ -78,9 +78,9 @@ def home():
     for l in LEVELS:
         ids = ','.join(l['ejs'])
         ej_links = ''.join('<a class="btn btn-ghost" href="%s.html">Ejercicios%s</a>' % (e, '' if len(l['ejs']) == 1 else ' ' + EJ[e][0].split()[-1]) for e in l['ejs'])
-        cards += ('<article class="level"><div class="level-head"><span class="level-n">%d</span><div><h3>%s</h3>'
-                  '<div class="meta"><span data-count="%s"></span> lecciones · <span data-count="%s"></span> ejercicios</div></div></div>'
-                  '<p>%s</p><ul class="topics">%s</ul><div class="level-actions"><a class="btn btn-primary" href="%s.html">Ver lecciones</a>%s</div></article>'
+        cards += ('<li class="stage"><span class="node" aria-hidden="true">%d</span><div><h3>%s</h3>'
+                  '<div class="meta"><span data-count="%s"></span> lecciones · <span data-count="%s"></span> ejercicios</div>'
+                  '<p>%s</p><ul class="topics">%s</ul></div><div class="stage-actions"><a class="btn btn-primary" href="%s.html">Ver lecciones</a>%s</div></li>'
                   % (l['n'], l['name'], l['lec'], ids, l['blurb'], ''.join('<li>%s</li>' % t for t in l['topics']), l['lec'], ej_links))
     quick = ''.join('<button type="button">%s</button>' % t for t in ['imperativo', 'subjuntivo', 'pretérito', 'ser y estar', 'por y para', 'gustar'])
     return (HEAD.format(title='Spanish Classes · Lecciones y ejercicios de español', desc='Lecciones y ejercicios de español por niveles: de principiante a avanzado.') + nav('index') +
@@ -89,17 +89,19 @@ def home():
         '<div class="searchbox">%s<input id="searchInput" type="search" placeholder="Busca un tema: imperativo, subjuntivo, verbos…" aria-label="Buscar lecciones y ejercicios" autocomplete="off"></div>'
         '<div class="searchcount" id="searchCount" aria-live="polite"></div>'
         '<div class="quick"><span>Temas frecuentes:</span>%s</div>'
-        '<div class="stats"><div><b data-count="Lección"></b><span>lecciones</span></div><div><b data-count="Ejercicio"></b><span>ejercicios</span></div><div><b>4</b><span>niveles</span></div></div></div>'
-        '<div class="tiles" aria-hidden="true"><div class="dialog"><small>Lección 001 · Mini diálogos</small><p>—¿Cómo te llamas?</p><p>—Me llamo Ana. ¿Y tú?</p></div></div></div></section>'
+        '<p class="tally"><b data-count="Lección"></b> lecciones y <b data-count="Ejercicio"></b> ejercicios, en 4 niveles.</p></div>'
+        '<div class="tiles" aria-hidden="true"><div class="dialog"><small>Lección 001 · Mini diálogos</small><p>—¿Cómo te llamas?</p><p>—Me llamo Ana. ¿Y tú?</p><p>—Soy Luis. Mucho gusto.</p></div></div></div></section>'
         '<section class="results" id="searchResults"><div class="wrap"><ul class="items" id="resultList" style="grid-template-columns:1fr"></ul>'
         '<div class="empty" id="noResults"><b>No encontramos <span id="noTerm"></span></b><p>Prueba con otra palabra, por ejemplo el nombre de un tiempo verbal.</p><button class="btn btn-primary" id="clearSearch" type="button">Borrar búsqueda</button></div></div></section>'
         '<div id="homeContent"><section class="block" id="niveles"><div class="wrap"><h2>Elige tu nivel</h2>'
         '<p class="sub">Cada nivel tiene sus lecciones y los ejercicios que las acompañan. Empieza por el primero o salta al que te corresponda.</p>'
-        '<div class="levels">%s</div></div></section>'
+        '<ol class="path">%s</ol></div></section>'
         '<section class="block" style="padding-top:0"><div class="wrap"><h2>Cómo estudiar cada tema</h2><div class="steps">'
         '<div class="step"><h3>Lee la lección</h3><p>Cada lección explica un solo tema con ejemplos y tablas.</p></div>'
         '<div class="step"><h3>Practica</h3><p>Desde la lección abres los ejercicios de ese tema, en HTML o en PDF.</p></div>'
-        '<div class="step"><h3>Repite</h3><p>Los ejercicios en PDF se pueden imprimir y repetir cuantas veces quieras.</p></div></div></div></section></div></main>\n'
+        '<div class="step"><h3>Repite</h3><p>Los ejercicios en PDF se pueden imprimir y repetir cuantas veces quieras.</p></div></div>'
+        '<div class="start"><div><h2>¿Primera vez aquí?</h2><p>Empieza por la lección 001 de Beginner I: saludos y presentaciones.</p></div>'
+        '<a class="btn btn-amber" href="Lessons/Beginner%%20I/Lesson-001-mini-dialogos.html" target="_blank" rel="noopener">Abrir la lección 001</a></div></div></section></div></main>\n'
         % (SEARCH, quick, cards) + footer())
 
 def listing(sid):
@@ -112,7 +114,7 @@ def listing(sid):
         nxt = LEVELS[idx + 1] if idx + 1 < len(LEVELS) else None
         ctas = ''.join('<a class="cta alt" href="%s.html"><small>Practica lo que aprendiste</small><strong>Ejercicios %s</strong></a>' % (e, n) for e, n in practice[:1])
         if nxt: ctas += '<a class="cta" href="%s.html"><small>Siguiente nivel</small><strong>Lecciones %s</strong></a>' % (nxt['lec'], nxt['name'])
-        facts = '<div><b data-count="%s"></b>lecciones</div><div><b data-count="%s"></b>ejercicios relacionados</div>' % (sid, ','.join(lv['ejs']))
+        facts = '<span><b data-count="%s"></b> lecciones</span><span><b data-count="%s"></b> ejercicios relacionados</span>' % (sid, ','.join(lv['ejs']))
         seg = ''
     else:
         name, intro, li = EJ[sid]; lv = LEVELS[li]
@@ -120,19 +122,19 @@ def listing(sid):
         keys = list(EJ); k = keys.index(sid)
         ctas = '<a class="cta alt" href="%s.html"><small>Antes de practicar</small><strong>Lecciones %s</strong></a>' % (lv['lec'], lv['name'])
         if k + 1 < len(keys): ctas += '<a class="cta" href="%s.html"><small>Siguiente serie</small><strong>Ejercicios %s</strong></a>' % (keys[k + 1], EJ[keys[k + 1]][0])
-        facts = '<div><b data-count="%s"></b>ejercicios</div><div><b data-pdf="%s"></b>en PDF para imprimir</div>' % (sid, sid)
+        facts = '<span><b data-count="%s"></b> ejercicios</span><span><b data-pdf="%s"></b> en PDF para imprimir</span>' % (sid, sid)
         seg = '<div class="seg" role="group" aria-label="Formato"><button type="button" data-type="all" aria-pressed="true">Todos</button><button type="button" data-type="html" aria-pressed="false">HTML</button><button type="button" data-type="pdf" aria-pressed="false">PDF</button></div>'
     tabs_html = ''.join('<a href="%s.html"%s>%s</a>' % (i, ' class="on" aria-current="page"' if i == sid else '', n) for i, n in tabs)
     kl = 'Lecciones' if lec else 'Ejercicios'
     return (HEAD.format(title='%s · %s · Spanish Classes' % (kl, name), desc=intro) + nav(sid) +
         '<main id="main"><section class="pagehead%s"><div class="wrap"><div class="crumbs"><a href="index.html">Inicio</a><span>/</span><span>%s</span></div>'
-        '<h1>%s</h1><p class="lead">%s</p><div class="facts">%s</div><nav class="tabs" aria-label="Niveles de %s">%s</nav></div></section>'
+        '<div class="headgrid"><div><h1>%s</h1><p class="lead">%s</p><div class="facts">%s</div></div><div class="levelmark" aria-hidden="true"><span>%d</span></div></div><nav class="tabs" aria-label="Niveles de %s">%s</nav></div></section>'
         '<div class="wrap"><div class="toolbar"><div class="searchbox">%s<input id="filterInput" type="search" placeholder="Filtrar %s de este nivel" aria-label="Filtrar" autocomplete="off"></div>%s</div>'
         '<div class="count" id="listCount" aria-live="polite"></div>'
         '<div id="fileList" data-section="%s"></div>'
         '<div class="empty" id="empty"><b>Nada coincide con <span id="emptyTerm"></span></b><p>Revisa la ortografía o prueba con una palabra más corta.</p><button class="btn btn-primary" id="clearFilter" type="button">Quitar filtros</button></div>'
         '<div class="nextlevel">%s</div></div></main>\n'
-        % (' ej' if not lec else '', kl, ('Lecciones · ' if lec else 'Ejercicios · ') + name, html.escape(intro), facts, kl.lower(), tabs_html, SEARCH, kl.lower(), seg, sid, ctas)
+        % (' ej' if not lec else '', kl, ('Lecciones ' if lec else 'Ejercicios ') + name, html.escape(intro), facts, lv['n'], kl.lower(), tabs_html, SEARCH, kl.lower(), seg, sid, ctas)
         + footer())
 
 def write(name, text):

@@ -19,6 +19,9 @@
   });
   document.addEventListener('click', function () { document.querySelectorAll('.dd.open').forEach(function (d) { d.classList.remove('open'); }); });
 
+  // La pestaña activa queda visible en móvil
+  var on = $('.tabs a.on'); if (on && on.scrollIntoView) { var t = on.parentNode; t.scrollLeft = on.offsetLeft - 20; }
+
   // Cifras (inicio y niveles)
   document.querySelectorAll('[data-count]').forEach(function (e) {
     var ids = e.dataset.count.split(','), n = 0;
@@ -40,7 +43,7 @@
     return '<li><a class="item' + (isLesson ? '' : ' ej') + '" href="' + encodeURI(it.href) + '" target="_blank" rel="noopener">' +
       '<span class="num">' + esc(isLesson ? p.n : p.n.replace(/^[A-Z]-/, '')) + '</span>' +
       '<span class="txt"><span class="ttl">' + esc(p.t) + '</span><span class="sub"><span class="badge badge-' + it.type + '">' + it.type.toUpperCase() + '</span>' + chip +
-      (showLevel ? '<span class="lvl">' + esc(sec.kind + 's · ' + sec.level).replace('Lecciones', 'Lecciones') + '</span>' : '') + '</span></span></a></li>';
+      (showLevel ? '<span class="lvl">' + esc(sec.kind + 's · ' + sec.level).replace('Lecciones', 'Lecciones') + '</span>' : '') + '</span></span><svg class="go" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h9v9M16 4L5 15"/></svg></a></li>';
   };
 
   // Grupos temáticos de cada nivel de lecciones (el título que abre cada grupo)

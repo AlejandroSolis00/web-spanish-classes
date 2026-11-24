@@ -89,7 +89,7 @@
   // ---------- Búsqueda: ranking compartido ----------
   var search = function (raw, kind, level) {
     var toks = norm(raw.trim()).split(/\s+/).filter(Boolean);
-    if (!toks.length) return [];
+    if (!toks.length && !kind && !level) return [];
     var out = [];
     all.forEach(function (x, idx) {
       if (kind && x.sec.kind !== kind) return;
@@ -116,7 +116,8 @@
   var wire = function (ctx, o) {
     var input = $('input', ctx), kind = '', level = '';
     var run = function () {
-      var raw = input.value, res = raw.trim() ? search(raw, kind, level).slice(0, o.limit || 80) : null;
+      var raw = input.value, res = null;
+      if (raw.trim() || kind || level) { var full = search(raw, kind, level); res = full.slice(0, o.limit || 120); res.total = full.length; }
       o.render(res, raw);
     };
     input.addEventListener('input', run);
@@ -124,7 +125,8 @@
       b.addEventListener('click', function () { kind = b.dataset.kind; $$('[data-kind]', ctx).forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); run(); input.focus(); });
     });
     var sel = $('select', ctx); if (sel) sel.addEventListener('change', function () { level = sel.value; run(); });
-    return { run: run, input: input, set: function (v) { input.value = v; run(); input.focus(); } };
+    return { run: run, input: input, set: function (v) { input.value = v; run(); input.focus(); },
+      reset: function () { input.value = ''; kind = ''; level = ''; $$('[data-kind]', ctx).forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.kind === ''); }); if (sel) sel.value = ''; run(); input.focus(); } };
   };
 
   // ---------- Portada ----------
@@ -144,12 +146,12 @@
         $('#searchResults').style.display = res ? 'block' : 'none'; $('#homeContent').style.display = res ? 'none' : 'block';
         if (!res) { $('#searchCount').textContent = ''; $('#noResults').style.display = 'none'; return; }
         $('#resultList').innerHTML = res.map(function (x) { return row(x.it, x.sec, { level: true }); }).join('');
-        $('#searchCount').textContent = plural(res.length, 'resultado', 'resultados');
-        $('#noResults').style.display = res.length ? 'none' : 'block'; $('#noTerm').textContent = '«' + raw.trim() + '»';
+        $('#searchCount').textContent = res.total > res.length ? 'Mostrando ' + res.length + ' de ' + res.total + ' · escribe un tema o número para afinar' : plural(res.length, 'resultado', 'resultados');
+        $('#noResults').style.display = res.length ? 'none' : 'block'; $('#noTerm').textContent = raw.trim() ? '«' + raw.trim() + '»' : 'este filtro';
       }
     });
     $$('.quick button').forEach(function (b) { b.addEventListener('click', function () { w.set(b.textContent); }); });
-    $('#clearSearch').addEventListener('click', function () { w.set(''); });
+    $('#clearSearch').addEventListener('click', function () { w.reset(); });
     if (matchMedia('(min-width: 761px)').matches) w.input.focus();
   }
 
@@ -164,7 +166,7 @@
     limit: 40,
     render: function (res, raw) {
       if (!res) { pb.innerHTML = hint; return; }
-      pb.innerHTML = res.length ? '<ul class="rows" style="border:0">' + res.map(function (x) { return row(x.it, x.sec, { level: true, compact: true }); }).join('') + '</ul>' : '<p class="pal-hint">Sin resultados para «' + esc(raw.trim()) + '».</p>';
+      pb.innerHTML = res.length ? '<ul class="rows" style="border:0">' + res.map(function (x) { return row(x.it, x.sec, { level: true, compact: true }); }).join('') + '</ul>' : '<p class="pal-hint">Sin resultados' + (raw.trim() ? ' para «' + esc(raw.trim()) + '»' : '') + '.</p>';
     }
   });
   var openPal = function () {

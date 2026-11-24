@@ -2,8 +2,8 @@
    con lo último que se dio a cada alumno y el material que sigue. */
 (function () {
   var box = document.getElementById('hoy'), C = window.CATALOG || []; if (!box) return;
-  var db; try { db = JSON.parse(localStorage.getItem('sc.agenda.v1')); } catch (e) {}
-  if (!db || !db.students || !db.classes || !db.series || !db.students.length) return;
+  function draw(db) {
+  if (!db || !db.students || !db.classes || !db.series || !db.students.length) { box.hidden = true; return; }
   var p2 = function (n) { return (n < 10 ? '0' : '') + n; };
   var d = new Date(), today = d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()), wd = (d.getDay() + 6) % 7, nowM = d.getHours() * 60 + d.getMinutes();
   var tm = function (t) { var a = t.split(':'); return +a[0] * 60 + +a[1]; };
@@ -47,4 +47,9 @@
     return '<li><div class="when">' + c.time + '<small>' + ft(b) + '</small></div><div class="who"><b>' + esc(st.name) + '</b>' + (st.level ? '<small>' + esc(st.level) + '</small>' : '') + tag + '<div class="mat">' + links + '</div></div></li>';
   }).join('') + '</ul><p class="hoy-more"><a href="agenda.html">Abrir la agenda</a></p>';
   box.hidden = false;
+  }
+  if (window.SC) {
+    draw(SC.cache());
+    if (SC.hasSession()) SC.open().then(function (r) { if (r.state === 'ok' && r.data) draw(r.data); });
+  }
 })();

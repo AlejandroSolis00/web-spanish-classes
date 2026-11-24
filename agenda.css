@@ -137,6 +137,16 @@ fieldset { border: 1.5px solid var(--line); border-radius: 10px; padding: 10px 1
 .chips a { color: var(--cobalt-dark); font-weight: 600; text-decoration: none; }
 .chips button { border: 0; background: none; font-size: 18px; line-height: 1; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; color: var(--muted); }
 .chips button:hover { background: var(--rose-soft); color: var(--rose); }
+/* Inicio de sesión y estado de sincronización */
+.ag-load { padding: 40px 0; color: var(--muted); }
+.ag-login { max-width: 420px; padding: 40px 0 56px; margin-inline: 0; }
+.ag-login { margin-inline: auto; width: min(420px, 100% - 40px); }
+.ag-login h2 { font: 750 24px var(--display); }
+.ag-login p { color: var(--ink-2); margin: 6px 0 16px; }
+.ag-login .btn { cursor: pointer; width: 100%; }
+#agSync { margin-left: auto; font-size: 14px; }
+#agSync.saved { color: #1b6b3a; } #agSync.offline, #agSync.conflict { color: var(--rose); font-weight: 600; }
+#agSync .btn { padding: 6px 10px; font-size: 13px; margin-left: 6px; cursor: pointer; }
 @media print { .ag-bar, .ag-foot, .top, footer, .ag-pending { display: none !important; } }
 
-.ag [hidden], .ag-dlg [hidden] { display: none !important; }
+.ag [hidden], .ag-dlg [hidden], .ag-login[hidden], .ag-load[hidden], #agApp[hidden] { display: none !important; }

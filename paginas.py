@@ -95,7 +95,7 @@ def home():
         '<div id="homeContent"><section class="block" id="hoy" hidden></section><section class="block" id="favs" hidden><h2>Favoritos <small>marcados con la estrella</small></h2><ul class="rows"></ul></section>'
         '<section class="block" id="recent" hidden><h2>Abiertos hace poco</h2><ul class="rows"></ul></section>'
         '<section class="block" id="niveles"><h2>Todo el material por nivel</h2><div class="matrix">%s</div></section></div></div></main>\n'
-        % (SEARCH, quick, rows) + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="hoy.js"></script>'))
+        % (SEARCH, quick, rows) + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="store.js"></script>\n<script src="hoy.js"></script>'))
 
 def listing(sid):
     kind = 'lecciones' if sid.startswith('lecciones') else 'ejercicios'
@@ -145,13 +145,17 @@ def agenda():
     head = HEAD.format(title='Agenda · Spanish Classes', desc='Agenda semanal de clases por alumno.').replace('<link rel="stylesheet" href="site.css">', '<link rel="stylesheet" href="site.css">\n<link rel="stylesheet" href="agenda.css">')
     opts = ''.join('<option>%s</option>' % n for n in ('Beginner I', 'Beginner II', 'Intermediate I', 'Intermediate II', 'Advanced I', 'Advanced II'))
     body = '''<main id="main"><section class="ag-top"><div class="wrap"><h1>Agenda</h1><p class="lead">Clases de la semana por alumno. Los datos se guardan solo en este navegador: haz una copia de vez en cuando.</p></div></section>
-<div class="wrap ag"><p class="ag-warn" id="agWarn" role="alert" hidden>El navegador no permite guardar datos: los cambios se perderán al cerrar esta página.</p>
+<p class="wrap ag-load" id="agLoad">Cargando…</p>
+<div class="wrap ag-login" id="agLogin" hidden><h2>Inicia sesión</h2><p>La agenda guarda nombres y pagos de alumnos, así que está protegida con tu cuenta.</p>
+<form id="fLogin"><div class="fld"><label for="lEmail">Correo</label><input id="lEmail" type="email" autocomplete="username" required></div><div class="fld"><label for="lPass">Contraseña</label><input id="lPass" type="password" autocomplete="current-password" required></div>
+<p class="warn" id="lErr" role="alert" hidden></p><button class="btn btn-primary" type="submit" id="lBtn">Entrar</button></form></div>
+<div class="wrap ag" id="agApp" hidden><p class="ag-warn" id="agWarn" role="alert" hidden>El navegador no permite guardar datos: los cambios se perderán al cerrar esta página.</p>
 <div class="ag-pending" id="agPending" hidden></div>
 <div class="ag-due" id="agDue" hidden></div>
 <div class="ag-bar"><div class="ag-nav"><button type="button" id="agPrev" aria-label="Semana anterior">‹</button><button type="button" id="agToday">Hoy</button><button type="button" id="agNext" aria-label="Semana siguiente">›</button><h2 id="agLabel" aria-live="polite"></h2></div>
 <div class="ag-acts"><button type="button" class="btn btn-ghost" id="agStudents">Alumnos</button><button type="button" class="btn btn-primary" id="agNew">+ Nueva clase</button></div></div>
 <div id="agView"></div>
-<div class="ag-foot"><button type="button" class="btn btn-ghost" id="agExport">Exportar copia</button><label class="btn btn-ghost">Importar copia<input type="file" id="agImport" accept="application/json,.json" hidden></label><span id="agMsg" role="status"></span></div></div></main>
+<div class="ag-foot"><button type="button" class="btn btn-ghost" id="agExport">Exportar copia</button><label class="btn btn-ghost">Importar copia<input type="file" id="agImport" accept="application/json,.json" hidden></label><span id="agMsg" role="status"></span><span id="agSync" role="status"></span><button type="button" class="btn btn-ghost" id="agOut">Cerrar sesión</button></div></div></main>
 <dialog id="dlgClass" class="ag-dlg" aria-labelledby="clsTitle"><form id="fClass" novalidate><h2 id="clsTitle">Nueva clase</h2>
 <p class="ag-info" id="cInfo" hidden></p>
 <div class="fld" id="cStudentW"><label for="cStudent">Alumno</label><select id="cStudent"></select></div>
@@ -175,7 +179,7 @@ def agenda():
 <p class="hint" id="pHint" aria-live="polite"></p><div class="dlg-acts"><button type="button" class="btn btn-ghost" id="aClose">Cerrar</button><span class="sp"></span><button type="submit" class="btn btn-primary">Registrar pago</button></div></form>
 <h3>Pagos</h3><ul class="slist" id="aPays"></ul><h3>Clases cobrables (las más recientes)</h3><ul class="slist" id="aClasses"></ul></dialog>
 ''' % opts
-    return head + nav('agenda') + body + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="agenda.js"></script>')
+    return head + nav('agenda') + body + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="store.js"></script>\n<script src="agenda.js"></script>')
 
 def write(name, text):
     open(name, 'w', encoding='utf-8').write(text)

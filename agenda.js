@@ -16,16 +16,9 @@
 
   // ---------- Datos ----------
   var storageOk = true;
-  function load() {
-    try { var d = JSON.parse(localStorage.getItem(KEY)); if (d && d.students && d.classes && d.series) return norm(d); } catch (e) {}
-    return norm({ v: 1, seq: 1, students: [], classes: [], series: [] });
-  }
   function norm(d) { d.payments = d.payments || []; d.settings = d.settings || {}; if (!d.settings.currency) d.settings.currency = '$'; if (d.settings.threshold == null) d.settings.threshold = 4; d.seq = d.seq || 1; return d; }
-  var db = load();
-  function save() {
-    try { localStorage.setItem(KEY, JSON.stringify(db)); storageOk = true; } catch (e) { storageOk = false; }
-    $('agWarn').hidden = storageOk;
-  }
+  var db = norm({ v: 1, seq: 1, students: [], classes: [], series: [] });  // se reemplaza al abrir la sesión
+  function save() { storageOk = SC.save(db); $('agWarn').hidden = storageOk; }
   function uid(p) { return p + (db.seq++).toString(36) + Math.random().toString(36).slice(2, 5); }
   var student = function (id) { return db.students.filter(function (s) { return s.id === id; })[0]; };
   var cls = function (id) { return db.classes.filter(function (c) { return c.id === id; })[0]; };
@@ -451,5 +444,31 @@
     r.readAsText(f);
   });
 
-  ensureAll(); render();
+  // ---------- Sesión y sincronización ----------
+  var SYNC = { saving: 'Guardando…', saved: 'Guardado en la nube', offline: 'Sin conexión: guardado solo en este navegador; se enviará al volver internet', conflict: 'Los datos cambiaron en otro dispositivo. Recarga la página antes de seguir.' };
+  SC.onStatus(function (st) { var e = $('agSync'); e.textContent = SYNC[st] || ''; e.className = st; if (st === 'conflict') e.insertAdjacentHTML('beforeend', ' <button type="button" class="btn btn-ghost" onclick="location.reload()">Recargar</button>'); });
+  function show(which) { $('agLoad').hidden = which !== 'load'; $('agLogin').hidden = which !== 'login'; $('agApp').hidden = which !== 'app'; }
+  function start(r) {
+    db = norm(r.data || { v: 1, seq: 1, students: [], classes: [], series: [] });
+    show('app'); ensureAll(); render();
+    if (r.state === 'offline') $('agSync').textContent = SYNC.offline, $('agSync').className = 'offline';
+    else if (r.migrated) { $('agSync').textContent = 'Se subieron a la nube los datos que tenías en este navegador.'; $('agSync').className = 'saved'; }
+    else if (r.conflict) { $('agSync').textContent = 'Había cambios sin subir en este navegador, pero la nube tenía datos más nuevos: se usaron los de la nube.'; $('agSync').className = 'conflict'; }
+  }
+  function boot() {
+    show('load');
+    SC.open().then(function (r) {
+      if (r.state === 'login') { show('login'); return; }
+      if (r.state === 'offline' && !r.data) { show('login'); $('lErr').textContent = 'No hay conexión y no hay datos guardados en este navegador.'; $('lErr').hidden = false; return; }
+      start(r);
+    });
+  }
+  $('fLogin').addEventListener('submit', function (e) {
+    e.preventDefault(); $('lErr').hidden = true; var b = $('lBtn'); b.disabled = true; b.textContent = 'Entrando…';
+    SC.signIn($('lEmail').value.trim(), $('lPass').value).then(function () { $('lPass').value = ''; boot(); }).catch(function () {
+      $('lErr').textContent = 'Correo o contraseña incorrectos, o no hay conexión.'; $('lErr').hidden = false;
+    }).then(function () { b.disabled = false; b.textContent = 'Entrar'; });
+  });
+  $('agOut').addEventListener('click', function () { SC.signOut().then(function () { location.reload(); }); });
+  boot();
 })();

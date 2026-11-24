@@ -108,5 +108,7 @@
   window.addEventListener('online', function () { if (ls(PDIRTY) !== null) prefsPush(); });
   if (hasSession()) setTimeout(prefsSync, 0);
 
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-logout]')) signOut().then(function () { location.href = 'index.html'; }); });
+
   window.SC = { open: open, signIn: signIn, signOut: signOut, save: save, cache: cache, hasSession: hasSession, prefs: { changed: prefsChanged, sync: prefsSync }, onStatus: function (f) { listeners.push(f); } };
 })();

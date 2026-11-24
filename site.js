@@ -186,6 +186,7 @@
   $$('.findbtn, .findbtn-open').forEach(function (b) { b.addEventListener('click', openPal); });
   pal.addEventListener('click', function (e) { if (e.target === pal || e.target.closest('.main')) closePal(); });
   document.addEventListener('keydown', function (e) {
+    if (document.documentElement.classList.contains('nolog')) return;
     var tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea' || tag === 'select';
     if (e.key === 'Escape' && pal.classList.contains('open')) { closePal(); return; }
     if (e.key === 'Tab' && pal.classList.contains('open')) {

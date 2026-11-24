@@ -270,3 +270,19 @@ footer .legal { grid-column: 1 / -1; border-top: 1px solid rgba(255, 255, 255, .
 .hoylist .muted, .hoy-none { color: var(--muted); }
 .hoy-more { margin-top: 8px; font-size: 14px; }
 .hoy-more a, .hoy-none a { color: var(--cobalt-dark); font-weight: 600; }
+
+/* Inicio de sesión como portada */
+html:not(.nolog) .loginbox { display: none; }
+.nolog main > :not(.loginbox), .nolog .menu, .nolog .findbtn, .nolog .burger, .nolog footer { display: none !important; }
+.loginbox { min-height: 72vh; display: grid; place-items: center; padding: 40px 20px; }
+.loginbox-in { width: min(400px, 100%); background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 32px 28px; box-shadow: var(--shadow); }
+.loginbrand svg { width: 48px; height: 48px; border-radius: 12px; display: block; }
+.loginbox h1 { font: 800 28px/1.1 var(--display); margin-top: 14px; }
+.loginbox p { color: var(--ink-2); margin: 6px 0 18px; }
+.loginbox label { display: block; font: 600 13px var(--body); color: var(--ink-2); margin: 12px 0 4px; }
+.loginbox input { width: 100%; font: 500 16px var(--body); padding: 11px 12px; min-height: 46px; border: 1.5px solid var(--line); border-radius: 10px; color: var(--ink); }
+.loginbox input:focus { border-color: var(--cobalt); outline: none; box-shadow: 0 0 0 3px var(--cobalt-soft); }
+.loginbox .btn { width: 100%; margin-top: 18px; cursor: pointer; }
+.loginbox .lerr { background: var(--rose-soft); color: var(--rose); font-weight: 600; padding: 9px 12px; border-radius: 10px; margin: 14px 0 0; font-size: 15px; }
+.loginbox [hidden] { display: none !important; }
+.linkbtn { background: none; border: 0; padding: 0 0 0 10px; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }

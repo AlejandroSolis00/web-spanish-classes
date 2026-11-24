@@ -2,6 +2,9 @@
    anterior/siguiente según el catálogo, enlaces del sitio original reemplazados o eliminados,
    y barra inferior. Requiere ../../catalog.js (y que la CSP de la página permita scripts 'self'). */
 (function () {
+  // Sin sesión iniciada, se vuelve a la portada (que es el inicio de sesión) y luego se regresa aquí
+  var logged = false; try { for (var li = 0; li < localStorage.length; li++) if (/^sb-.+-auth-token$/.test(localStorage.key(li))) logged = true; } catch (e) {}
+  if (!logged) { location.replace('../../index.html?next=' + encodeURIComponent(decodeURIComponent(location.pathname).split('/').slice(-3).join('/'))); return; }
   var C = window.CATALOG; if (!C) return;
   var here = decodeURIComponent(location.pathname), root = '../../';
   var cur, sec, idx;

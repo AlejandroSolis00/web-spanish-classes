@@ -70,7 +70,7 @@ def footer():
     return ('<footer><div class="wrap"><div><a class="brand" href="index.html">%s<span>Spanish Classes</span></a>'
             '<p>Material de clase organizado por nivel, con cada lección enlazada a sus ejercicios.</p></div>'
             '<div><h4>Lecciones</h4><ul>%s</ul></div><div><h4>Ejercicios</h4><ul>%s</ul></div>'
-            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. Todo se abre en una pestaña nueva.</div></div></footer>\n'
+            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. Todo se abre en una pestaña nueva. <button type="button" class="linkbtn" data-logout>Cerrar sesión</button></div></div></footer>\n'
             '<script src="catalog.js"></script>\n<script src="site.js"></script>\n<script src="store.js"></script>\n</body>\n</html>\n' % (LOGO, lec, ej))
 
 def home():
@@ -84,7 +84,10 @@ def home():
                  '<div class="mcol"><b>Ejercicios</b>%s</div></div>' % (l['name'], l['lec'], l['lec'], l['lec'], tp, ej_links))
     quick = ''.join('<button type="button">%s</button>' % t for t in ['imperativo', 'subjuntivo', 'pretérito', 'ser y estar', 'por y para', 'gustar', 'participio'])
     return (HEAD.format(title='Spanish Classes · Material de clase', desc='Lecciones y ejercicios de español organizados por nivel, para localizarlos rápido en clase.') + nav('index') +
-        '<main id="main"><section class="desk"><div class="wrap"><h1>Material de clase</h1>'
+        '<main id="main"><section class="loginbox"><div class="loginbox-in"><span class="loginbrand">%s</span><h1>Spanish Classes</h1><p>Inicia sesión para entrar al material y a tu agenda.</p>'
+        '<form id="fLogin"><label for="lEmail">Correo</label><input id="lEmail" type="email" autocomplete="username" required><label for="lPass">Contraseña</label><input id="lPass" type="password" autocomplete="current-password" required>'
+        '<p class="lerr" id="lErr" role="alert" hidden></p><button class="btn btn-primary" type="submit" id="lBtn">Entrar</button></form></div></section>'
+        '<section class="desk"><div class="wrap"><h1>Material de clase</h1>'
         '<p class="lead"><span data-count="Lección"></span> lecciones y <span data-count="Ejercicio"></span> ejercicios. Busca por tema o número, o entra por nivel.</p>'
         '<div class="finder" id="homeFinder"><div class="searchbox" id="buscar">%s<input id="searchInput" type="search" placeholder="Tema o número: imperativo, 012…" aria-label="Buscar lecciones y ejercicios" autocomplete="off"></div>'
         '<div class="filters"><div class="seg" role="group" aria-label="Tipo"><button type="button" data-kind="" aria-pressed="true">Todo</button><button type="button" data-kind="Lección" aria-pressed="false">Lecciones</button><button type="button" data-kind="Ejercicio" aria-pressed="false">Ejercicios</button></div>'
@@ -95,7 +98,7 @@ def home():
         '<div id="homeContent"><section class="block" id="hoy" hidden></section><section class="block" id="favs" hidden><h2>Favoritos <small>marcados con la estrella</small></h2><ul class="rows"></ul></section>'
         '<section class="block" id="recent" hidden><h2>Abiertos hace poco</h2><ul class="rows"></ul></section>'
         '<section class="block" id="niveles"><h2>Todo el material por nivel</h2><div class="matrix">%s</div></section></div></div></main>\n'
-        % (SEARCH, quick, rows) + footer().replace('<script src="store.js"></script>', '<script src="store.js"></script>\n<script src="hoy.js"></script>'))
+        % (LOGO, SEARCH, quick, rows) + footer().replace('<script src="store.js"></script>', '<script src="store.js"></script>\n<script src="hoy.js"></script>\n<script src="login.js"></script>'))
 
 def listing(sid):
     kind = 'lecciones' if sid.startswith('lecciones') else 'ejercicios'
@@ -181,8 +184,17 @@ def agenda():
 ''' % opts
     return head + nav('agenda') + body + footer().replace('<script src="store.js"></script>', '<script src="store.js"></script>\n<script src="agenda.js"></script>')
 
+GATE = ("<script>(function(){var ok=false;try{for(var i=0;i<localStorage.length;i++)if(/^sb-.+-auth-token$/.test(localStorage.key(i)))ok=true}catch(e){}"
+        "if(!ok){%s}})();</script>\n")
+def gated(name, text):
+    # Sin sesión: la portada muestra solo el inicio de sesión y las demás páginas llevan a ella
+    if name == '404.html': return text
+    act = "document.documentElement.classList.add('nolog')" if name == 'index.html' else \
+          "var p=location.pathname.split('/').pop()||'index.html';location.replace('index.html?next='+encodeURIComponent(p))"
+    return text.replace('</head>', GATE % act + '</head>', 1)
+
 def write(name, text):
-    open(name, 'w', encoding='utf-8').write(text)
+    open(name, 'w', encoding='utf-8').write(gated(name, text))
 
 write('index.html', home())
 write('404.html', notfound())

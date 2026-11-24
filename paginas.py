@@ -86,7 +86,7 @@ def home():
     return (HEAD.format(title='Spanish Classes · Material de clase', desc='Lecciones y ejercicios de español organizados por nivel, para localizarlos rápido en clase.') + nav('index') +
         '<main id="main"><section class="desk"><div class="wrap"><h1>Material de clase</h1>'
         '<p class="lead"><span data-count="Lección"></span> lecciones y <span data-count="Ejercicio"></span> ejercicios. Busca por tema o número, o entra por nivel.</p>'
-        '<div class="finder" id="homeFinder"><div class="searchbox">%s<input id="searchInput" type="search" placeholder="Busca un tema o un número: imperativo, 012, gustar…" aria-label="Buscar lecciones y ejercicios" autocomplete="off"></div>'
+        '<div class="finder" id="homeFinder"><div class="searchbox" id="buscar">%s<input id="searchInput" type="search" placeholder="Tema o número: imperativo, 012…" aria-label="Buscar lecciones y ejercicios" autocomplete="off"></div>'
         '<div class="filters"><div class="seg" role="group" aria-label="Tipo"><button type="button" data-kind="" aria-pressed="true">Todo</button><button type="button" data-kind="Lección" aria-pressed="false">Lecciones</button><button type="button" data-kind="Ejercicio" aria-pressed="false">Ejercicios</button></div>'
         '<select class="select" aria-label="Nivel"><option value="">Todos los niveles</option><option>Beginner I</option><option>Beginner II</option><option>Intermediate</option><option>Advanced</option></select></div></div>'
         '<div class="quick"><span>Temas frecuentes:</span>%s</div></div></section>'

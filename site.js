@@ -103,6 +103,7 @@
         if (title.indexOf(t) === 0) score += 3; else if (title.indexOf(' ' + t) > -1) score += 2; else score += 1;
         if (/^\d+$/.test(t) && code.replace(/^.*-/, '').replace(/^0+/, '') === t.replace(/^0+/, '')) score += 4;
       }
+      if (x.sec.kind === 'Lección') score += 1.5;
       out.push({ it: x.it, sec: x.sec, s: score, i: idx });
     });
     out.sort(function (a, b) { return b.s - a.s || a.i - b.i; });
@@ -169,16 +170,23 @@
       pb.innerHTML = res.length ? '<ul class="rows" style="border:0">' + res.map(function (x) { return row(x.it, x.sec, { level: true, compact: true }); }).join('') + '</ul>' : '<p class="pal-hint">Sin resultados' + (raw.trim() ? ' para «' + esc(raw.trim()) + '»' : '') + '.</p>';
     }
   });
+  var lastFocus = null;
   var openPal = function () {
     if (home) { home.scrollIntoView({ block: 'center' }); w.input.focus(); w.input.select(); return; }
-    pal.classList.add('open'); pw.input.focus(); pw.input.select();
+    lastFocus = document.activeElement; pal.classList.add('open'); pw.input.focus(); pw.input.select();
   };
-  var closePal = function () { pal.classList.remove('open'); };
+  var closePal = function () { pal.classList.remove('open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); };
   $$('.findbtn').forEach(function (b) { b.addEventListener('click', openPal); });
   pal.addEventListener('click', function (e) { if (e.target === pal || e.target.closest('.main')) closePal(); });
   document.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea' || tag === 'select';
     if (e.key === 'Escape' && pal.classList.contains('open')) { closePal(); return; }
+    if (e.key === 'Tab' && pal.classList.contains('open')) {
+      var f = $$('input, select, button, a[href]', pal).filter(function (x) { return x.offsetParent !== null; });
+      if (f.length) { var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); } }
+    }
     if (((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') || (e.key === '/' && !typing)) { e.preventDefault(); openPal(); return; }
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       var scope = pal.classList.contains('open') ? pal : (home ? $('#searchResults') : null); if (!scope) return;

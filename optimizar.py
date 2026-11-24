@@ -32,6 +32,8 @@ for f in sorted(glob.glob('Lessons/*/*.html') + glob.glob('Exercises/*/*.html'))
         if os.path.getsize(p) == 0: open(p, 'wb').write(base64.b64decode(data))
         return m.group(1) + up + name
     s = re.sub(r'''((?:src|srcset|data-src|data-lazy-src|poster)=["']?)data:image/([a-z0-9.+\-]+);base64,([A-Za-z0-9+/=]+)''', img, s)
+    # la CSP guardada por el descargador bloquea scripts/estilos externos; permitir los del propio sitio
+    s = s.replace("script-src 'unsafe-inline' data:", "script-src 'self' 'unsafe-inline' data:").replace("style-src 'unsafe-inline';", "style-src 'self' 'unsafe-inline';")
     open(f, 'w', **E_).write(s); after += len(s.encode('utf-8', 'surrogateescape'))
 print('HTML: %.0f MB -> %.0f MB' % (before / 1e6, after / 1e6))
 tot = lambda d: sum(os.path.getsize(p) for p in glob.glob(d + '/*'))

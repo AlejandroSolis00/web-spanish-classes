@@ -176,7 +176,7 @@
     lastFocus = document.activeElement; pal.classList.add('open'); pw.input.focus(); pw.input.select();
   };
   var closePal = function () { pal.classList.remove('open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); };
-  $$('.findbtn').forEach(function (b) { b.addEventListener('click', openPal); });
+  $$('.findbtn, .findbtn-open').forEach(function (b) { b.addEventListener('click', openPal); });
   pal.addEventListener('click', function (e) { if (e.target === pal || e.target.closest('.main')) closePal(); });
   document.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase(), typing = tag === 'input' || tag === 'textarea' || tag === 'select';

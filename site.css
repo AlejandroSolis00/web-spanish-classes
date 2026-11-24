@@ -211,6 +211,13 @@ kbd { font: 600 12px var(--body); border: 1px solid var(--line); border-bottom-w
 .cta.alt:hover { background: #ffc94d; }
 .cta.alt small { opacity: .8; }
 
+.lost { padding: 64px 0 24px; max-width: 760px; }
+.lost h1 { font-family: var(--display); font-weight: 800; font-size: clamp(32px, 4.4vw, 48px); letter-spacing: -.03em; line-height: 1.05; }
+.lost .lead { margin-top: 12px; color: var(--ink-2); font-size: 18px; }
+.lost-actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 24px 0 36px; }
+.lost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .lost-grid { grid-template-columns: 1fr; } }
+
 footer { margin-top: 56px; background: var(--ink); color: #c9cfe6; padding: 36px 0 28px; font-size: 15px; }
 footer .wrap { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 32px; }
 footer .brand { color: #fff; }

@@ -129,10 +129,23 @@ def listing(sid):
         % (' ej' if not lec else '', kl, kl + ' ' + name, html.escape(intro), facts, lv['n'], kl.lower(), tabs_html, SEARCH, seg, sid, ctas)
         + footer())
 
+def notfound():
+    base = ("<script>(function(){var p=location.pathname.split('/');var b=/github\\.io$/.test(location.hostname)?'/'+p[1]+'/':'/';"
+            "document.write('<base href=\"'+b+'\">');})();</script>\n")
+    head = HEAD.format(title='Página no encontrada · Spanish Classes', desc='La página que buscas no existe.').replace('<title>', base + '<title>', 1)
+    lec = ''.join('<a class="go-btn" href="%s.html">Lecciones %s</a>' % (l['lec'], l['name']) for l in LEVELS)
+    ej = ''.join('<a class="go-btn ej" href="%s.html">Ejercicios %s</a>' % (i, v[0]) for i, v in EJ.items())
+    return (head + nav(None) +
+        '<main id="main"><div class="wrap"><div class="lost"><h1>No encontramos esa página</h1>'
+        '<p class="lead">El enlace puede estar mal escrito o el archivo ya no está. Busca la lección o el ejercicio, o entra por nivel.</p>'
+        '<div class="lost-actions"><a class="btn btn-primary" href="index.html">Ir al inicio</a><button class="btn btn-ghost findbtn-open" type="button">Buscar material</button></div>'
+        '<div class="lost-grid"><div class="mcol"><b>Lecciones</b>%s</div><div class="mcol"><b>Ejercicios</b>%s</div></div></div></div></main>\n' % (lec, ej) + footer())
+
 def write(name, text):
     open(name, 'w', encoding='utf-8').write(text)
 
 write('index.html', home())
+write('404.html', notfound())
 for l in LEVELS: write(l['lec'] + '.html', listing(l['lec']))
 for e in EJ: write(e + '.html', listing(e))
-print('Generadas', 1 + len(LEVELS) + len(EJ), 'páginas')
+print('Generadas', 2 + len(LEVELS) + len(EJ), 'páginas')

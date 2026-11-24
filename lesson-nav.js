@@ -15,7 +15,7 @@
     if (s.kind === 'Lección') k = k.replace(/^lesson-/, '');
     if (!bySlug[k]) bySlug[k] = it;
   }); });
-  var local = function (it) { return root + encodeURI(it.href); };
+  var local = function (it) { return it.type === 'pdf' ? root + 'ver.html?f=' + encodeURIComponent(it.href) : root + encodeURI(it.href); };
   var listUrl = function (s) { return root + s.id + '.html'; };
   var kindName = function (s) { return s.kind === 'Lección' ? 'Lecciones' : 'Ejercicios'; };
   var $ = function (sel, ctx) { return (ctx || document).querySelector(sel); };
@@ -120,7 +120,6 @@
     pop.appendChild(h);
     rel.forEach(function (r) {
       var a = document.createElement('a'); a.href = local(r.it);
-      if (r.it.type === 'pdf') { a.target = '_blank'; a.rel = 'noopener'; }
       a.style.cssText = 'display:flex;gap:8px;align-items:center;padding:9px 14px;color:#333;text-decoration:none;border-bottom:1px solid #f3f3f3';
       var b = document.createElement('span'); b.textContent = r.it.type.toUpperCase();
       b.style.cssText = 'font-size:11px;font-weight:700;padding:2px 6px;border-radius:3px;background:' + (r.it.type === 'pdf' ? '#fde8ec;color:#b4283f' : '#e7ecfc;color:#1a33a3');

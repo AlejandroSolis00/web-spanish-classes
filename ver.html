@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>(function(){var p=location.pathname.split('/');var b=/github\.io$/.test(location.hostname)?'/'+p[1]+'/':'/';document.write('<base href="'+b+'">');})();</script>
+<title>Ejercicio · Spanish Classes</title>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#101a3a;--saffron:#f6b92b;--line:#e0e4f0}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;font:600 14px/1.2 "Figtree","Segoe UI",system-ui,sans-serif;background:#e9ecf5;color:var(--ink)}
+.top{display:flex;align-items:center;gap:12px;padding:0 16px;height:48px;background:#fff;border-bottom:1px solid var(--line);flex:none}
+.top a{color:#3b4568;text-decoration:none;padding:6px 10px;border-radius:8px}.top a:hover{background:#e7ecfc;color:#1a33a3}
+.top h1{font-size:15px;margin:0;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+iframe{flex:1;width:100%;border:0;background:#fff}
+.bar{flex:none;display:flex;align-items:center;gap:12px;padding:10px 20px;background:var(--ink)}
+.bar a,.bar button{color:#fff;text-decoration:none;font:inherit;flex:1;background:none;border:0;cursor:pointer;padding:6px 0}
+.bar .l{text-align:left}.bar .c{text-align:center;flex:2}.bar .r{text-align:right}
+.bar .off{opacity:.35;flex:1;color:#fff}
+.bar .les{flex:none;background:var(--saffron);color:var(--ink);border-radius:8px;padding:8px 14px;font-weight:700}
+.bar a:focus-visible,.top a:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+@media(max-width:700px){.bar{gap:6px;padding:10px 12px}.top .lg{display:none}}
+</style>
+</head>
+<body>
+<div class="top"><a href="index.html">Inicio</a><a class="lg" href="index.html#buscar">Buscar</a><h1 id="t">Ejercicio</h1><a id="open" target="_blank" rel="noopener">Abrir PDF ↗</a></div>
+<iframe id="f" title="Ejercicio en PDF"></iframe>
+<div class="bar" id="bar"></div>
+<script src="catalog.js"></script>
+<script src="ver.js"></script>
+</body>
+</html>

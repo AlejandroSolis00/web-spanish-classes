@@ -2,11 +2,8 @@
   var C = window.CATALOG || [];
   var norm = function (s) { return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
   var li = function (it, level) {
-    var n = (it.rel || []).length, tag = '';
-    if (n) tag = '<span class="rel-tag" title="' + (it.href.indexOf('Lessons/') === 0 ? 'Ejercicios de este tema' : 'Tiene lección') + '">' +
-      (it.href.indexOf('Lessons/') === 0 ? n + (n === 1 ? ' ejercicio' : ' ejercicios') : '📖 lección') + '</span>';
     return '<li><a href="' + encodeURI(it.href) + '" target="_blank" rel="noopener"><span class="badge badge-' + it.type + '">' +
-      it.type.toUpperCase() + '</span>' + it.text + tag + (level ? '<span class="result-level">' + level + '</span>' : '') + '</a></li>';
+      it.type.toUpperCase() + '</span>' + it.text + (level ? '<span class="result-level">' + level + '</span>' : '') + '</a></li>';
   };
   var list = document.getElementById('fileList');
   if (list) {

@@ -92,6 +92,15 @@
         ],
         "createdAt": "2026-11-24T20:40:57.402Z",
         "reason": "agent: pestañas de nivel apoyadas a propósito sobre el borde inferior de la cabecera (indicador de pestaña activa)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-11-24T20:55:38.986Z",
+        "reason": "agent: banda a sangre completa; el contenido va dentro de .wrap con margen lateral de 20px"
       }
     ]
   }

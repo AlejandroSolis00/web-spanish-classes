@@ -38,6 +38,7 @@
   if (hw) {
     var nav = el('nav', { class: 'lm-top' });
     nav.appendChild(el('a', { href: root + 'index.html' }, 'Inicio'));
+    nav.appendChild(el('a', { href: root + 'index.html#buscar' }, 'Buscar'));
     ['Lección', 'Ejercicio'].forEach(function (kind) {
       var dd = el('div', { class: 'lm-dd' }), menu = el('div', { class: 'lm-menu' });
       dd.appendChild(el('span', { class: 'lm-t' }, kind === 'Lección' ? 'Lecciones' : 'Ejercicios'));

@@ -3,6 +3,9 @@
 (function () {
   var root = document.getElementById('agView'); if (!root) return;
   var KEY = 'sc.agenda.v1', HPX = 48;
+  var CAT = window.CATALOG || [], byHref = {}, allMat = [];
+  CAT.forEach(function (sc) { sc.items.forEach(function (it, i) { var o = { it: it, sec: sc, i: i, key: (it.text + ' ' + sc.level + ' ' + sc.kind).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') }; byHref[it.href] = o; allMat.push(o); }); });
+  var matUrl = function (it) { return it.type === 'pdf' ? 'ver.html?f=' + encodeURIComponent(it.href) : encodeURI(it.href); };
   var DAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
   var DAYS_L = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
   var MONTHS = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -128,7 +131,7 @@
         var st = student(c.student) || { name: '(alumno eliminado)', hue: 0 };
         var top = (tm(c.time) - lo) / 60 * HPX, ht = Math.max(c.dur / 60 * HPX, 26);
         html += '<button type="button" class="cls st-' + c.status + (clashes(c).length ? ' clash' : '') + (c.status === 'programada' && isPast(c) ? ' pend' : '') + '" data-id="' + c.id + '" style="top:' + top + 'px;height:' + ht + 'px;left:calc(' + lane[c.id] + ' * 100% / ' + n[c.id] + ' + 3px);width:calc(100% / ' + n[c.id] + ' - 6px);--h:' + st.hue + '">' +
-          '<b>' + esc(st.name) + '</b><span>' + (c.moved ? '↪ ' : '') + c.time + '–' + ft(endOf(c)) + (c.status === 'dada' ? ' ✓' : '') + '</span></button>';
+          '<b>' + esc(st.name) + '</b><span>' + (c.moved ? '↪ ' : '') + c.time + '–' + ft(endOf(c)) + (c.status === 'dada' ? ' ✓' : '') + (c.notes || (c.material && c.material.length) ? ' ✎' : '') + '</span></button>';
       });
       if (d === t) { var nm = nowMin(); if (nm >= lo && nm <= hi) html += '<i class="ag-now" style="top:' + ((nm - lo) / 60 * HPX) + 'px"></i>'; }
       html += '</div>';
@@ -197,6 +200,7 @@
     $('cScopeW').hidden = !isSer; document.querySelector('input[name=cScope][value=one]').checked = true;
     $('cDel').hidden = !c; $('cDelF').hidden = !isSer;
     $('cStudentW').hidden = false; $('cInfo').hidden = true;
+    $('cNotesW').hidden = !c; $('cNotes').value = c && c.notes || ''; matSel = (c && c.material || []).filter(function (h) { return byHref[h]; }); $('cMatQ').value = ''; $('cMatRes').hidden = true; renderMat();
     $('cChargeW').hidden = !(c && c.status === 'cancel-alumno'); $('cCharge').checked = !!(c && c.cobrar);
     var wk = c ? weekClasses(c) : [];
     $('cResched').hidden = !c || c.status === 'dada';
@@ -207,13 +211,31 @@
     $('cWarn').hidden = true; $('cSave').textContent = 'Guardar';
     dialogOpen = true; dc.showModal();
   }
+  var matSel = [];
+  function renderMat() {
+    $('cMat').innerHTML = matSel.map(function (h, i) {
+      var m = byHref[h]; if (!m) return '';
+      return '<li><a href="' + matUrl(m.it) + '" target="_blank" rel="noopener">' + esc(m.it.text) + '</a><button type="button" data-rm="' + i + '" aria-label="Quitar ' + esc(m.it.text) + '">×</button></li>';
+    }).join('');
+  }
+  function searchMat() {
+    var q = $('cMatQ').value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().split(/\s+/).filter(Boolean), box = $('cMatRes');
+    if (!q.length) { box.hidden = true; return; }
+    var res = allMat.filter(function (m) { return matSel.indexOf(m.it.href) < 0 && q.every(function (w) { return m.key.indexOf(w) > -1; }); }).sort(function (a, b) { return (a.sec.kind === 'Lección' ? 0 : 1) - (b.sec.kind === 'Lección' ? 0 : 1); }).slice(0, 8);
+    box.innerHTML = res.length ? res.map(function (m) { return '<li><button type="button" data-add="' + esc(m.it.href) + '"><span class="k">' + (m.sec.kind === 'Lección' ? 'Lección' : 'Ejercicio') + '</span>' + esc(m.it.text) + '<small>' + esc(m.sec.level) + '</small></button></li>'; }).join('') : '<li class="none">Sin resultados.</li>';
+    box.hidden = false;
+  }
+  $('cMatQ').addEventListener('input', searchMat);
+  $('cMatQ').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); var b = $('cMatRes').querySelector('[data-add]'); if (b) b.click(); } });
+  $('cMatRes').addEventListener('click', function (e) { var b = e.target.closest('[data-add]'); if (!b) return; matSel.push(b.dataset.add); $('cMatQ').value = ''; $('cMatRes').hidden = true; renderMat(); $('cMatQ').focus(); });
+  $('cMat').addEventListener('click', function (e) { var b = e.target.closest('[data-rm]'); if (!b) return; matSel.splice(+b.dataset.rm, 1); renderMat(); });
   function resetDel() { clearTimeout(delArm && delArm.t); delArm = null; $('cDel').classList.remove('arm'); $('cDelF').classList.remove('arm'); if (editing) { $('cDel').textContent = editing.series ? 'Eliminar solo esta' : 'Eliminar'; $('cDelF').textContent = 'Eliminar esta y las siguientes'; } }
   ['cDate', 'cTime', 'cDur', 'cStudent'].forEach(function (id) { $(id).addEventListener('input', function () { forceSave = false; $('cWarn').hidden = true; $('cSave').textContent = 'Guardar'; }); });
   $('cRep').addEventListener('change', toggleRep);
   $('cStatus').addEventListener('change', function () { if (mode === 'edit') $('cChargeW').hidden = this.value !== 'cancel-alumno'; });
   $('cResched').addEventListener('click', function () {
     mode = 'resched'; var c = editing;
-    ['cStudentW', 'cStatusW', 'cChargeW', 'cRepW', 'cScopeW', 'cMore', 'cDel', 'cDelF'].forEach(function (id) { $(id).hidden = true; });
+    ['cStudentW', 'cStatusW', 'cChargeW', 'cRepW', 'cScopeW', 'cMore', 'cDel', 'cDelF', 'cNotesW'].forEach(function (id) { $(id).hidden = true; });
     $('clsTitle').textContent = 'Reagendar clase';
     $('cInfo').textContent = (student(c.student) || { name: '' }).name + ' — ahora: ' + DAYS_L[wd(c.date)] + ' ' + short(c.date) + ', ' + c.time + '–' + ft(endOf(c)) + '. Elige el nuevo día y hora; solo cambia esta clase.';
     $('cInfo').hidden = false; $('cSave').textContent = 'Reagendar'; $('cDate').focus();
@@ -226,8 +248,8 @@
   function formClass() {
     var date = $('cDate').value, time = $('cTime').value, dur = parseInt($('cDur').value, 10);
     if (!$('cStudent').value || !date || !time || !(dur >= 15 && dur <= 300)) return null;
-    if (mode === 'resched') return { student: editing.student, date: date, time: time, dur: dur, status: editing.status, forceOne: true, cobrar: editing.cobrar };
-    return { student: $('cStudent').value, date: date, time: time, dur: dur, status: $('cStatus').value, cobrar: $('cStatus').value === 'cancel-alumno' && $('cCharge').checked };
+    if (mode === 'resched') return { student: editing.student, date: date, time: time, dur: dur, status: editing.status, forceOne: true, cobrar: editing.cobrar, notes: editing.notes, material: editing.material };
+    return { student: $('cStudent').value, date: date, time: time, dur: dur, status: $('cStatus').value, cobrar: $('cStatus').value === 'cancel-alumno' && $('cCharge').checked, notes: $('cNotes').value.trim(), material: matSel.slice() };
   }
   $('fClass').addEventListener('submit', function (e) {
     e.preventDefault();
@@ -261,9 +283,10 @@
       db.series.push(ns);
       ensureRange(f.date, addDays(today(), 28) > f.date ? addDays(today(), 28) : f.date);
       var nc = db.classes.filter(function (o) { return o.series === ns.id && o.slot === f.date; })[0];
-      if (nc) { nc.status = f.status; nc.cobrar = f.cobrar; }
+      if (nc) { nc.status = f.status; nc.cobrar = f.cobrar; nc.notes = f.notes; nc.material = f.material; }
     } else {
       if (c.date !== f.date || c.time !== f.time) { if (!c.moved) c.moved = { date: c.date, time: c.time }; else if (c.moved.date === f.date && c.moved.time === f.time) delete c.moved; }
+      c.notes = f.notes; c.material = f.material;
       c.cobrar = f.cobrar; c.student = f.student; c.date = f.date; c.time = f.time; c.dur = f.dur; c.status = f.status; }
     weekStart = monday(f.date);
   }
@@ -288,12 +311,18 @@
   // ---------- Diálogo de alumnos ----------
   var ds = $('dlgStud'), editStud = null;
   function openStudents() { dialogOpen = true; $('sCurrency').value = db.settings.currency; $('sThreshold').value = db.settings.threshold; renderStud(); resetStudForm(); ds.showModal(); }
+  function lastMat(id) {
+    var cs = db.classes.filter(function (c) { return c.student === id && c.status === 'dada' && c.material && c.material.length; }).sort(function (a, b) { return (a.date + a.time) < (b.date + b.time) ? 1 : -1; });
+    if (!cs.length) return null;
+    var ms = cs[0].material.map(function (h) { return byHref[h]; }).filter(Boolean);
+    return ms.filter(function (m) { return m.sec.kind === 'Lección'; }).pop() || ms[ms.length - 1] || null;
+  }
   function renderStud() {
     var l = $('sList');
     if (!db.students.length) { l.innerHTML = '<li class="none">Aún no hay alumnos.</li>'; return; }
     l.innerHTML = db.students.map(function (s) {
       var n = db.classes.filter(function (c) { return c.student === s.id && c.status === 'dada'; }).length;
-      return '<li class="' + (s.archived ? 'arch' : '') + '"><span class="dot" style="--h:' + s.hue + '"></span><span class="nm"><b>' + esc(s.name) + '</b><small>' + (s.level ? esc(s.level) + ' · ' : '') + (rateAt(s, today()) ? money(rateAt(s, today())) + '/clase · ' : '') + n + (n === 1 ? ' clase dada' : ' clases dadas') + (s.archived ? ' · archivado' : '') + '</small></span>' +
+      return '<li class="' + (s.archived ? 'arch' : '') + '"><span class="dot" style="--h:' + s.hue + '"></span><span class="nm"><b>' + esc(s.name) + '</b><small>' + (s.level ? esc(s.level) + ' · ' : '') + (rateAt(s, today()) ? money(rateAt(s, today())) + '/clase · ' : '') + n + (n === 1 ? ' clase dada' : ' clases dadas') + (s.archived ? ' · archivado' : '') + (lastMat(s.id) ? ' · va en: ' + esc(lastMat(s.id).it.text.split(':')[0]) : '') + '</small></span>' +
         '<button type="button" class="btn btn-ghost" data-acct="' + s.id + '">Cuenta</button><button type="button" class="btn btn-ghost" data-edit="' + s.id + '">Editar</button><button type="button" class="btn btn-ghost" data-arch="' + s.id + '">' + (s.archived ? 'Reactivar' : 'Archivar') + '</button></li>';
     }).join('');
   }

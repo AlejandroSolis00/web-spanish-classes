@@ -92,10 +92,10 @@ def home():
         '<div class="quick"><span>Temas frecuentes:</span>%s</div></div></section>'
         '<div class="wrap"><section class="results" id="searchResults"><div class="count" id="searchCount" aria-live="polite"></div><ul class="rows" id="resultList" style="margin-top:10px"></ul>'
         '<div class="empty" id="noResults"><b>No encontramos <span id="noTerm"></span></b><p>Prueba con otra palabra, con el número de la lección o quita los filtros.</p><button class="btn btn-primary" id="clearSearch" type="button">Borrar búsqueda</button></div></section>'
-        '<div id="homeContent"><section class="block" id="favs" hidden><h2>Favoritos <small>marcados con la estrella</small></h2><ul class="rows"></ul></section>'
+        '<div id="homeContent"><section class="block" id="hoy" hidden></section><section class="block" id="favs" hidden><h2>Favoritos <small>marcados con la estrella</small></h2><ul class="rows"></ul></section>'
         '<section class="block" id="recent" hidden><h2>Abiertos hace poco</h2><ul class="rows"></ul></section>'
         '<section class="block" id="niveles"><h2>Todo el material por nivel</h2><div class="matrix">%s</div></section></div></div></main>\n'
-        % (SEARCH, quick, rows) + footer())
+        % (SEARCH, quick, rows) + footer().replace('<script src="site.js"></script>', '<script src="site.js"></script>\n<script src="hoy.js"></script>'))
 
 def listing(sid):
     kind = 'lecciones' if sid.startswith('lecciones') else 'ejercicios'
@@ -160,6 +160,8 @@ def agenda():
 <div class="fld" id="cChargeW" hidden><label class="chk"><input type="checkbox" id="cCharge"> Cobrar esta clase aunque no se dio</label></div>
 <div class="fld" id="cRepW"><label class="chk"><input type="checkbox" id="cRep"> Repetir cada semana</label><div id="cUntilW" hidden><label for="cUntil">Hasta (opcional)</label><input type="date" id="cUntil"></div></div>
 <fieldset id="cScopeW" hidden><legend>Esta clase se repite cada semana. Aplicar los cambios a:</legend><label class="chk"><input type="radio" name="cScope" value="one" checked> Solo esta clase</label><label class="chk"><input type="radio" name="cScope" value="following"> Esta y las siguientes</label></fieldset>
+<div id="cNotesW" hidden><div class="fld"><label for="cNotes">Lo que se dio / notas</label><textarea id="cNotes" rows="3" maxlength="1000" placeholder="Ej.: repasamos el pretérito; le costó irregulares"></textarea></div>
+<div class="fld"><label for="cMatQ">Material de la clase</label><input id="cMatQ" type="search" placeholder="Buscar lección o ejercicio: tema o número" autocomplete="off"><ul class="matres" id="cMatRes" hidden></ul><ul class="chips" id="cMat"></ul></div></div>
 <p class="warn" id="cWarn" role="alert" hidden></p>
 <div class="dlg-more" id="cMore" hidden><button type="button" class="btn btn-ghost" id="cResched">Reagendar</button><button type="button" class="btn btn-ghost" id="cDisc" title="La clase no se da y no se cobra">Descartar clase</button><button type="button" class="btn btn-ghost" id="cDiscW">Descartar la semana</button></div>
 <div class="dlg-acts"><button type="button" class="btn btn-ghost danger" id="cDel" hidden>Eliminar</button><button type="button" class="btn btn-ghost danger" id="cDelF" hidden>Eliminar esta y las siguientes</button><span class="sp"></span><button type="button" class="btn btn-ghost" id="cCancel">Cancelar</button><button type="submit" class="btn btn-primary" id="cSave">Guardar</button></div></form></dialog>

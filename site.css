@@ -252,3 +252,21 @@ footer .legal { grid-column: 1 / -1; border-top: 1px solid rgba(255, 255, 255, .
   .pal { padding-top: 12px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+/* Bloque "Hoy" (portada) */
+#hoy h2 small { text-transform: capitalize; }
+.hoylist { list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.hoylist li { display: flex; gap: 16px; padding: 14px 16px; align-items: flex-start; }
+.hoylist li + li { border-top: 1px solid var(--line); }
+.hoylist .when { flex: none; min-width: 58px; font: 750 20px var(--display); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.hoylist .when small { display: block; font: 500 13px var(--body); color: var(--muted); }
+.hoylist .who { min-width: 0; flex: 1; }
+.hoylist .who > b { font-size: 17px; }
+.hoylist .who > small { margin-left: 8px; color: var(--muted); font-size: 13px; }
+.hoylist em { font-style: normal; font-weight: 700; font-size: 12px; padding: 2px 9px; border-radius: 8px; margin-left: 8px; }
+.hoylist em.now { background: var(--saffron); color: var(--ink); } .hoylist em.soon { background: var(--cobalt-soft); color: var(--cobalt-dark); } .hoylist em.done { background: #def5e5; color: #1b6b3a; }
+.hoylist .mat { display: flex; flex-wrap: wrap; gap: 4px 18px; margin-top: 4px; font-size: 15px; color: var(--ink-2); }
+.hoylist .mat a { color: var(--cobalt-dark); font-weight: 600; }
+.hoylist .muted, .hoy-none { color: var(--muted); }
+.hoy-more { margin-top: 8px; font-size: 14px; }
+.hoy-more a, .hoy-none a { color: var(--cobalt-dark); font-weight: 600; }

@@ -7,6 +7,8 @@
   if (!logged) { location.replace('../../index.html?next=' + encodeURIComponent(decodeURIComponent(location.pathname).split('/').slice(-3).join('/'))); return; }
   var C = window.CATALOG; if (!C) return;
   var here = decodeURIComponent(location.pathname), root = '../../';
+  // Ejercicios con formulario: formato propio en lugar de las etiquetas grandes y naranjas del original
+  if (document.querySelector('.wpforms-container')) { var ejc = document.createElement('link'); ejc.rel = 'stylesheet'; ejc.href = root + 'ejercicio.css'; document.head.appendChild(ejc); }
   var cur, sec, idx;
   C.forEach(function (s) { s.items.forEach(function (it, i) { if (here.slice(-it.href.length) === it.href) { cur = it; sec = s; idx = i; } }); });
 

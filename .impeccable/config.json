@@ -101,6 +101,12 @@
         ],
         "createdAt": "2026-11-24T20:55:38.986Z",
         "reason": "agent: banda a sangre completa; el contenido va dentro de .wrap con margen lateral de 20px"
+      },
+      {
+        "rule": "overused-font",
+        "value": "open sans",
+        "createdAt": "2026-11-25T00:49:03.334Z",
+        "reason": "Open Sans es la fuente que ya trae embebida cada página de ejercicio guardada (el CSP de esas páginas bloquea Google Fonts); ejercicio.css solo la mantiene para no mezclar tipografías. Decidido por el asistente, no confirmado por el usuario."
       }
     ]
   }

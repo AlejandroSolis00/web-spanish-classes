@@ -38,11 +38,11 @@
     if (c.status === 'dada') tag = '<em class="done">Dada</em>';
     else if (nowM >= a && nowM < b) tag = '<em class="now">Ahora</em>';
     else if (nowM < a && next) { tag = '<em class="soon">Sigue</em>'; next = false; }
-    var l = last(st.id), nx = l && l.sec.items[l.i + 1], mat = (c.material || []).map(function (h) { return byHref[h]; }).filter(Boolean);
+    var l = last(st.id), nx = l && (function () { for (var j = l.i + 1; j < l.sec.items.length; j++) if (l.sec.items[j].type === 'html') return l.sec.items[j]; })(), mat = (c.material || []).map(function (h) { return byHref[h]; }).filter(Boolean);
     var links = '';
-    if (l) links += '<span>Va en: <a href="' + url(l.it) + '" target="_blank" rel="noopener">' + esc(l.it.text) + '</a></span>';
-    if (nx) links += '<span>Sigue: <a href="' + url(nx) + '" target="_blank" rel="noopener">' + esc(nx.text) + '</a></span>';
-    if (mat.length) links += '<span>Material de hoy: ' + mat.map(function (m) { return '<a href="' + url(m.it) + '" target="_blank" rel="noopener">' + esc(m.it.text.split(':')[0]) + '</a>'; }).join(', ') + '</span>';
+    if (l) links += '<span>Va en: <a href="' + url(l.it) + '">' + esc(l.it.text) + '</a></span>';
+    if (nx) links += '<span>Sigue: <a href="' + url(nx) + '">' + esc(nx.text) + '</a></span>';
+    if (mat.length) links += '<span>Material de hoy: ' + mat.map(function (m) { return '<a href="' + url(m.it) + '">' + esc(m.it.text.split(':')[0]) + '</a>'; }).join(', ') + '</span>';
     if (!links) links = '<span class="muted">Aún no se registra material para este alumno.</span>';
     return '<li><div class="when">' + c.time + '<small>' + ft(b) + '</small></div><div class="who"><b>' + esc(st.name) + '</b>' + (st.level ? '<small>' + esc(st.level) + '</small>' : '') + tag + '<div class="mat">' + links + '</div></div></li>';
   }).join('') + '</ul><p class="hoy-more"><a href="agenda.html">Abrir la agenda</a></p>';

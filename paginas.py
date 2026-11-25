@@ -70,7 +70,7 @@ def footer():
     return ('<footer><div class="wrap"><div><a class="brand" href="index.html">%s<span>Spanish Classes</span></a>'
             '<p>Material de clase organizado por nivel, con cada lección enlazada a sus ejercicios.</p></div>'
             '<div><h4>Lecciones</h4><ul>%s</ul></div><div><h4>Ejercicios</h4><ul>%s</ul></div>'
-            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. Todo se abre en una pestaña nueva. <button type="button" class="linkbtn" data-logout>Cerrar sesión</button></div></div></footer>\n'
+            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. <button type="button" class="linkbtn" data-logout>Cerrar sesión</button></div></div></footer>\n'
             '<script src="catalog.js"></script>\n<script src="site.js"></script>\n<script src="store.js"></script>\n</body>\n</html>\n' % (LOGO, lec, ej))
 
 def home():

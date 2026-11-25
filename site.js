@@ -36,10 +36,10 @@
     acts += '<span class="badge badge-' + it.type + '">' + it.type.toUpperCase() + '</span>';
     if (!o.compact) {
       if (isLesson && rel) acts += '<button type="button" class="rel" aria-expanded="false" data-rel="' + esc(it.href) + '">' + plural(rel, 'ejercicio', 'ejercicios') + '</button>';
-      if (!isLesson && rel) { var l = byHref[it.rel[0]]; if (l) acts += '<a class="lesslink" href="' + url(l.it.href) + '" target="_blank" rel="noopener" data-track="' + esc(l.it.href) + '">Lección ' + esc(split(l.it.text).n) + '</a>'; }
+      if (!isLesson && rel) { var l = byHref[it.rel[0]]; if (l) acts += '<a class="lesslink" href="' + url(l.it.href) + '" data-track="' + esc(l.it.href) + '">Lección ' + esc(split(l.it.text).n) + '</a>'; }
       acts += '<button type="button" class="star" data-fav="' + esc(it.href) + '" aria-pressed="' + isFav(it.href) + '" aria-label="Favorito: ' + esc(p.t) + '" title="Favorito">' + STAR + '</button>';
     }
-    return '<li class="row' + (isLesson ? '' : ' ej') + '"><a class="main" href="' + url(it.href) + '" target="_blank" rel="noopener" data-track="' + esc(it.href) + '">' +
+    return '<li class="row' + (isLesson ? '' : ' ej') + '"><a class="main" href="' + url(it.href) + '" data-track="' + esc(it.href) + '">' +
       '<span class="num">' + esc(isLesson ? p.n : p.n.replace(/^[A-Z]-/, '')) + '</span><span><span class="ttl">' + esc(p.t) + '</span>' +
       (o.level ? '<span class="lvl">' + esc((isLesson ? 'Lecciones' : 'Ejercicios') + ' · ' + sec.level) + '</span>' : '') + '</span></a>' +
       '<span class="acts">' + acts + '</span></li>';
@@ -63,7 +63,7 @@
         panel = document.createElement('div'); panel.className = 'panel'; panel.hidden = true;
         panel.innerHTML = byHref[r.getAttribute('data-rel')].it.rel.map(function (h) {
           var x = byHref[h]; if (!x) return '';
-          return '<a href="' + url(h) + '" target="_blank" rel="noopener" data-track="' + esc(h) + '"><span class="code">' + esc(split(x.it.text).n) + '</span><span>' + esc(split(x.it.text).t) +
+          return '<a href="' + url(h) + '" data-track="' + esc(h) + '"><span class="code">' + esc(split(x.it.text).n) + '</span><span>' + esc(split(x.it.text).t) +
             '</span><span class="badge badge-' + x.it.type + '">' + x.it.type.toUpperCase() + '</span></a>';
         }).join('');
         li.appendChild(panel);

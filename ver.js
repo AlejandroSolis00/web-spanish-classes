@@ -16,11 +16,13 @@
     var a = document.createElement(it ? 'a' : 'span'); a.textContent = label; a.className = cls + (it ? '' : ' off');
     if (it) a.href = url(it); bar.appendChild(a); return a;
   };
-  var prev = sec.items[idx - 1], next = sec.items[idx + 1];
+  // Anterior/Siguiente solo cuentan las páginas HTML; los PDF se saltan
+  var step = function (d) { for (var i = idx + d; i >= 0 && i < sec.items.length; i += d) if (sec.items[i].type === 'html') return sec.items[i]; };
+  var prev = step(-1), next = step(1);
   add(prev, '← Anterior', 'l');
   var list = document.createElement('a'); list.className = 'c'; list.href = sec.id + '.html'; list.textContent = 'Ejercicios · ' + sec.level; bar.appendChild(list);
   var les = (cur.rel || []).map(function (h) { return byHref[h]; }).filter(Boolean)[0];
-  if (les) { var a = add(les, 'Ver la lección', 'les'); a.target = '_blank'; a.rel = 'noopener'; }
+  if (les) { var a = add(les, 'Ver la lección', 'les'); }
   add(next, 'Siguiente →', 'r');
   document.addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;

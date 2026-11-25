@@ -10,6 +10,8 @@
   // Ejercicios con formulario: formato propio en lugar de las etiquetas grandes y naranjas del original
   if (document.querySelector('.wpforms-container')) { var ejc = document.createElement('link'); ejc.rel = 'stylesheet'; ejc.href = root + 'ejercicio.css'; document.head.appendChild(ejc); }
   var cur, sec, idx;
+  // Anterior/Siguiente solo cuentan las páginas HTML; los PDF se saltan
+  var stepHtml = function (d) { if (!sec) return; for (var i = idx + d; i >= 0 && i < sec.items.length; i += d) if (sec.items[i].type === 'html') return sec.items[i]; };
   C.forEach(function (s) { s.items.forEach(function (it, i) { if (here.slice(-it.href.length) === it.href) { cur = it; sec = s; idx = i; } }); });
 
   // --- Barra superior, lateral y bloques de la página: enlaces propios en lugar de los del sitio original ---
@@ -83,14 +85,14 @@
       for (var i = 0; i < a.childNodes.length; i++) if (a.childNodes[i].nodeType === 3 && /Post/.test(a.childNodes[i].textContent)) a.childNodes[i].textContent = /Previous/.test(a.childNodes[i].textContent) ? 'Anterior' : 'Siguiente';
     };
     var nb = $('#ast_nextprev');
-    if (nb) { setNav($('.ast-prev', nb), sec.items[idx - 1]); setNav($('.ast-next', nb), sec.items[idx + 1]); if (!$('.nav-box', nb)) nb.remove(); }
+    if (nb) { setNav($('.ast-prev', nb), stepHtml(-1)); setNav($('.ast-next', nb), stepHtml(1)); if (!$('.nav-box', nb)) nb.remove(); }
   }
 
   // 4) Cualquier otro enlace al sitio original: a su equivalente local si existe; si no, se elimina
   $$('a[href*="ixchelschool.com"], a[href*="mybluehost.me"]').forEach(function (a) {
     var u; try { u = new URL(a.href); } catch (e) { return; }
     var it = u.hostname.indexOf('ixchelschool') > -1 && bySlug[norm(u.pathname)];
-    if (it) { a.href = local(it); return; }
+    if (it) { a.href = local(it); a.removeAttribute('target'); return; }
     var box = a.closest('.rel_tab') || (a.closest('li') && !a.closest('li').querySelector('ul') ? a.closest('li') : null);
     if (box) box.remove(); else a.replaceWith.apply(a, [].slice.call(a.childNodes));
   });
@@ -166,11 +168,11 @@
   var pdfBtn = el('button', { type: 'button', class: 'lm-pdf', title: 'Guardar esta ' + (sec.kind === 'Lección' ? 'lección' : 'página de ejercicios') + ' como PDF (elige «Guardar como PDF» en el diálogo)' },
     '<span aria-hidden="true">⤓</span><span><span class="lm-long">Descargar </span>PDF</span>');
   pdfBtn.addEventListener('click', function (e) { e.stopPropagation(); window.print(); });
-  bar.appendChild(link(sec.items[idx - 1], '← Anterior', 'left'));
+  bar.appendChild(link(stepHtml(-1), '← Anterior', 'left'));
   bar.appendChild(list);
   if (relBtn) bar.appendChild(relBtn);
   bar.appendChild(pdfBtn);
-  bar.appendChild(link(sec.items[idx + 1], 'Siguiente →', 'right'));
+  bar.appendChild(link(stepHtml(1), 'Siguiente →', 'right'));
   document.body.appendChild(bar);
   document.body.style.paddingBottom = '48px';
 })();

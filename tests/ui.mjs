@@ -167,6 +167,15 @@ const opsz = await ev(`(async () => { await document.fonts.ready; const w = px =
   w(48); w(12); await document.fonts.ready; return w(48) / (w(12) * 4); })()`);
 ok(Math.abs(opsz - 1) > .02, 'Bricolage guardada sin tamaño óptico', opsz);
 
+// --- Las columnas ocupan toda la tabla (sin recuadros vacíos al lado) ---
+const narrow = items.find(i => /^Lessons.*Lesson-028-/.test(i.href)).href;
+for (const width of [390, 1280]) {
+  await size(width); await go(encodeURI(narrow));
+  const bad = await ev(`[...document.querySelectorAll('.sc-scroll > table')].filter(t => t.getBoundingClientRect().width - Math.max(...[...t.rows].map(r => [...r.cells].reduce((a, c) => a + c.getBoundingClientRect().width, 0))) > 4).length`);
+  ok(bad === 0, width + ' tablas con recuadro vacío (' + narrow + ')', bad);
+}
+await size(1280);
+
 // --- Foco de teclado: el botón se pone rojo ---
 await size(1280);
 for (const name of ['listado', 'leccion', 'visor']) {

@@ -39,7 +39,7 @@ body.sc-doc #sidebar, body.sc-doc .footer_wrap { display: none !important; }
 
   /* tablas como las filas de los listados */
   body.sc-doc .sc-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; margin: 0 0 18px; background: #fff; }
-  body.sc-doc .sc-scroll > table { width: 100% !important; margin: 0 !important; border: 0 !important; border-collapse: collapse !important; border-spacing: 0; }
+  body.sc-doc .sc-scroll > table { display: table !important; width: 100% !important; margin: 0 !important; border: 0 !important; border-collapse: collapse !important; border-spacing: 0; }
   body.sc-doc .single_post_content table :is(td, th) { border: 0 !important; border-top: 1px solid var(--line) !important; border-left: 1px solid var(--line) !important; padding: 10px 14px !important; text-align: left; vertical-align: top; }
   body.sc-doc .single_post_content table tr:first-child > * { border-top-width: 0 !important; }
   body.sc-doc .single_post_content table tr > :first-child { border-left-width: 0 !important; }

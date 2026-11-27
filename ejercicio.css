@@ -1,16 +1,16 @@
 /* Formato de los ejercicios guardados (formularios): reemplaza el estilo de etiquetas grandes y naranjas del sitio original.
    Se carga desde lesson-nav.js solo en páginas con formulario; la impresión conserva sus propias reglas. */
 @media screen {
-  .wpforms-container-full { --ej-ink: #101a3a; --ej-line: #d9deef; --ej-cobalt: #2547d0; font-family: "Open Sans", "Segoe UI", system-ui, sans-serif; }
+  .wpforms-container-full { --ej-ink: var(--ink); --ej-line: var(--line); --ej-cobalt: var(--cobalt); font-family: var(--body); }
   .wpforms-container-full .wpforms-field-container { display: block; max-width: 760px; }
   /* instrucción del ejercicio */
-  .wpforms-container-full .wpforms-field-html { background: #e7ecfc; border-radius: 12px; padding: 12px 16px; margin: 0 0 18px; color: var(--ej-ink); font-size: 16px; line-height: 1.5; }
+  .wpforms-container-full .wpforms-field-html { background: var(--cobalt-soft); border-radius: 12px; padding: 12px 16px; margin: 0 0 18px; color: var(--ej-ink); font-size: 16px; line-height: 1.5; }
   .wpforms-container-full .wpforms-field-html p { margin: 0; }
   /* cada pregunta */
   .wpforms-container-full .wpforms-field:not(.wpforms-field-html) { display: block; background: #fff; border: 1px solid var(--ej-line); border-radius: 12px; padding: 14px 16px; margin: 0 0 12px; }
   .wpforms-container-full label.wpforms-field-label { display: block !important; font-size: 18px !important; font-weight: 600 !important; line-height: 1.45 !important; color: var(--ej-ink) !important; margin: 0 0 10px !important; letter-spacing: 0; text-transform: none; }
   .wpforms-container-full input[type=text], .wpforms-container-full input:not([type]), .wpforms-container-full textarea {
-    display: block; width: 100% !important; max-width: 100% !important; box-sizing: border-box; font: 400 17px/1.4 "Open Sans", "Segoe UI", system-ui, sans-serif; color: var(--ej-ink);
+    display: block; width: 100% !important; max-width: 100% !important; box-sizing: border-box; font: 400 17px/1.4 var(--body); color: var(--ej-ink);
     background: #fff; border: 1.5px solid #c3cae2 !important; border-radius: 10px !important; padding: 10px 12px; min-height: 44px; }
   .wpforms-container-full textarea { min-height: 96px; resize: vertical; }
   .wpforms-container-full input[type=text]:focus, .wpforms-container-full textarea:focus { outline: none; border-color: var(--ej-cobalt) !important; box-shadow: 0 0 0 3px #e7ecfc; }
@@ -23,4 +23,9 @@
   /* tablas, si el ejercicio las trae */
   .wpforms-container-full table { border-collapse: collapse; width: 100%; margin: 0 0 14px; }
   .wpforms-container-full th, .wpforms-container-full td { border: 1px solid var(--ej-line); padding: 8px 10px; text-align: left; }
+}
+@media screen {
+  body.sc-doc .wpforms-container-full { margin: 0 auto 24px; }
+  body.sc-doc .wpforms-container-full .wpforms-field-container { max-width: none; }
+  body.sc-doc .wpforms-container-full .wpforms-field-html :is(h1, h2, h3, h4, p) { font: 700 18px/1.4 var(--body); color: var(--ink); margin: 0; letter-spacing: 0; }
 }

@@ -12,18 +12,24 @@
   $('f').src = encodeURI(cur.href);
   $('open').href = encodeURI(cur.href);
   var bar = $('bar');
+  document.body.prepend(window.SC_mountHeader('', sec.id));
   var add = function (it, label, cls) {
     var a = document.createElement(it ? 'a' : 'span'); a.textContent = label; a.className = cls + (it ? '' : ' off');
     if (it) a.href = url(it); bar.appendChild(a); return a;
   };
+  var nav = function (it, word, cls) {
+    var a = add(it, '', cls), w = document.createElement('span'); w.className = 'lm-long'; w.textContent = word;
+    a.setAttribute('aria-label', word);
+    if (cls === 'l') a.append('← ', w); else a.append(w, ' →');
+  };
   // Anterior/Siguiente solo cuentan las páginas HTML; los PDF se saltan
   var step = function (d) { for (var i = idx + d; i >= 0 && i < sec.items.length; i += d) if (sec.items[i].type === 'html') return sec.items[i]; };
   var prev = step(-1), next = step(1);
-  add(prev, '← Anterior', 'l');
+  nav(prev, 'Anterior', 'l');
   var list = document.createElement('a'); list.className = 'c'; list.href = sec.id + '.html'; list.textContent = 'Ejercicios · ' + sec.level; bar.appendChild(list);
   var les = (cur.rel || []).map(function (h) { return byHref[h]; }).filter(Boolean)[0];
   if (les) { var a = add(les, 'Ver la lección', 'les'); }
-  add(next, 'Siguiente →', 'r');
+  nav(next, 'Siguiente', 'r');
   document.addEventListener('keydown', function (e) {
     if (e.altKey || e.ctrlKey || e.metaKey) return;
     if (e.key === 'ArrowLeft' && prev) location.href = url(prev);

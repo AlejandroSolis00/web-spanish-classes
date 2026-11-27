@@ -1,0 +1,102 @@
+/* Barras comunes a todas las pantallas (sitio, lecciones, ejercicios y visor): colores, barra superior y barra inferior. */
+@import url('assets/fonts.css');
+:root {
+  --ink: #101a3a;
+  --ink-2: #3b4568;
+  --muted: #646d8c;
+  --paper: #f5f6fb;
+  --card: #ffffff;
+  --line: #e0e4f0;
+  --cobalt: #2547d0;
+  --cobalt-dark: #1a33a3;
+  --cobalt-soft: #e7ecfc;
+  --saffron: #f6b92b;
+  --amber-ink: #8a5a00;
+  --amber-soft: #fff1cc;
+  --rose: #b4283f;
+  --rose-soft: #fde8ec;
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(16, 26, 58, .06), 0 8px 24px -12px rgba(16, 26, 58, .18);
+  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
+  color-scheme: light;
+}
+/* En las lecciones no se carga site.css y el tema antiguo trae estilos propios: las barras se aíslan aquí */
+:where(.top, .pn, .top *, .pn *) { margin: 0; padding: 0; box-sizing: border-box; }
+.top, .pn { font-family: var(--body); letter-spacing: 0; text-transform: none; -webkit-font-smoothing: antialiased; }
+.top { font-size: 17px; font-weight: 400; line-height: 1.55; color: var(--ink); text-align: left; }
+.top :focus-visible, .pn :focus-visible { outline: 3px solid var(--saffron); outline-offset: 2px; border-radius: 6px; }
+
+/* ---------- Barra superior ---------- */
+.top { position: sticky; top: 0; z-index: 200; background: rgba(255, 255, 255, .88); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid var(--line); }
+.top .wrap { display: flex; align-items: center; gap: 28px; height: 64px; width: min(1120px, 100% - 40px); margin-inline: auto; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
+.brand svg { width: 32px; height: 32px; border-radius: 8px; flex: none; }
+.menu { display: flex; align-items: center; gap: 6px; margin-left: auto; }
+.menu > a, .dd > button { font: 600 15px var(--body); color: var(--ink-2); background: none; border: 0; cursor: pointer; text-decoration: none; padding: 8px 14px; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px; }
+.menu > a:hover, .dd > button:hover, .dd:focus-within > button { background: var(--cobalt-soft); color: var(--cobalt-dark); }
+.menu a.on, .dd.on > button { color: var(--cobalt-dark); background: var(--cobalt-soft); }
+.dd { position: relative; }
+.dd > button::after { content: ''; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-2px); }
+.dd-panel { display: none; position: absolute; right: 0; top: calc(100% + 6px); min-width: 230px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: var(--shadow); }
+.dd:hover .dd-panel, .dd:focus-within .dd-panel, .dd.open .dd-panel { display: block; }
+.dd-panel a { display: block; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 15px; }
+.dd-panel a:hover, .dd-panel a.on { background: var(--cobalt-soft); color: var(--cobalt-dark); }
+.burger { display: none; margin-left: auto; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.burger span, .burger span::before, .burger span::after { display: block; width: 18px; height: 2px; background: var(--ink); margin: auto; position: relative; border-radius: 2px; }
+.burger span::before, .burger span::after { content: ''; position: absolute; left: 0; }
+.burger span::before { top: -6px; } .burger span::after { top: 6px; }
+
+.top .brand, .top .brand:visited { color: var(--ink); }
+.top .menu a:not(.on):not(:hover), .top .menu a:visited:not(.on):not(:hover) { color: var(--ink-2); }
+.top .dd-panel a:not(.on):not(:hover) { color: var(--ink); }
+
+/* ---------- Buscar ---------- */
+.findbtn { font: 500 15px var(--body); display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px 8px 14px; margin-left: 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--muted); cursor: pointer; min-width: 190px; }
+.findbtn:hover { border-color: var(--cobalt); color: var(--ink); }
+.findbtn svg { width: 17px; height: 17px; }
+.top kbd { font: 600 12px var(--body); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; background: var(--paper); color: var(--ink-2); margin-left: auto; }
+
+/* ---------- Cerrar sesión: siempre a la vista; rojo solo al señalarlo ---------- */
+.logoutbtn { flex: none; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 12px; margin-left: -16px; font: 600 14px var(--body); white-space: nowrap; color: var(--ink-2); background: #fff; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+.logoutbtn:hover, .logoutbtn:focus-visible { background: var(--rose); border-color: var(--rose); color: #fff; }
+.logoutbtn svg { width: 17px; height: 17px; flex: none; }
+.nolog .logoutbtn, .logoutbtn[hidden] { display: none !important; }
+
+/* ---------- Barra inferior (lecciones, ejercicios y visor) ---------- */
+.pn { flex: none; display: flex; align-items: center; gap: 12px; height: 56px; padding: 0 20px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 600; line-height: 1.2; }
+.pn a, .pn button, .pn span.off { font: inherit; color: #fff; text-decoration: none; white-space: nowrap; }
+.pn .l, .pn .r { flex: 1; }
+.pn .r { text-align: right; }
+.pn .c { flex: 2; min-width: 0; text-align: center; overflow: hidden; text-overflow: ellipsis; }
+.pn .off { opacity: .4; }
+.pn .les, .pn .lm-pdf { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 0 14px; border-radius: 10px; cursor: pointer; }
+.pn .les { background: var(--saffron); border: 0; color: var(--ink); font-weight: 700; }
+.pn .les:hover { background: #ffc94d; }
+.pn .lm-pdf { background: none; border: 1px solid rgba(255, 255, 255, .45); }
+.pn .lm-pdf:hover, .pn .lm-pdf:focus-visible { background: #fff; color: var(--ink); border-color: #fff; }
+
+@media (max-width: 1040px) {
+  .top .wrap { gap: 12px; }
+  .logoutbtn { margin-left: 0; }
+  .findbtn { min-width: 0; margin-left: 0; padding: 10px; }
+  .findbtn span, .findbtn kbd { display: none; }
+}
+@media (max-width: 900px) { .top .brand span { display: none; } }
+@media (max-width: 760px) {
+  .top .wrap { gap: 8px; }
+  .findbtn { margin: 0 0 0 auto; }
+  .burger { display: block; margin-left: 0; }
+  .menu { display: none; position: absolute; left: 0; right: 0; top: 64px; background: #fff; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 10px 20px 18px; margin: 0; max-height: calc(100vh - 64px); overflow: auto; }
+  .menu.open { display: flex; }
+  .dd > button { width: 100%; justify-content: space-between; cursor: default; font-weight: 700; color: var(--muted); pointer-events: none; }
+  .dd-panel { display: block; position: static; border: 0; box-shadow: none; padding: 0 0 6px 12px; }
+  .dd > button::after { display: none; }
+}
+@media (max-width: 700px) {
+  .pn { gap: 8px; padding: 0 12px; }
+  .pn .lm-long { display: none; }
+  .pn .les, .pn .lm-pdf { padding: 0 10px; }
+  .pn .l, .pn .r { min-width: 24px; }
+}
+@media (max-width: 420px) { .pn .c { visibility: hidden; flex: 1; } }

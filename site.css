@@ -1,25 +1,5 @@
 /* Spanish Classes — estilo compartido de las páginas del sitio (inicio y listados) */
-:root {
-  --ink: #101a3a;
-  --ink-2: #3b4568;
-  --muted: #646d8c;
-  --paper: #f5f6fb;
-  --card: #ffffff;
-  --line: #e0e4f0;
-  --cobalt: #2547d0;
-  --cobalt-dark: #1a33a3;
-  --cobalt-soft: #e7ecfc;
-  --saffron: #f6b92b;
-  --amber-ink: #8a5a00;
-  --amber-soft: #fff1cc;
-  --rose: #b4283f;
-  --rose-soft: #fde8ec;
-  --radius: 14px;
-  --shadow: 0 1px 2px rgba(16, 26, 58, .06), 0 8px 24px -12px rgba(16, 26, 58, .18);
-  --display: 'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
-  --body: 'Figtree', 'Segoe UI', system-ui, sans-serif;
-  color-scheme: light;
-}
+@import url('chrome.css');
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--body); font-size: 17px; line-height: 1.55; background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
@@ -36,26 +16,6 @@ p { text-wrap: pretty; }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 300; }
 .skip:focus { left: 8px; }
 
-/* ---------- Barra superior ---------- */
-.top { position: sticky; top: 0; z-index: 200; background: rgba(255, 255, 255, .88); backdrop-filter: saturate(1.4) blur(12px); border-bottom: 1px solid var(--line); }
-.top .wrap { display: flex; align-items: center; gap: 28px; height: 64px; }
-.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 19px; letter-spacing: -.01em; }
-.brand svg { width: 32px; height: 32px; border-radius: 8px; flex: none; }
-.menu { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-.menu > a, .dd > button { font: 600 15px var(--body); color: var(--ink-2); background: none; border: 0; cursor: pointer; text-decoration: none; padding: 8px 14px; border-radius: 10px; display: inline-flex; align-items: center; gap: 6px; }
-.menu > a:hover, .dd > button:hover, .dd:focus-within > button { background: var(--cobalt-soft); color: var(--cobalt-dark); }
-.menu a.on, .dd.on > button { color: var(--cobalt-dark); background: var(--cobalt-soft); }
-.dd { position: relative; }
-.dd > button::after { content: ''; width: 7px; height: 7px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg) translateY(-2px); }
-.dd-panel { display: none; position: absolute; right: 0; top: calc(100% + 6px); min-width: 230px; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 6px; box-shadow: var(--shadow); }
-.dd:hover .dd-panel, .dd:focus-within .dd-panel, .dd.open .dd-panel { display: block; }
-.dd-panel a { display: block; padding: 9px 12px; border-radius: 8px; text-decoration: none; font-weight: 500; font-size: 15px; }
-.dd-panel a:hover, .dd-panel a.on { background: var(--cobalt-soft); color: var(--cobalt-dark); }
-.burger { display: none; margin-left: auto; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
-.burger span, .burger span::before, .burger span::after { display: block; width: 18px; height: 2px; background: var(--ink); margin: auto; position: relative; border-radius: 2px; }
-.burger span::before, .burger span::after { content: ''; position: absolute; left: 0; }
-.burger span::before { top: -6px; } .burger span::after { top: 6px; }
-
 /* ---------- Botones y etiquetas ---------- */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 700 15px var(--body); text-decoration: none; padding: 12px 20px; border-radius: 12px; border: 2px solid transparent; cursor: pointer; transition: background .15s, transform .15s; }
 .btn-primary { background: var(--cobalt); color: #fff; }
@@ -71,9 +31,6 @@ p { text-wrap: pretty; }
 
 
 /* ---------- Buscar (barra superior y selector global) ---------- */
-.findbtn { font: 500 15px var(--body); display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px 8px 14px; margin-left: 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; color: var(--muted); cursor: pointer; min-width: 190px; }
-.findbtn:hover { border-color: var(--cobalt); color: var(--ink); }
-.findbtn svg { width: 17px; height: 17px; }
 kbd { font: 600 12px var(--body); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; padding: 1px 7px; background: var(--paper); color: var(--ink-2); margin-left: auto; }
 .pal { position: fixed; inset: 0; z-index: 500; background: rgba(16, 26, 58, .45); display: none; padding: 10vh 16px 16px; }
 .pal.open { display: block; }
@@ -235,13 +192,6 @@ footer .legal { grid-column: 1 / -1; border-top: 1px solid rgba(255, 255, 255, .
   .headgrid { grid-template-columns: 1fr; }
 }
 @media (max-width: 760px) {
-  .burger { display: block; }
-  .burger { margin-left: 0; }
-  .menu { display: none; position: absolute; left: 0; right: 0; top: 64px; background: #fff; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 10px 20px 18px; margin: 0; max-height: calc(100vh - 64px); overflow: auto; }
-  .menu.open { display: flex; }
-  .dd > button { width: 100%; justify-content: space-between; cursor: default; font-weight: 700; color: var(--muted); pointer-events: none; }
-  .dd-panel { display: block; position: static; border: 0; box-shadow: none; padding: 0 0 6px 12px; }
-  .dd > button::after { display: none; }
   .mrow { grid-template-columns: 1fr; }
   .row { grid-template-columns: 1fr; }
   .acts { padding: 0 12px 10px 80px; flex-wrap: wrap; }
@@ -283,20 +233,3 @@ html:not(.nolog) .loginbox { display: none; }
 .loginbox .btn { width: 100%; margin-top: 18px; cursor: pointer; }
 .loginbox .lerr { background: var(--rose-soft); color: var(--rose); font-weight: 600; padding: 9px 12px; border-radius: 10px; margin: 14px 0 0; font-size: 15px; }
 .loginbox [hidden] { display: none !important; }
-
-/* Cerrar sesión: siempre a la vista en la barra superior, en cualquier ancho */
-.logoutbtn { flex: none; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 12px; margin-left: -16px; font: 700 14px var(--body); white-space: nowrap; color: var(--rose); background: #fff; border: 2px solid var(--rose); border-radius: 10px; cursor: pointer; }
-.logoutbtn:hover { background: var(--rose); color: #fff; }
-.logoutbtn svg { width: 17px; height: 17px; flex: none; }
-.nolog .logoutbtn, .logoutbtn[hidden] { display: none !important; }
-@media (max-width: 1040px) {
-  .top .wrap { gap: 12px; }
-  .logoutbtn { margin-left: 0; }
-  .findbtn { min-width: 0; margin-left: 0; padding: 10px; }
-  .findbtn span, .findbtn kbd { display: none; }
-}
-@media (max-width: 900px) { .top .brand span { display: none; } }
-@media (max-width: 760px) {
-  .top .wrap { gap: 8px; }
-  .findbtn { margin: 0 0 0 auto; }
-}

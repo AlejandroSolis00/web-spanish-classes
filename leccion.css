@@ -1,0 +1,75 @@
+/* Lecciones y ejercicios guardados */
+body.sc-doc .header_wrap { display: none; }
+.pdfemb-viewer,.pdfemb-pagescontainer,.pdfemb-inner-div{width:100%!important;max-width:100%!important;height:auto!important}.pdfemb-the-canvas{width:100%!important;height:auto!important;aspect-ratio:746/966;display:block}
+body.sc-doc > .pn { position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000; }
+
+/* ---------- Página ---------- */
+body.sc-doc ::selection { background: var(--saffron); color: var(--ink); }
+body.sc-doc #sidebar, body.sc-doc .footer_wrap { display: none !important; }
+
+@media screen {
+  html body.sc-doc { background: var(--paper) !important; color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  html body.sc-doc { padding: 0 0 56px !important; }
+  body.sc-doc .post_wrap, body.sc-doc #content, body.sc-doc .center, body.sc-doc .single_wrap, body.sc-doc .single_post, body.sc-doc .single_post > div {
+    float: none !important; width: auto !important; max-width: none !important; margin: 0 !important; padding: 0 !important; background: none !important; border: 0 !important; box-shadow: none !important; }
+  body.sc-doc .single_post_content, body.sc-doc #ast_nextprev, body.sc-doc #ast_related_wrap, body.sc-doc .post_foot {
+    float: none !important; width: min(820px, 100% - 32px) !important; margin-inline: auto !important; box-sizing: border-box; }
+  body.sc-doc .single_post_content { padding: 28px 0 8px !important; overflow-wrap: break-word; }
+
+  body.sc-doc .single_post_content > :is(div, h1), body.sc-doc #ast_related { width: auto !important; max-width: 100% !important; min-width: 0 !important; margin-left: 0 !important; margin-right: 0 !important; box-sizing: border-box !important; float: none !important; }
+
+  /* título y nivel */
+  body.sc-doc h1.postitle { font: 800 clamp(28px, 4vw, 40px)/1.1 var(--display) !important; letter-spacing: -.025em; text-transform: none !important; color: var(--ink) !important; margin: 0 0 10px !important; padding: 0 !important; text-wrap: balance; }
+  body.sc-doc .single_metainfo { margin: 0 0 20px !important; padding: 0 !important; border: 0 !important; }
+  body.sc-doc .single_metainfo i { display: none; }
+  body.sc-doc .catag_list a { display: inline-block; font: 600 13px var(--body) !important; color: var(--cobalt-dark) !important; background: var(--cobalt-soft); padding: 4px 11px; border-radius: 999px; text-decoration: none; }
+
+  /* hoja con el material (los formularios ya vienen en tarjetas) */
+  body.sc-doc .single_post_content > .thn_post_wrap:not(.wp_link_pages):not(:has(.wpforms-container)) { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: clamp(16px, 4vw, 32px) !important; display: flow-root; }
+  body.sc-doc .thn_post_wrap { font-size: 17px; color: var(--ink); }
+  body.sc-doc .thn_post_wrap :is(p, li, td, th, div, span, strong, em) { font-family: var(--body); }
+  body.sc-doc .thn_post_wrap :is(p, li, td, th) { font-size: 17px; line-height: 1.55; color: var(--ink); }
+  body.sc-doc .thn_post_wrap :is(h1, h2, h3, h4, h5) { font-family: var(--display); color: var(--ink); letter-spacing: -.01em; line-height: 1.2; text-transform: none; margin: 28px 0 12px; padding: 0; text-wrap: balance; }
+  body.sc-doc .thn_post_wrap > :first-child { margin-top: 0 !important; }
+  body.sc-doc .thn_post_wrap h1 { font-size: 26px; }
+  body.sc-doc .thn_post_wrap h2 { font-size: 22px; }
+  body.sc-doc .thn_post_wrap :is(h3, h4, h5) { font-size: 19px; }
+  body.sc-doc .thn_post_wrap a { color: var(--cobalt-dark); }
+  body.sc-doc .thn_post_wrap img { max-width: 100%; height: auto; }
+
+  /* tablas como las filas de los listados */
+  body.sc-doc .sc-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; margin: 0 0 18px; background: #fff; }
+  body.sc-doc .sc-scroll > table { width: 100% !important; margin: 0 !important; border: 0 !important; border-collapse: collapse !important; border-spacing: 0; }
+  body.sc-doc .single_post_content table :is(td, th) { border: 0 !important; border-top: 1px solid var(--line) !important; border-left: 1px solid var(--line) !important; padding: 10px 14px !important; text-align: left; vertical-align: top; }
+  body.sc-doc .single_post_content table tr:first-child > * { border-top-width: 0 !important; }
+  body.sc-doc .single_post_content table tr > :first-child { border-left-width: 0 !important; }
+  body.sc-doc .single_post_content table tr:nth-child(even) { background: var(--paper) !important; }
+  body.sc-doc .single_post_content table tr:nth-child(odd) { background: #fff !important; }
+  body.sc-doc .single_post_content table th { background: var(--cobalt-soft) !important; font-weight: 700; }
+
+  /* anterior / siguiente ya están en la barra inferior */
+  body.sc-doc #ast_nextprev, body.sc-doc .post_foot, body.sc-doc .wp_link_pages:empty { display: none !important; }
+
+  /* contenido relacionado: filas como las de los listados */
+  body.sc-doc #ast_related_wrap { padding: 28px 0 40px !important; background: none !important; border: 0 !important; }
+  body.sc-doc #ast_related_wrap .widget_border { display: none; }
+  body.sc-doc #ast_related_wrap h3 { font: 750 20px/1.2 var(--display) !important; letter-spacing: -.01em; text-transform: none !important; color: var(--ink) !important; margin: 0 0 12px !important; padding: 0 !important; }
+  body.sc-doc #ast_related { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; margin: 0 !important; padding: 0 !important; }
+  body.sc-doc #ast_related :is(.ast_related__wrap, .panel-container) { display: block !important; float: none !important; width: 100% !important; max-width: none !important; min-width: 0 !important; flex: none !important; height: auto !important; margin: 0 !important; padding: 0 !important; }
+  body.sc-doc #ast_related .rel_tab, body.sc-doc #ast_related .panel-container > .rel_tab:nth-child(n) { display: flex !important; align-items: center; gap: 14px; float: none !important; width: auto !important; height: auto !important; min-height: 56px; margin: 0 !important; padding: 8px 14px !important; border: 0 !important; box-sizing: border-box; position: relative; }
+  body.sc-doc #ast_related .rel_tab + .rel_tab { border-top: 1px solid var(--line) !important; }
+  body.sc-doc #ast_related .rel_tab:hover { background: var(--paper); }
+  body.sc-doc #ast_related .related_img { flex: none; width: 72px !important; height: auto !important; margin: 0 !important; }
+  body.sc-doc #ast_related .related_img a { display: block; }
+  body.sc-doc #ast_related .related_img i { display: none; }
+  body.sc-doc #ast_related .related_img img { display: block; width: 72px !important; height: 40px !important; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); opacity: 1 !important; transform: none !important; }
+  body.sc-doc #ast_related a.rel_hover { position: static !important; display: block; flex: 1; min-width: 0; margin: 0 !important; padding: 6px 0 !important; font: 600 16px/1.35 var(--body) !important; text-align: left; text-transform: none !important; text-decoration: none; color: var(--ink) !important; background: none !important; }
+  /* toda la fila es el enlace */
+  body.sc-doc #ast_related a.rel_hover::after { content: ''; position: absolute; inset: 0; }
+  body.sc-doc #ast_related a.rel_hover:hover { color: var(--cobalt-dark) !important; }
+
+  @media (max-width: 560px) {
+    body.sc-doc .thn_post_wrap :is(p, li, td, th) { font-size: 15px; }
+    body.sc-doc .single_post_content table :is(td, th) { padding: 8px 10px !important; }
+  }
+}

@@ -2,7 +2,7 @@
 """Genera index.html y las 10 páginas de listado (lecciones-*.html / ejercicios-*.html).
 Las cifras y las listas se rellenan en el navegador desde catalog.js; aquí solo va el esqueleto.
 Uso: python3 paginas.py"""
-import os, html
+import os, html, json
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 LEVELS = [
@@ -193,9 +193,29 @@ def gated(name, text):
           "var p=location.pathname.split('/').pop()||'index.html';location.replace('index.html?next='+encodeURIComponent(p))"
     return text.replace('</head>', GATE % act + '</head>', 1)
 
+HEADER_JS = """/* Generado por paginas.py: la barra superior del sitio, para las lecciones, los ejercicios y el visor. No editar a mano. */
+window.SC_HEADER = %s;
+window.SC_mountHeader = function (root, section) {
+  var t = document.createElement('div'); t.innerHTML = window.SC_HEADER;
+  var h = t.firstChild, all = function (s) { return Array.prototype.slice.call(h.querySelectorAll(s)); };
+  var menu = h.querySelector('.menu'), burger = h.querySelector('.burger');
+  all('a[href]').forEach(function (a) {
+    var href = a.getAttribute('href'), dd = a.closest('.dd');
+    if (section && href === section + '.html') { a.className = 'on'; if (dd) dd.classList.add('on'); }
+    a.setAttribute('href', root + href);
+  });
+  h.querySelector('.findbtn').addEventListener('click', function () { location.href = root + 'index.html#buscar'; });
+  burger.addEventListener('click', function () { burger.setAttribute('aria-expanded', menu.classList.toggle('open')); });
+  all('.dd > button').forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); b.parentNode.classList.toggle('open'); }); });
+  document.addEventListener('click', function () { all('.dd.open').forEach(function (d) { d.classList.remove('open'); }); });
+  return h;
+};
+"""
+
 def write(name, text):
     open(name, 'w', encoding='utf-8').write(gated(name, text))
 
+open('header.js', 'w', encoding='utf-8').write(HEADER_JS % json.dumps(nav(None).strip(), ensure_ascii=False))
 write('index.html', home())
 write('404.html', notfound())
 write('agenda.html', agenda())

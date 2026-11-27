@@ -31,7 +31,7 @@
 
   // 1) Barra superior propia (mismo estilo que el menú de la web): Inicio / Lecciones / Ejercicios con sus niveles
   var st = document.createElement('style');
-  st.textContent = '.lm-top{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e0e4f0;height:60px;display:flex;align-items:center;justify-content:center;gap:8px;position:sticky;top:0;z-index:1000;font-family:"Figtree","Segoe UI",system-ui,sans-serif}' +
+  st.textContent = '.lm-top{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid #e0e4f0;min-height:60px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;position:sticky;top:0;z-index:1000;font-family:"Figtree","Segoe UI",system-ui,sans-serif}' +
     '.lm-top a,.lm-top span.lm-t{color:#3b4568;text-decoration:none;font-size:15px;font-weight:600;padding:8px 14px;border-radius:10px;cursor:pointer;letter-spacing:0;text-transform:none;border:0}' +
     '.lm-top a:hover,.lm-top .lm-dd:hover span.lm-t,.lm-dd.open span.lm-t{background:#e7ecfc;color:#1a33a3}' +
     '.lm-dd{position:relative;display:flex;align-items:center;height:60px}.lm-dd span.lm-t:after{content:" ▾";font-size:11px}' +
@@ -39,7 +39,9 @@
     '.lm-dd:hover .lm-menu,.lm-dd.open .lm-menu{display:block}' +
     '.pdfemb-viewer,.pdfemb-pagescontainer,.pdfemb-inner-div{width:100%!important;max-width:100%!important;height:auto!important}.pdfemb-the-canvas{width:100%!important;height:auto!important;aspect-ratio:746/966;display:block}' +
     '.lm-menu a{display:block;padding:9px 12px;font-size:15px;font-weight:500;border-radius:8px}' +
-    '@media(max-width:560px){.lm-top{gap:0}.lm-top a,.lm-top span.lm-t{font-size:14px;padding:8px 9px}}';
+    '.lm-top button.lm-out{font:700 14px/1 "Figtree","Segoe UI",system-ui,sans-serif;white-space:nowrap;color:#b4283f;background:#fff;border:2px solid #b4283f;border-radius:10px;padding:10px 12px;margin:0 0 0 8px;width:auto;height:auto;cursor:pointer;letter-spacing:0;text-transform:none;box-shadow:none}' +
+    '.lm-top button.lm-out:hover{background:#b4283f;color:#fff}' +
+    '@media(max-width:560px){.lm-top{gap:0;padding:4px 6px}.lm-top a,.lm-top span.lm-t{font-size:14px;padding:8px 9px}.lm-dd{height:44px}.lm-menu{top:42px}.lm-top button.lm-out{margin:4px 0}}';
   document.head.appendChild(st);
   var hw = $('.header_wrap');
   if (hw) {
@@ -55,6 +57,12 @@
       dd.firstChild.addEventListener('click', function (e) { e.stopPropagation(); dd.classList.toggle('open'); });
     });
     document.addEventListener('click', function () { $$('.lm-dd.open').forEach(function (d) { d.classList.remove('open'); }); });
+    var out = el('button', { type: 'button', class: 'lm-out' }, 'Cerrar sesión');
+    out.addEventListener('click', function () {
+      try { sessionStorage.setItem('sc.logout', '1'); } catch (e) {}
+      location.href = root + 'index.html';
+    });
+    nav.appendChild(out);
     hw.replaceWith(nav);
   }
 

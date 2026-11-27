@@ -61,7 +61,7 @@ def nav(active):
         return '<div class="dd%s"><button type="button">%s</button><div class="dd-panel">%s</div></div>' % (on, label, links)
     return ('<header class="top"><div class="wrap"><a class="brand" href="index.html">%s<span>Spanish Classes</span></a>'
             '<nav class="menu" aria-label="Principal"><a href="index.html"%s>Inicio</a>%s%s<a href="agenda.html"%s>Agenda</a></nav>'
-            '<button class="findbtn" type="button" aria-label="Buscar material">%s<span>Buscar</span><kbd>/</kbd></button><button class="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span></button></div></header>\n'
+            '<button class="findbtn" type="button" aria-label="Buscar material">%s<span>Buscar</span><kbd>/</kbd></button><button class="logoutbtn" type="button" data-logout><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Cerrar sesión</button><button class="burger" type="button" aria-label="Menú" aria-expanded="false"><span></span></button></div></header>\n'
             % (LOGO, ' class="on"' if active == 'index' else '', menu('lec', 'Lecciones'), menu('ej', 'Ejercicios'), ' class="on"' if active == 'agenda' else '', SEARCH))
 
 def footer():
@@ -70,7 +70,7 @@ def footer():
     return ('<footer><div class="wrap"><div><a class="brand" href="index.html">%s<span>Spanish Classes</span></a>'
             '<p>Material de clase organizado por nivel, con cada lección enlazada a sus ejercicios.</p></div>'
             '<div><h4>Lecciones</h4><ul>%s</ul></div><div><h4>Ejercicios</h4><ul>%s</ul></div>'
-            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar. <button type="button" class="linkbtn" data-logout>Cerrar sesión</button></div></div></footer>\n'
+            '<div class="legal">Atajos: <kbd>/</kbd> o <kbd>Ctrl</kbd> + <kbd>K</kbd> para buscar.</div></div></footer>\n'
             '<script src="catalog.js"></script>\n<script src="site.js"></script>\n<script src="store.js"></script>\n</body>\n</html>\n' % (LOGO, lec, ej))
 
 def home():
@@ -158,7 +158,7 @@ def agenda():
 <div class="ag-bar"><div class="ag-nav"><button type="button" id="agPrev" aria-label="Semana anterior">‹</button><button type="button" id="agToday">Hoy</button><button type="button" id="agNext" aria-label="Semana siguiente">›</button><h2 id="agLabel" aria-live="polite"></h2></div>
 <div class="ag-acts"><button type="button" class="btn btn-ghost" id="agStudents">Alumnos</button><button type="button" class="btn btn-primary" id="agNew">+ Nueva clase</button></div></div>
 <div id="agView"></div>
-<div class="ag-foot"><button type="button" class="btn btn-ghost" id="agExport">Exportar copia</button><label class="btn btn-ghost">Importar copia<input type="file" id="agImport" accept="application/json,.json" hidden></label><span id="agMsg" role="status"></span><span id="agSync" role="status"></span><button type="button" class="btn btn-ghost" id="agOut">Cerrar sesión</button></div></div></main>
+<div class="ag-foot"><button type="button" class="btn btn-ghost" id="agExport">Exportar copia</button><label class="btn btn-ghost">Importar copia<input type="file" id="agImport" accept="application/json,.json" hidden></label><span id="agMsg" role="status"></span><span id="agSync" role="status"></span></div></div></main>
 <dialog id="dlgClass" class="ag-dlg" aria-labelledby="clsTitle"><form id="fClass" novalidate><h2 id="clsTitle">Nueva clase</h2>
 <p class="ag-info" id="cInfo" hidden></p>
 <div class="fld" id="cStudentW"><label for="cStudent">Alumno</label><select id="cStudent"></select></div>

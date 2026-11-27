@@ -469,6 +469,5 @@
       $('lErr').textContent = 'Correo o contraseña incorrectos, o no hay conexión.'; $('lErr').hidden = false;
     }).then(function () { b.disabled = false; b.textContent = 'Entrar'; });
   });
-  $('agOut').addEventListener('click', function () { SC.signOut().then(function () { location.href = 'index.html'; }); });
   boot();
 })();

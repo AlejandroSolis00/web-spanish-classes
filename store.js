@@ -47,7 +47,7 @@
   }
   function signIn(email, pass) { return lib().then(function () { return client().auth.signInWithPassword({ email: email, password: pass }); }).then(function (r) { if (r.error) throw r.error; prefsSync(); }); }
   function signOut() {
-    return (sb ? sb.auth.signOut() : Promise.resolve()).catch(function () {}).then(function () {
+    return (hasSession() ? lib().then(function () { return client().auth.signOut(); }) : Promise.resolve()).catch(function () {}).then(function () {
       ls(CACHE, null); ls(DIRTY, null); try { Object.keys(localStorage).forEach(function (k) { if (/^sb-.+-auth-token/.test(k)) localStorage.removeItem(k); }); } catch (e) {}
     });
   }
@@ -108,7 +108,11 @@
   window.addEventListener('online', function () { if (ls(PDIRTY) !== null) prefsPush(); });
   if (hasSession()) setTimeout(prefsSync, 0);
 
-  document.addEventListener('click', function (e) { if (e.target.closest('[data-logout]')) signOut().then(function () { location.href = 'index.html'; }); });
+  function logout() { signOut().then(function () { location.href = 'index.html'; }); }
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-logout]')) logout(); });
+  // Las lecciones no pueden hablar con Supabase (su CSP lo impide): dejan esta marca y vienen aquí a cerrar la sesión
+  try { if (sessionStorage.getItem('sc.logout')) { sessionStorage.removeItem('sc.logout'); logout(); } } catch (e) {}
+  if (!hasSession()) Array.prototype.forEach.call(document.querySelectorAll('[data-logout]'), function (b) { b.hidden = true; });
 
   window.SC = { open: open, signIn: signIn, signOut: signOut, save: save, cache: cache, hasSession: hasSession, prefs: { changed: prefsChanged, sync: prefsSync }, onStatus: function (f) { listeners.push(f); } };
 })();

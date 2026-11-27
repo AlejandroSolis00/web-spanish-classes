@@ -236,8 +236,6 @@ footer .legal { grid-column: 1 / -1; border-top: 1px solid rgba(255, 255, 255, .
 }
 @media (max-width: 760px) {
   .burger { display: block; }
-  .findbtn { margin: 0 8px 0 auto; min-width: 0; padding: 10px; }
-  .findbtn span, .findbtn kbd { display: none; }
   .burger { margin-left: 0; }
   .menu { display: none; position: absolute; left: 0; right: 0; top: 64px; background: #fff; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 10px 20px 18px; margin: 0; max-height: calc(100vh - 64px); overflow: auto; }
   .menu.open { display: flex; }
@@ -285,4 +283,20 @@ html:not(.nolog) .loginbox { display: none; }
 .loginbox .btn { width: 100%; margin-top: 18px; cursor: pointer; }
 .loginbox .lerr { background: var(--rose-soft); color: var(--rose); font-weight: 600; padding: 9px 12px; border-radius: 10px; margin: 14px 0 0; font-size: 15px; }
 .loginbox [hidden] { display: none !important; }
-.linkbtn { background: none; border: 0; padding: 0 0 0 10px; font: inherit; color: inherit; text-decoration: underline; cursor: pointer; }
+
+/* Cerrar sesión: siempre a la vista en la barra superior, en cualquier ancho */
+.logoutbtn { flex: none; display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 0 12px; margin-left: -16px; font: 700 14px var(--body); white-space: nowrap; color: var(--rose); background: #fff; border: 2px solid var(--rose); border-radius: 10px; cursor: pointer; }
+.logoutbtn:hover { background: var(--rose); color: #fff; }
+.logoutbtn svg { width: 17px; height: 17px; flex: none; }
+.nolog .logoutbtn, .logoutbtn[hidden] { display: none !important; }
+@media (max-width: 1040px) {
+  .top .wrap { gap: 12px; }
+  .logoutbtn { margin-left: 0; }
+  .findbtn { min-width: 0; margin-left: 0; padding: 10px; }
+  .findbtn span, .findbtn kbd { display: none; }
+}
+@media (max-width: 900px) { .top .brand span { display: none; } }
+@media (max-width: 760px) {
+  .top .wrap { gap: 8px; }
+  .findbtn { margin: 0 0 0 auto; }
+}
